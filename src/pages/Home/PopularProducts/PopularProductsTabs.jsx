@@ -30,7 +30,7 @@ const FilterPopularProducts = ({ productsData }) => {
 
   const productsToShow = showAll
     ? filteredProducts
-    : filteredProducts.slice(0, 16); // Show first 6 products initially
+    : filteredProducts.slice(0, 12); // Show first 6 products initially
 
   return (
     <div className="space-y-4">

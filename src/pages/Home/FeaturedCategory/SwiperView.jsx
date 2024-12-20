@@ -61,7 +61,7 @@ const SwiperView = ({ data, prevRef, nextRef }) => {
                 <img
                   src={product.image} // Access product's image
                   alt={product.name} // Access product's name as alt text
-                  className="w-40 h-40 rounded-full object-cover"
+                  className="w-40 h-40 rounded-full object-cover mix-blend-multiply"
                 />
                 <p className="text-center mt-2 text-lg font-medium">
                   {product.name}
