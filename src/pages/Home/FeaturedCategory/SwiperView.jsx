@@ -7,12 +7,22 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 const SwiperView = ({ data, prevRef, nextRef }) => {
-
+  // You can define an array of colors here or a logic to generate dynamic colors
+  const categoryColors = [
+    "#f2fce4",
+    "#fffceb",
+    "#ecffec",
+    "#ffefea",
+    "#fff3eb",
+    "#fff3ff",
+    "#f2fce4",
+    "#ffefea",
+    "#ffefea",
+  ];
   return (
     <Swiper
-    // defaultValue={18}
       spaceBetween={30}
-      loop={true}  // Enable looping for infinite swiping
+      loop={true} // Enable looping for infinite swiping
       navigation={{
         prevEl: prevRef.current,
         nextEl: nextRef.current,
@@ -28,35 +38,42 @@ const SwiperView = ({ data, prevRef, nextRef }) => {
         375: { slidesPerView: 2, spaceBetween: 20 },
         768: { slidesPerView: 4, spaceBetween: 20 },
         1024: { slidesPerView: 4, spaceBetween: 30 },
-        1280: { slidesPerView: 8, spaceBetween: 40 },
+        1280: { slidesPerView: 7, spaceBetween: 40 },
       }}
       className="mySwiper"
     >
-      {data?.map((category, idx) => (
-        <SwiperSlide   key={idx} className="flex   flex-col  items-center mt-8">
-          {/* Display the category name */}
-          <h2 className="text-xl font-semibold">{category.category}</h2>
+      {data?.map((category, idx) => {
+        const bgColor = categoryColors[idx % categoryColors.length]; // Assign color based on index
+        return (
+          <SwiperSlide
+            key={idx}
+            className="flex rounded-lg flex-col pb-4  items-center mt-8"
+            style={{ backgroundColor: bgColor }} // Apply dynamic background color
+          >
+            {/* Display the category name */}
 
-          {/* Iterate over each product in the current category */}
-          {category.products.map((product) => (
-            <div key={product._id} className="flex  flex-col items-center mt-4">
-              {/* <Image
-                width={200}
-                height={200}
-                src={product.image}  // Access product's image
-                alt={product.name}    // Access product's name as alt text
-                className="w-40 h-40 rounded-full object-cover"
-              /> */}
-              <img src={product.image}  // Access product's image
-                alt={product.name}    // Access product's name as alt text
-                className="w-40 h-40 rounded-full object-cover" />
-              <p className="text-center mt-2 text-lg font-medium">
-                {product.name}  
-              </p>
-            </div>
-          ))}
-        </SwiperSlide>
-      ))}
+            {/* Iterate over each product in the current category */}
+            {category.products.map((product) => (
+              <div
+                key={product._id}
+                className="flex h-60  flex-col items-center mt-4"
+              >
+                <img
+                  src={product.image} // Access product's image
+                  alt={product.name} // Access product's name as alt text
+                  className="w-40 h-40 rounded-full object-cover"
+                />
+                <p className="text-center mt-2 text-lg font-medium">
+                  {product.name}
+                </p>
+                <h2 className="text-sm font-semibold">
+                  {category?.category?.length} <span>items </span>
+                </h2>
+              </div>
+            ))}
+          </SwiperSlide>
+        );
+      })}
     </Swiper>
   );
 };

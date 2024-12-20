@@ -1,6 +1,8 @@
-
+import "./Style.css";
 export default function Loader() {
   return (
-    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum iusto velit pariatur quia mollitia omnis temporibus rem quam, optio reprehenderit corporis iste molestias dolore consequatur eveniet sed accusamus delectus architecto.</div>
-  )
+    <div className="flex w-full justify-center h-screen items-baseline">
+      <div className="spinner "></div>
+    </div>
+  );
 }

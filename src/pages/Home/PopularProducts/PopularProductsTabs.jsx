@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
-
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "./Product/ProductCard"; // Your existing ProductCard component
 import CategoryTabs from "../../../components/shared/CategoryTabs";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 const FilterPopularProducts = ({ productsData }) => {
   const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [categories, setCategories] = useState([]);
+  const [showAll, setShowAll] = useState(false); // State to toggle between showing all products or a limited number
 
   useEffect(() => {
     // Fetch product categories dynamically from the API or productsData
@@ -15,7 +16,7 @@ const FilterPopularProducts = ({ productsData }) => {
       ...new Set(productsData?.map((product) => product?.category)),
     ];
     setCategories(uniqueCategories);
-  }, [productsData]); // Re-run this when productsData changes
+  }, [productsData]);
 
   const handleCategorySelect = (selectedCategory) => {
     if (selectedCategory === "All") {
@@ -26,6 +27,10 @@ const FilterPopularProducts = ({ productsData }) => {
       ); // Show filtered products based on category
     }
   };
+
+  const productsToShow = showAll
+    ? filteredProducts
+    : filteredProducts.slice(0, 16); // Show first 6 products initially
 
   return (
     <div className="space-y-4">
@@ -44,7 +49,7 @@ const FilterPopularProducts = ({ productsData }) => {
 
       {/* Products Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredProducts?.map((product) => {
+        {productsToShow?.map((product) => {
           return (
             <ProductCard
               key={product._id}
@@ -52,6 +57,19 @@ const FilterPopularProducts = ({ productsData }) => {
             />
           );
         })}
+      </div>
+
+      {/* See More / See Less Button */}
+        <div className="flex justify-center  ">
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="flex   items-center justify-center gap-2 border border-purple-600 text-purple-600 bg-white hover:bg-purple-600 hover:text-white px-4 py-2 rounded transition duration-200"
+        >
+          {showAll ? <FaChevronUp /> : <FaChevronDown />}{" "}
+          {/* Change icon based on state */}
+          <span className="ml-2">{showAll ? "See Less" : "See More"}</span>{" "}
+          {/* Adjusted span */}
+        </button>
       </div>
     </div>
   );
