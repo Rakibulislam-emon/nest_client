@@ -1,7 +1,7 @@
-import  { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Filter from "./Filter";
 import { BiFilterAlt } from "react-icons/bi";
-import img from '../../../assets/bg.avif'
+import img from "../../../assets/bg.avif";
 function FilterToggleButton() {
   const [isOpen, setIsOpen] = useState(false);
   const filterRef = useRef(null);
@@ -34,10 +34,10 @@ function FilterToggleButton() {
       <div className="flex justify-end lg:fixed left-0 top-[50vh]">
         <div
           onClick={toggleFilter}
-          className="border px-4 l bg-black text-white cursor-pointer sm:block flex gap-x-2 w-32 lg:w-20 lg:rounded-r-3xl justify-center"
+          className="bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-500 text-white rounded-full shadow-lg cursor-pointer flex items-center justify-center gap-x-2 w-36 lg:w-24 py-2 px-6 transition-transform transform hover:scale-105 hover:shadow-2xl"
         >
-          <span className="text-center ">Click To Filter</span>
-          <BiFilterAlt className="text-2xl" />
+          <span className="text-sm font-semibold">Open Filter</span>
+          <BiFilterAlt className="text-xl "  />
         </div>
       </div>
 
@@ -49,17 +49,14 @@ function FilterToggleButton() {
         >
           <Filter setIsOpen={setIsOpen} />
           <div
-          className="h-1/4 "
+            className="h-1/4 "
             style={{
               backgroundImage: `url(${img})`,
               backgroundSize: "cover",
               backgroundPosition: "bottom",
               backgroundRepeat: "no-repeat",
-              
             }}
-          >
-        
-          </div>
+          ></div>
         </div>
       )}
     </div>

@@ -14,6 +14,7 @@ import Loader from "../../../components/ui/Loader";
 
 export default function SliderForDealsOfDays() {
   const { data, isError, isLoading, error } = useDeals();
+  console.log('data:', data)
   if (isLoading) {
     return <Loader />;
   }
