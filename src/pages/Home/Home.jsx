@@ -2,6 +2,7 @@ import FilterToggleButton from "../../components/shared/Filter/FilterToggleButto
 import AdBanners from "./AdBanner/AdBanners";
 import ShopAdBanner from "./AdBanner/ShopAdBanner";
 import DealsOfDay from "./DealsOfDay/DealsOfDay";
+import DiscountBanner from "./DiscountBanner/DiscountBanner";
 import DownloadApp from "./DownloadApp/DownloadApp";
 import FeaturedCategory from "./FeaturedCategory/FeaturedCategory";
 import Hero from "./HeroSection/Hero";
@@ -20,6 +21,7 @@ export default function Home() {
       <AdBanners/>
       <DealsOfDay/>
       <DownloadApp/>
+      <DiscountBanner/>
       <PeoplesSearches/>
       <Services/>
     </div>

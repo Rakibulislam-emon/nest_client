@@ -2,7 +2,7 @@
 export default function DealsCard({ deal }) {
   const { image,name,price,rating,discount,available } = deal;
   return (
-    <div className=" py-20 mb-10">
+    <div className=" py-20 ">
       <div className=" mb-20  w-full">
         <div className="relative  rounded-3xl  max-w-md max-h-[400px] z-1">
           {/* Image */}
