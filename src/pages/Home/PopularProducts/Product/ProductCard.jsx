@@ -36,7 +36,7 @@ export default function ProductCard({ product }) {
 
           />
         </div>
-        <div className="absolute top-0 left-0 md:top-0 md:left-1 transform -rotate-12 bg-gradient-to-r from-purple-500 to-indigo-500 text-white w-16 h-16 md:w-24 md:h-24 flex flex-col items-center justify-center rounded-full text-xs md:text-sm font-bold border-4 border-white shadow-lg shadow-purple-300">
+        <div className="absolute top-0 left-0 md:top-0 md:left-1 bg-red-500 text-white w-16 h-16 md:w-24 md:h-24 flex flex-col items-center justify-center rounded-full text-xs md:text-sm font-bold border-4 border-white shadow-lg shadow-purple-300">
           <span className="text-base md:text-lg leading-tight">
             {discount}%
           </span>

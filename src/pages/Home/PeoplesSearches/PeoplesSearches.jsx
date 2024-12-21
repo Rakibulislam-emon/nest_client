@@ -5,7 +5,7 @@ import { useFeaturedCategory } from "../../../hooks/useFeaturedCategory";
 
 export default function PeoplesSearches() {
     const {data} = useFeaturedCategory()
-    console.log('data:', data)
+   
   return (
     <div className="p-4 md:p-6 lg:p-8 mx-auto max-w-screen-2xl">
       <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-4">People are also looking for</h1>

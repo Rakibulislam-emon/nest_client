@@ -1,33 +1,32 @@
 /* eslint-disable react/prop-types */
-export default function DealsCard({deal}) {
-    const {image} = deal
+export default function DealsCard({ deal }) {
+  const { image,name,price,rating,discount,available } = deal;
   return (
-    <div className=" py-20">
+    <div className=" py-20 mb-10">
       <div className=" mb-20  w-full">
-        <div className="relative  rounded-3xl border max-w-md max-h-[400px] z-1">
+        <div className="relative  rounded-3xl  max-w-md max-h-[400px] z-1">
           {/* Image */}
           <img
-            // src="https://i.ibb.co.com/x2qWwhw/images-q-tbn-ANd9-Gc-RSUCV0d-uk-GZXhs5d9qj-Oda-Ls-D6f-Wk-Ti-R5w-N9-XOBT4uas-OKmm.jpg"
             src={image}
             alt="Deal Image"
             className="w-full  h-[360px] rounded-lg object-cover mix-blend-multiply"
           />
 
           {/* Card Content */}
-          <div className="absolute  bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2/4 p-4 bg-white rounded-lg shadow-md  w-[calc(100%-120px)]">
+          <div className="absolute  bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2/4 p-4 bg-white rounded-lg shadow-md  w-[calc(100%-70px)]">
             <h1 className="text-lg font-semibold mb-2">
-              Authoritatively negotiate distributed value and cross-unit
+              {name}
             </h1>
 
             <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
-              <span>Rating: ⭐⭐⭐⭐</span>
-              <span>by Someone</span>
+              <span>Rating:{rating} ⭐⭐⭐⭐</span>
+              <span>{available}</span>
             </div>
 
             <div className="flex justify-between items-center">
-              <span className="font-semibold text-lg">Price: $3</span>
+              <span className="font-semibold text-lg">Price: ${price}</span>
               <span className="text-red-500 line-through text-sm">
-                Discount price: $2
+                Discount price: ${discount}
               </span>
             </div>
 
