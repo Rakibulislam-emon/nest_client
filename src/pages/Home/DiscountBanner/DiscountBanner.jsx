@@ -1,4 +1,4 @@
-import banner from '../../../assets/asset 44.jpeg'
+import banner from '../../../assets/banner.jpeg'
 
 export default function DiscountBanner() {
     return (

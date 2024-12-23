@@ -14,7 +14,7 @@ export default function PopularProducts() {
    }
 
   return (
-    <div>
+    <div >
       <PopularProductsTabs productsData={data} />
     </div>
   );
