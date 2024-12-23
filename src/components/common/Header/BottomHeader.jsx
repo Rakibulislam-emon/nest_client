@@ -18,11 +18,11 @@ export default function BottomHeader() {
   ];
 
   return (
-    <div className="lg:block hidden">
+    <div className="lg:block hidden ">
       <div className="flex justify-between lg:gap-x-16 ">
-        <button className="bg-green lg:px-8 rounded-md flex justify-center items-center gap-x-2 ">
+        <button className="bg-green h-16  md:px-8 rounded-md flex justify-center items-center gap-x-2 ">
           <img src={dotsIcon} alt="dotsIcon" />
-          <span className="text-white font-semibold ml-2">
+          <span className="text-white  font-semibold ml-2">
             Browse ALL Deals & Pages
           </span>
           <FaArrowRight  size={20} className="text-white " />

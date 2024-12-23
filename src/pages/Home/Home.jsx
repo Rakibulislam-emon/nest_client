@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import FilterToggleButton from "../../components/shared/Filter/FilterToggleButton";
 import AdBanners from "./AdBanner/AdBanners";
 import ShopAdBanner from "./AdBanner/ShopAdBanner";
@@ -11,19 +12,23 @@ import PopularProducts from "./PopularProducts/PopularProducts";
 import Services from "./Services/Services";
 
 export default function Home() {
+  useEffect(() => {
+    // Scroll to top when the page is loaded
+    window.scrollTo(0, 200);
+  }, []);
   return (
     <div>
       <Hero />
       <FeaturedCategory />
-      <ShopAdBanner/>
+      <ShopAdBanner />
       <FilterToggleButton />
-      <PopularProducts/>
-      <AdBanners/>
-      <DealsOfDay/>
-      <DownloadApp/>
-      <DiscountBanner/>
-      <PeoplesSearches/>
-      <Services/>
+      <PopularProducts />
+      <AdBanners />
+      <DealsOfDay />
+      <DownloadApp />
+      <DiscountBanner />
+      <PeoplesSearches />
+      <Services />
     </div>
   );
 }

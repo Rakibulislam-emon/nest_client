@@ -1,5 +1,3 @@
-"use client";
-
 import { FaRegHeart } from "react-icons/fa6";
 import { FiShoppingCart } from "react-icons/fi";
 import { LuEye } from "react-icons/lu";

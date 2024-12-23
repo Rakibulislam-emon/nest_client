@@ -12,7 +12,7 @@ export const useDeals = () => {
     isError,
     error,
   } = useQuery({
-    queryKey: ["popularProducts"], // Unique query key
+    queryKey: ["Deals"], // Unique query key
     queryFn: async () => {
       const response = await axios.get("/api/deals"); // Fetch data using Axios
       return response.data; // Axios automatically parses JSON

@@ -26,7 +26,7 @@ export default function ProductImage({ data, relatedImages = [] }) {
   return (
     <div className="flex flex-col lg:flex-col gap-6 items-start w-full md:w-full px-4 ">
         {/* Main Image */}
-        <div className="relative bg-white rounded-lg shadow-xl p-4 w-full h-72 sm:h-96 md:h-[550px] overflow-hidden border">
+        <div className="relative bg-white rounded-lg shadow-xl p-4 w-full h-72 sm:h-96 md:h-[550px] overflow-hidden ">
         <img
           src={currentImage}
           alt="Main Product Image"
