@@ -10,6 +10,7 @@ export const route = createBrowserRouter([
     element: <Main />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/shop", element: <ShopPage /> },
       {
         path: "/product/detail/:id",
         element: <ProductDetailsPage />,
@@ -18,7 +19,6 @@ export const route = createBrowserRouter([
             `${import.meta.env.VITE_API_URL}/api/product-details/${params.id}`
           ),
       },
-      { path: "/shop", element: <ShopPage /> },
     ],
   },
 ]);
