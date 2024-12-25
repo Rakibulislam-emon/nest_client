@@ -1,8 +1,8 @@
 // import Image from "next/image";
 import { FaArrowRight, FaHeadphonesSimple } from "react-icons/fa6";
 import { FaFire } from "react-icons/fa";
-import { IoChevronDownSharp } from "react-icons/io5";
 import dotsIcon from "../../../assets/4dot.png";
+import { Link } from "react-router";
 
 export default function BottomHeader() {
   const pages = [
@@ -29,14 +29,13 @@ export default function BottomHeader() {
         </button>
         <div className="flex items-center gap-x-10 flex-1 ">
           {pages.map(({ label, url, icon }) => (
-            <a
+            <Link to={url}
               key={label}
-              href={url}
               className="flex gap-x-2 items-center hover:text-green font-semibold"
             >
               <span className="text-green text-xl">{icon}</span>
               {label}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="flex items-center gap-x-2">
