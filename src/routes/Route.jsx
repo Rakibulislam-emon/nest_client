@@ -18,7 +18,7 @@ export const route = createBrowserRouter([
             `${import.meta.env.VITE_API_URL}/api/product-details/${params.id}`
           ),
       },
-      { path: "/nest/shop", element: <ShopPage /> },
+      { path: "/shop", element: <ShopPage /> },
     ],
   },
 ]);

@@ -9,7 +9,7 @@ export default function BottomHeader() {
     { label: "Deals", url: "/deals", icon: <FaFire /> },
     { label: "Home", url: "/home" },
     { label: "About", url: "/about" },
-    { label: "Shop", url: "/nest/shop" },
+    { label: "Shop", url: "/shop" },
     { label: "Vendors", url: "/vendors" },
     { label: "MegaMenu", url: "/megamenu" },
     { label: "Blog", url: "/blog" },
