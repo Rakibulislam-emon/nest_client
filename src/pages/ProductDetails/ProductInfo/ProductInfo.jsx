@@ -2,77 +2,93 @@
 
 import { FaRegHeart } from "react-icons/fa6";
 import AddToCartButton from "../../Home/PopularProducts/Product/AddToCartButton";
+import QuantityControl from "../../Home/PopularProducts/Product/QuantityControl";
 
 export default function ProductInfo({ data }) {
   const {
     available,
-    name,
     description,
-    price,
-    discount,
-    category,
+    price = 0, // Default to 0 if price is undefined
+    discount = 0, // Default to 0 if discount is undefined
     rating,
-    date,
-    exp,
-    productNumber,
-    _id,
   } = data;
 
-  // random reviews number
+  // Random reviews number
   const reviewsNumber = Math.floor(Math.random() * 100) + 1;
+
+  // Calculate discount amount
   const discountAmount = (price * discount) / 100;
-  const sizeOptions = ['50g', '60g', '100g','200g','1000g'];
+
+  // Calculate discounted price
+  const discountedPrice = price - discountAmount;
+
+  const sizeOptions = ["50g", "60g", "100g", "200g", "1000g"];
 
   return (
-    <div className="container mx-auto  py-8  ">
-      <div className="flex flex-col gap-y-4  mb-4">
-        <div className="bg-[#fde4ec]  max-w-24 text-pink-600 px-4 py-2 rounded-md">
+    <div className="container mx-auto py-8">
+      {/* Availability and Ratings */}
+      <div className="flex flex-col gap-y-4 mb-4">
+        <div className="bg-[#fde4ec] max-w-24 text-pink-600 px-4 py-2 rounded-md">
           {available}
         </div>
         <div className="text-gray-500">
-          rating {rating} ({reviewsNumber} reviews)
+          Rating: {rating} ({reviewsNumber} reviews)
         </div>
       </div>
+
+      {/* Product Title */}
       <h1 className="text-3xl font-bold mb-2">
         Seeds of Change
         <br />
         Organic Quinoa, Brown
       </h1>
+
+      {/* Price and Discounts */}
       <div className="flex items-center mb-4">
-        <span className="text-4xl font-bold text-green-500">${price}</span>
-        <span className="text-gray-500 line-through ml-2">${discount}</span>
-        <span className="text-gray-500 ml-2">26% Off</span>
+        <span className="text-4xl font-bold text-green-500">
+          ${discount > 0 ? discountedPrice.toFixed(2) : price.toFixed(2)}
+        </span>
+        {discount > 0 && (
+          <>
+            <span className="text-gray-500 line-through ml-2">
+              ${price.toFixed(2)}
+            </span>
+            <span className="text-gray-500 ml-2">
+              ${discountAmount.toFixed(2)} Off
+            </span>
+          </>
+        )}
       </div>
+
+      {/* Description */}
       <p className="text-gray-600 mb-4">
         {description} Seamlessly fashion cooperative platforms whereas
         plug-and-play imperatives. Compellingly innovate proactive outsourcing
         rather than.
       </p>
+
+      {/* Size / Weight Options */}
       <div className="container mx-auto px-4 py-8">
-      <div className="mb-4">
-        <p className="text-gray-600">Size / Weight:</p>
-        <div className="flex space-x-2 flex-wrap gap-y-4">
-          {sizeOptions.map((size, index) => (
-            <button
-              key={index}
-              className="px-4 py-2 rounded-md border border-gray-300"
-            >
-              {size}
-            </button>
-          ))}
+        <div className="mb-4">
+          <p className="text-gray-600">Size / Weight:</p>
+          <div className="flex space-x-2 flex-wrap gap-y-4">
+            {sizeOptions.map((size, index) => (
+              <button
+                key={index}
+                className="px-4 py-2 rounded-md border border-gray-300"
+              >
+                {size}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-    <div className="mb-4 gap-x-2  md:gap-x-4 flex items-center justify-between  w-full">
-        <p className="text-gray-600  ">Quantity:</p>
-        <input
-          type="number"
-          className="border border-gray-300 rounded-md px-2 py-2 w-16"
-         
-        />
-        <AddToCartButton className={"bg-green   px-2"}>Add to Cart</AddToCartButton>
 
-        <button className="p-2 hover:bg-sky-600 hover:text-white shadow-lg duration-200 hover:rounded-lg mr-2">
+      {/* Quantity and Favorite */}
+      <div className="mb-4 gap-x-2 md:gap-x-4 md:flex md:items-center md:justify-between w-full flex">
+        <p className="text-gray-600 mt-4 md:mt-0">Quantity:</p>
+        <QuantityControl className="w-full" />
+        <button className="p-2 hover:bg-sky-600 hover:text-white shadow-lg duration-200 hover:rounded-lg mr-2 h-8 flex">
           <FaRegHeart size={20} />
         </button>
       </div>

@@ -11,9 +11,9 @@ export default function ProductCard({ product }) {
     rating,
     price,
     discount,
-    available,
+    // available,
     exp,
-    description,
+    // description,
   } = product;
 
   // Fallback image if the image is problematic or unavailable
@@ -69,7 +69,7 @@ export default function ProductCard({ product }) {
           </div>
           <div className="text-sm text-gray-500">Expiry Date: {exp}</div>
         </div>
-        <QuantityControl />
+        <QuantityControl className={"opacity-0"}/>
       </div>
     </Link>
   );

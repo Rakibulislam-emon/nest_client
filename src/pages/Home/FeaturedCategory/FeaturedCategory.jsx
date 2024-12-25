@@ -6,24 +6,18 @@ import { useFeaturedCategory } from "../../../hooks/useFeaturedCategory";
 import Loader from "../../../components/ui/Loader";
 
 export default function FeaturedCategory() {
-  const { data , isLoading, isError, error } = useFeaturedCategory(); // Use isLoading and isError as per React Query's conventions
+  const { data, isLoading, isError, error } = useFeaturedCategory();
 
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [viewAll, setViewAll] = useState(false);
+  const [viewAll, setViewAll] = useState(false); // Toggling between grid and swiper view
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  // Handle the filtered data based on selected category
-  const filteredData =
-    selectedCategory === "All"
-      ? data
-      : data.filter((item) => item.category === selectedCategory);
+  // Handle filtered data based on selected category
+  // const filteredData = data; // No category selection, just display all data
 
   if (isLoading) {
-    return (
-      <Loader/>
-    );
+    return <Loader />;
   }
   if (isError) {
     return <div>Error: {error?.message || "Something went wrong"}</div>;
@@ -41,10 +35,11 @@ export default function FeaturedCategory() {
           toggleViewAll={() => setViewAll(!viewAll)}
         />
       </div>
+
       {viewAll ? (
-        <ViewAllGrid data={filteredData} />
+        <ViewAllGrid data={data} />
       ) : (
-        <SwiperView data={filteredData} prevRef={prevRef} nextRef={nextRef} />
+        <SwiperView data={data} prevRef={prevRef} nextRef={nextRef} />
       )}
     </section>
   );

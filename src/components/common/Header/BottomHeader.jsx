@@ -9,7 +9,7 @@ export default function BottomHeader() {
     { label: "Deals", url: "/deals", icon: <FaFire /> },
     { label: "Home", url: "/home" },
     { label: "About", url: "/about" },
-    { label: "Shop", url: "/shop" },
+    { label: "Shop", url: "/nest/shop" },
     { label: "Vendors", url: "/vendors" },
     { label: "MegaMenu", url: "/megamenu" },
     { label: "Blog", url: "/blog" },
@@ -25,7 +25,7 @@ export default function BottomHeader() {
           <span className="text-white  font-semibold ml-2">
             Browse ALL Deals & Pages
           </span>
-          <FaArrowRight  size={20} className="text-white " />
+          <FaArrowRight size={20} className="text-white " />
         </button>
         <div className="flex items-center gap-x-10 flex-1 ">
           {pages.map(({ label, url, icon }) => (

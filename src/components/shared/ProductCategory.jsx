@@ -1,12 +1,13 @@
+/* eslint-disable react/prop-types */
 import { useFeaturedCategory } from "../../hooks/useFeaturedCategory";
-
-export default function ProductCategory() {
+import { twMerge } from "tailwind-merge";
+export default function ProductCategory({className}) {
   const { data } = useFeaturedCategory();
   return (
-    <div className="md:w-full hidden lg:block ">
+    <div className="md:w-full hidden lg:block border">
       <div className="bg-white p-4 rounded-lg shadow-md">
         <h2 className="text-xl font-bold mb-4">Category</h2>
-        <div className="grid grid-cols-1 gap-4 overflow-y-auto md:h-[600px]">
+        <div className={twMerge("grid grid-cols-1 gap-4 overflow-y-auto md:h-[600px]",className)}>
           {data &&
             data.map((category) => (
               <div

@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import Main from "../layout/Main";
 import Home from "../pages/Home/Home";
 import ProductDetailsPage from "../pages/ProductDetails/ProductDetailsPage";
+import ShopPage from "../pages/Shop/ShopPage";
 
 export const route = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const route = createBrowserRouter([
             `${import.meta.env.VITE_API_URL}/api/product-details/${params.id}`
           ),
       },
+      { path: "/nest/shop", element: <ShopPage /> },
     ],
   },
 ]);

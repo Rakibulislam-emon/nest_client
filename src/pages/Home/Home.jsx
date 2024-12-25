@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import FilterToggleButton from "../../components/shared/Filter/FilterToggleButton";
 import AdBanners from "./AdBanner/AdBanners";
 import ShopAdBanner from "./AdBanner/ShopAdBanner";
 import DealsOfDay from "./DealsOfDay/DealsOfDay";
@@ -21,7 +20,6 @@ export default function Home() {
       <Hero />
       <FeaturedCategory />
       <ShopAdBanner />
-      <FilterToggleButton />
       <PopularProducts />
       <AdBanners />
       <DealsOfDay />
