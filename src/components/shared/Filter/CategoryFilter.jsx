@@ -7,7 +7,7 @@ const CategoryFilter = ({
   selectedCategory,
   setSelectedCategory,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
@@ -16,7 +16,9 @@ const CategoryFilter = ({
   return (
     <div className="mb-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Categories ({categories.length})</h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">
+          Categories ({categories.length})
+        </h2>
         <button onClick={toggleExpand}>
           {isExpanded ? (
             <FaAngleUp className="text-xl text-gray-800" />

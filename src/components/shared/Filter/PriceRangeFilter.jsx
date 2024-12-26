@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css"; // Import slider styles
 
@@ -11,8 +11,8 @@ const PriceRangeFilter = ({ minPrice, maxPrice, setMinPrice, setMaxPrice }) => {
       );
     } else {
       setMaxPrice(
-        numericValue > 1000
-          ? 1000
+        numericValue > 50
+          ? 50
           : numericValue < minPrice
           ? minPrice
           : numericValue
@@ -58,7 +58,7 @@ const PriceRangeFilter = ({ minPrice, maxPrice, setMinPrice, setMaxPrice }) => {
       <Slider
         range
         min={0}
-        max={1000}
+        max={50}
         step={1}
         value={[minPrice, maxPrice]}
         onChange={([min, max]) => {

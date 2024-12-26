@@ -9,12 +9,22 @@ import Hero from "./HeroSection/Hero";
 import PeoplesSearches from "./PeoplesSearches/PeoplesSearches";
 import PopularProducts from "./PopularProducts/PopularProducts";
 import Services from "./Services/Services";
+import { useNavigate } from "react-router";
 
 export default function Home() {
   useEffect(() => {
     // Scroll to top when the page is loaded
     window.scrollTo(0, 200);
   }, []);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the current page is the home page and if there are any query parameters
+    if (window.location.pathname === '/') {
+      // Navigate to the home page with no query params (reset URL)
+      navigate('/', { replace: true });
+    }
+  }, [navigate]);
   return (
     <div>
       <Hero />

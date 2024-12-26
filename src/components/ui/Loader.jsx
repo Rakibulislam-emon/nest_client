@@ -1,8 +1,11 @@
+/* eslint-disable react/prop-types */
 import "./Style.css";
-export default function Loader() {
+import { twMerge } from "tailwind-merge";
+export default function Loader({className,}) {
   return (
-    <div className="flex w-full justify-center h-screen items-baseline">
-      <div className="spinner "></div>
+    <div className={twMerge("flex w-full justify-center h-screen items-baseline",className)}>
+      <div className="spinner ">
+      </div>
     </div>
   );
 }
