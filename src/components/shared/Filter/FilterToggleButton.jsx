@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Filter from "./Filter";
-import { BiFilterAlt } from "react-icons/bi";
 import img from "../../../assets/bg.avif";
-
+import filter from "../../../assets/filter.png";
 function FilterToggleButton() {
   const [isOpen, setIsOpen] = useState(false);
   const filterRef = useRef(null);
@@ -34,9 +33,8 @@ function FilterToggleButton() {
       {/* Filter content */}
       {/* This filter will be visible initially on larger screens (lg and above) */}
       <div className="hidden md:block">
-        <div className="bg-white h-full lg:w-[320px] w-64 shadow-lg">
+        <div className="bg-white h-full lg:w-[320px] w-64 hover:shadow-lg">
           <Filter setIsOpen={setIsOpen} />
-
         </div>
       </div>
 
@@ -47,7 +45,8 @@ function FilterToggleButton() {
           className="bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-500 text-white rounded-full shadow-lg cursor-pointer flex items-center justify-center gap-x-2 w-36 lg:w-24 py-2 px-6 transition-transform transform hover:scale-105 hover:shadow-2xl"
         >
           <span className="text-sm font-semibold">Open Filter</span>
-          <BiFilterAlt className="text-xl" />
+          <img src={filter} alt="" className="h-4" />
+          {/* <BiFilterAlt className="text-xl" /> */}
         </div>
       </div>
 

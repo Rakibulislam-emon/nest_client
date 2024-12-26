@@ -18,7 +18,7 @@ export default function ShopPage() {
     <FilterProvider>
       {/* slider */}
       <ShopCarousels />
-      <div className="flex gap-x-10">
+      <div className="md:flex gap-x-10">
         <FilterShopPage />
         <ProductPage />
       </div>

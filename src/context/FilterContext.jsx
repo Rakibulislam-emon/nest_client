@@ -9,7 +9,7 @@ const FilterContext = createContext();
 export const FilterProvider = ({ children }) => {
   const axios = useAxios();
 
-  // Part 1: State Management and Filter Logic
+  // State Management and Filter Logic
   const [selectedCategory, setSelectedCategory] = useState(""); // Initial state for category
   const [minPrice, setMinPrice] = useState(1); // Default minPrice
   const [maxPrice, setMaxPrice] = useState(50); // Default maxPrice
@@ -17,8 +17,10 @@ export const FilterProvider = ({ children }) => {
   const [availability, setAvailability] = useState(""); // Optional filter for availability
   const [minDiscount, setMinDiscount] = useState(1); // Default discount
   const [minDate, setMinDate] = useState(""); // Optional filter for date
+  const [sortField, setSortField] = useState(""); // State for sorting field
+  const [sortOrder, setSortOrder] = useState("asc"); // State for sorting order
 
-  // Part 2: API Integration and Fetching Filtered Data using TanStack Query
+  // API Integration and Fetching Filtered Data using TanStack Query
   const fetchFilteredProducts = async () => {
     const params = {
       ...(selectedCategory && { category: selectedCategory }), // Only add if not empty
@@ -28,6 +30,8 @@ export const FilterProvider = ({ children }) => {
       ...(availability && { availability }), // Only add if availability is selected
       ...(minDiscount !== 1 && { minDiscount }), // Only add if minDiscount is different from default
       ...(minDate && { minDate }), // Only add if minDate is set
+      ...(sortField && { sortField }), // Only add if sortField is set
+      ...(sortOrder && { sortOrder }), // Only add if sortOrder is set
     };
 
     const response = await axios.get("/api/products", { params });
@@ -41,20 +45,22 @@ export const FilterProvider = ({ children }) => {
     isError: error,
   } = useQuery({
     queryKey: [
-      "filteredProducts", 
-      selectedCategory, 
-      minPrice, 
-      maxPrice, 
-      rating, 
-      availability, 
-      minDiscount, 
-      minDate
+      "filteredProducts",
+      selectedCategory,
+      minPrice,
+      maxPrice,
+      rating,
+      availability,
+      minDiscount,
+      minDate,
+      sortField,
+      sortOrder,
     ],
     queryFn: fetchFilteredProducts,
     enabled: true, // Set it to true to always fetch when there are active filters
   });
 
-  // Part 3: URL Management and Navigation
+  // URL Management and Navigation
   const navigate = useNavigate();
 
   // Update the URL with query params when filters change
@@ -62,13 +68,17 @@ export const FilterProvider = ({ children }) => {
     const queryParams = new URLSearchParams();
 
     // Only add query parameters if the value exists and differs from the default
-    if (selectedCategory) queryParams.append("category", encodeURIComponent(selectedCategory));
+    if (selectedCategory)
+      queryParams.append("category", encodeURIComponent(selectedCategory));
     if (minPrice !== 1) queryParams.append("minPrice", minPrice);
     if (maxPrice !== 50) queryParams.append("maxPrice", maxPrice);
     if (rating !== 3) queryParams.append("rating", rating);
-    if (availability) queryParams.append("availability", encodeURIComponent(availability));
+    if (availability)
+      queryParams.append("availability", encodeURIComponent(availability));
     if (minDiscount !== 1) queryParams.append("minDiscount", minDiscount);
     if (minDate) queryParams.append("minDate", minDate);
+    if (sortField) queryParams.append("sortField", sortField);
+    if (sortOrder) queryParams.append("sortOrder", sortOrder);
 
     // Update the URL without reloading the page
     navigate(`?${queryParams.toString()}`, { replace: true });
@@ -80,6 +90,8 @@ export const FilterProvider = ({ children }) => {
     availability,
     minDiscount,
     minDate,
+    sortField,
+    sortOrder,
     navigate,
   ]);
 
@@ -100,6 +112,10 @@ export const FilterProvider = ({ children }) => {
         setMinDiscount,
         minDate,
         setMinDate,
+        sortField,
+        setSortField,
+        sortOrder,
+        setSortOrder,
         filteredProducts,
         loading,
         error,
