@@ -1,3 +1,6 @@
+
+
+
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router"; // Import useNavigate
@@ -19,6 +22,8 @@ export const FilterProvider = ({ children }) => {
   const [minDate, setMinDate] = useState(""); // Optional filter for date
   const [sortField, setSortField] = useState(""); // State for sorting field
   const [sortOrder, setSortOrder] = useState("asc"); // State for sorting order
+  const [page, setPage] = useState(1); // State for current page
+  const [limit, setLimit] = useState(12); // State for items per page
 
   // API Integration and Fetching Filtered Data using TanStack Query
   const fetchFilteredProducts = async () => {
@@ -32,6 +37,8 @@ export const FilterProvider = ({ children }) => {
       ...(minDate && { minDate }), // Only add if minDate is set
       ...(sortField && { sortField }), // Only add if sortField is set
       ...(sortOrder && { sortOrder }), // Only add if sortOrder is set
+      page,
+      limit
     };
 
     const response = await axios.get("/api/products", { params });
@@ -40,21 +47,23 @@ export const FilterProvider = ({ children }) => {
 
   // Using useQuery to fetch data based on filter inputs
   const {
-    data: filteredProducts = [], // Data returned from TanStack Query
+    data: { products: filteredProducts = [], totalProducts, currentPage, totalPages } = {},
     isLoading: loading,
     isError: error,
   } = useQuery({
     queryKey: [
-      "filteredProducts",
-      selectedCategory,
-      minPrice,
-      maxPrice,
-      rating,
-      availability,
-      minDiscount,
+      "filteredProducts", 
+      selectedCategory, 
+      minPrice, 
+      maxPrice, 
+      rating, 
+      availability, 
+      minDiscount, 
       minDate,
       sortField,
       sortOrder,
+      page,
+      limit
     ],
     queryFn: fetchFilteredProducts,
     enabled: true, // Set it to true to always fetch when there are active filters
@@ -68,17 +77,17 @@ export const FilterProvider = ({ children }) => {
     const queryParams = new URLSearchParams();
 
     // Only add query parameters if the value exists and differs from the default
-    if (selectedCategory)
-      queryParams.append("category", encodeURIComponent(selectedCategory));
+    if (selectedCategory) queryParams.append("category", encodeURIComponent(selectedCategory));
     if (minPrice !== 1) queryParams.append("minPrice", minPrice);
     if (maxPrice !== 50) queryParams.append("maxPrice", maxPrice);
     if (rating !== 3) queryParams.append("rating", rating);
-    if (availability)
-      queryParams.append("availability", encodeURIComponent(availability));
+    if (availability) queryParams.append("availability", encodeURIComponent(availability));
     if (minDiscount !== 1) queryParams.append("minDiscount", minDiscount);
     if (minDate) queryParams.append("minDate", minDate);
     if (sortField) queryParams.append("sortField", sortField);
     if (sortOrder) queryParams.append("sortOrder", sortOrder);
+    queryParams.append("page", page);
+    queryParams.append("limit", limit);
 
     // Update the URL without reloading the page
     navigate(`?${queryParams.toString()}`, { replace: true });
@@ -92,6 +101,8 @@ export const FilterProvider = ({ children }) => {
     minDate,
     sortField,
     sortOrder,
+    page,
+    limit,
     navigate,
   ]);
 
@@ -116,9 +127,16 @@ export const FilterProvider = ({ children }) => {
         setSortField,
         sortOrder,
         setSortOrder,
+        page,
+        setPage,
+        limit,
+        setLimit,
         filteredProducts,
         loading,
         error,
+        totalProducts,
+        currentPage,
+        totalPages,
       }}
     >
       {children}

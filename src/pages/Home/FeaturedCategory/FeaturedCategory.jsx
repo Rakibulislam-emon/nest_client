@@ -25,7 +25,7 @@ export default function FeaturedCategory() {
 
   return (
     <section className="max-w-screen-2xl mx-auto lg:h-auto my-10">
-      <div className="lg:py-6 md:flex md:items-center md:justify-between">
+      <div className="lg:py-0 md:flex md:items-center md:justify-between">
         <h1 className="md:text-4xl text-2xl font-bold lg:text-start text-center py-4">
           Featured Category
         </h1>

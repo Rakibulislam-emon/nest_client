@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 export default function ShopAdBanner() {
   const data = [
     {
@@ -31,9 +32,12 @@ export default function ShopAdBanner() {
             <h3 className="text-2xl font-semibold text-gray-800 mb-4">
               {item.text}
             </h3>
-            <button className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-200">
+            <Link
+              to={"/shop"}
+              className="bg-purple-600 text-white px-6 py-2 rounded-md hover:bg-purple-700 transition duration-200"
+            >
               Shop Now
-            </button>
+            </Link>
           </div>
           <div className="flex-1 mt-4 sm:mt-0">
             <img

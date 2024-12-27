@@ -3,7 +3,7 @@ import FilterToggleButton from "../../../components/shared/Filter/FilterToggleBu
 export default function FilterShopPage() {
   return (
     <div>
-        <FilterToggleButton isFilterShopPage={true}/>
+        <FilterToggleButton />
     </div>
   )
 }

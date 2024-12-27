@@ -11,8 +11,8 @@ export default function MiddleHeader() {
         <FaHamburger className="text-2xl" />
       </button>
       <Link>
-        <div className="w-full md:w-auto flex justify-center">
-          <img src={logo} alt="logo" />
+        <div className="w-full  md:w-auto flex justify-center">
+          <img src={logo} alt="logo" className="h-10 md:h-16"/>
         </div>
       </Link>
       <div className=" flex-1 flex lg:px-10 gap-x-10">

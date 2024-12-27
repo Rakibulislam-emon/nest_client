@@ -10,6 +10,7 @@ import PeoplesSearches from "./PeoplesSearches/PeoplesSearches";
 import PopularProducts from "./PopularProducts/PopularProducts";
 import Services from "./Services/Services";
 import { useNavigate } from "react-router";
+import ScrollToTopButton from "../../components/shared/ScrollToTopButton";
 
 export default function Home() {
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function Home() {
   }, [navigate]);
   return (
     <div>
+      <ScrollToTopButton/>
       <Hero />
       <FeaturedCategory />
       <ShopAdBanner />

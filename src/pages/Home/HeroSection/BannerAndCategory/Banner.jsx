@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router";
 export const Banner = () => {
   const [currentSlider, setCurrentSlider] = useState(0);
 
@@ -106,9 +107,9 @@ export const Banner = () => {
               <p className="mt-2 text-sm md:text-lg text-gray-200 tracking-wide">
                 {slide.offerDescription}
               </p>
-              <button className="mt-4 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-sm md:text-base   rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+              <Link to={'/shop'} className="mt-4 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-sm md:text-base   rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
                 {slide.buttonText}
-              </button>
+              </Link>
             </div>
           </div>
         ))}
