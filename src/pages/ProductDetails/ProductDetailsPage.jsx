@@ -12,7 +12,11 @@ export default function ProductDetailsPage() {
     window.scrollTo(0, 0);
   }, []); 
   const product = useLoaderData();
-  const { data,relatedImages =[],error,isLoading} = useProductDetails(product); 
+ 
+  const { data,relatedImages =[],error,isLoading ,} = useProductDetails(product); 
+  // use effect to refetch the products every time new product is loaded
+
+
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -27,3 +31,7 @@ export default function ProductDetailsPage() {
     </Container>
   );
 }
+
+
+
+

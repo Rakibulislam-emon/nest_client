@@ -21,8 +21,9 @@ export const FilterProvider = ({ children }) => {
   const [sortOrder, setSortOrder] = useState("asc"); // State for sorting order
   const [page, setPage] = useState(1); // State for current page
   const [limit, setLimit] = useState(12); // State for items per page
-  // state for category
-
+  // state for search
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+ 
 
 
 
@@ -40,6 +41,7 @@ export const FilterProvider = ({ children }) => {
       ...(sortOrder && { sortOrder }), // Only add if sortOrder is set
       page,
       limit,
+      searchQuery, // Add search query if provided
     };
 
     const response = await axios.get("/api/products", { params });
@@ -48,7 +50,7 @@ export const FilterProvider = ({ children }) => {
 
 
 
-
+// for refetching data when input change
 
   // Using useQuery to fetch data based on filter inputs
   const {
@@ -74,6 +76,7 @@ export const FilterProvider = ({ children }) => {
       sortOrder,
       page,
       limit,
+      searchQuery, // Add search query if provided
     ],
     queryFn: fetchFilteredProducts,
     enabled: true, // Set it to true to always fetch when there are active filters
@@ -165,7 +168,7 @@ export const FilterProvider = ({ children }) => {
         totalProducts,
         currentPage,
         totalPages,
-        // category
+        setSearchQuery
       }}
     >
       {children}

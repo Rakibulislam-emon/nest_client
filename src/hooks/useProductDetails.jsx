@@ -16,7 +16,7 @@ const fetchRelatedImages = async (productName) => {
 export default function useProductDetails(initialData) {
   // Use TanStack Query's `useQuery` to manage product details
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["productDetails"], // Unique key for this query
+    queryKey: ["productDetails ", initialData?._id], // Unique key for this query
     queryFn: () => Promise.resolve(initialData), // No need to fetch, just resolve the initial data
     initialData, // Use the initial data passed to the hook
     enabled: !!initialData, // Only run the query if there is initial data
@@ -25,8 +25,9 @@ export default function useProductDetails(initialData) {
     data: relatedImages,
     isLoading: imagesLoading,
     isError: imagesError,
+    refetch
   } = useQuery({
-    queryKey: ["relatedImages", initialData?.name], // Query key based on product name
+    queryKey: ["relatedImages", initialData?.name ,initialData?._id], // Query key based on product name
     queryFn: () => fetchRelatedImages(initialData?.name), // Function to fetch related images
     enabled: !!initialData?.name, // Only run the query if `initialData?.name` is valid
   });
@@ -39,5 +40,6 @@ export default function useProductDetails(initialData) {
     relatedImages, // Related images data from Unsplash
     imagesLoading, // Related images loading state
     imagesError, // Related images error state
+    refetch
   };
 }

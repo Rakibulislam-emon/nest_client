@@ -6,6 +6,7 @@ import QuantityControl from "../../Home/PopularProducts/Product/QuantityControl"
 
 export default function ProductInfo({ data }) {
   const {
+    name,
     available,
     description,
     price = 0, // Default to 0 if price is undefined
@@ -38,7 +39,7 @@ export default function ProductInfo({ data }) {
 
       {/* Product Title */}
       <h1 className="text-3xl font-bold mb-2">
-        Seeds of Change
+      {name}
         <br />
         Organic Quinoa, Brown
       </h1>
