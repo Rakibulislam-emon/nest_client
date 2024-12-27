@@ -1,6 +1,3 @@
-
-
-
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router"; // Import useNavigate
@@ -24,6 +21,12 @@ export const FilterProvider = ({ children }) => {
   const [sortOrder, setSortOrder] = useState("asc"); // State for sorting order
   const [page, setPage] = useState(1); // State for current page
   const [limit, setLimit] = useState(12); // State for items per page
+  // state for category
+  const [categoryProduct, setCategoryProduct] = useState("");
+
+
+
+
 
   // API Integration and Fetching Filtered Data using TanStack Query
   const fetchFilteredProducts = async () => {
@@ -38,36 +41,56 @@ export const FilterProvider = ({ children }) => {
       ...(sortField && { sortField }), // Only add if sortField is set
       ...(sortOrder && { sortOrder }), // Only add if sortOrder is set
       page,
-      limit
+      limit,
+      // categoryProduct ,
+      ...(categoryProduct && { categoryProduct }),
     };
 
     const response = await axios.get("/api/products", { params });
     return response.data;
   };
 
+
+
+
+
   // Using useQuery to fetch data based on filter inputs
   const {
-    data: { products: filteredProducts = [], totalProducts, currentPage, totalPages } = {},
+    data: {
+      products: filteredProducts = [],
+      totalProducts,
+      currentPage,
+      totalPages,
+    } = {},
     isLoading: loading,
     isError: error,
   } = useQuery({
     queryKey: [
-      "filteredProducts", 
-      selectedCategory, 
-      minPrice, 
-      maxPrice, 
-      rating, 
-      availability, 
-      minDiscount, 
+      "filteredProducts",
+      selectedCategory,
+      minPrice,
+      maxPrice,
+      rating,
+      availability,
+      minDiscount,
       minDate,
       sortField,
       sortOrder,
       page,
-      limit
+      limit,
+      setCategoryProduct,
+      categoryProduct,
     ],
     queryFn: fetchFilteredProducts,
     enabled: true, // Set it to true to always fetch when there are active filters
   });
+
+
+
+
+
+
+
 
   // URL Management and Navigation
   const navigate = useNavigate();
@@ -77,11 +100,13 @@ export const FilterProvider = ({ children }) => {
     const queryParams = new URLSearchParams();
 
     // Only add query parameters if the value exists and differs from the default
-    if (selectedCategory) queryParams.append("category", encodeURIComponent(selectedCategory));
+    if (selectedCategory)
+      queryParams.append("category", encodeURIComponent(selectedCategory));
     if (minPrice !== 1) queryParams.append("minPrice", minPrice);
     if (maxPrice !== 50) queryParams.append("maxPrice", maxPrice);
     if (rating !== 3) queryParams.append("rating", rating);
-    if (availability) queryParams.append("availability", encodeURIComponent(availability));
+    if (availability)
+      queryParams.append("availability", encodeURIComponent(availability));
     if (minDiscount !== 1) queryParams.append("minDiscount", minDiscount);
     if (minDate) queryParams.append("minDate", minDate);
     if (sortField) queryParams.append("sortField", sortField);
@@ -106,6 +131,12 @@ export const FilterProvider = ({ children }) => {
     navigate,
   ]);
 
+
+
+
+
+
+  
   return (
     <FilterContext.Provider
       value={{
@@ -137,6 +168,9 @@ export const FilterProvider = ({ children }) => {
         totalProducts,
         currentPage,
         totalPages,
+        // category
+        categoryProduct,
+        setCategoryProduct,
       }}
     >
       {children}

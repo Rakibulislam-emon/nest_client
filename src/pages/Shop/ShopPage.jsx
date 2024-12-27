@@ -1,6 +1,5 @@
 import ScrollToTopButton from "../../components/shared/ScrollToTopButton";
 import Loader from "../../components/ui/Loader";
-import { FilterProvider } from "../../context/FilterContext";
 import { useAllProducts } from "../../hooks/useAllProducts";
 import FilterShopPage from "./FilterSection/FilterShopPage";
 import ProductPage from "./ProductList/ProductPage";
@@ -16,14 +15,16 @@ export default function ShopPage() {
   }
 
   return (
-    <FilterProvider>
+    <>
       {/* slider */}
       <ShopCarousels />
       <div className="md:flex gap-x-10">
-        <div className="hidden md:block"><FilterShopPage /></div>
+        <div className="hidden md:block">
+          <FilterShopPage />
+        </div>
         <ProductPage />
       </div>
       <ScrollToTopButton />
-    </FilterProvider>
+    </>
   );
 }

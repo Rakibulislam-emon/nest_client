@@ -10,7 +10,7 @@ import { useFeaturedCategory } from "../../../hooks/useFeaturedCategory";
 
 const Filter = () => {
   const { data } = useFeaturedCategory();
-  const categories = data.map((item) => item?.category);
+  const categories = data?.map((item) => item?.category);
   const {
     selectedCategory,
     setSelectedCategory,

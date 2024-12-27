@@ -5,8 +5,17 @@ import { Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useFilter } from "../../../context/FilterContext";
+import { useNavigate } from "react-router";
 
 const SwiperView = ({ data, prevRef, nextRef }) => {
+  const navigation = useNavigate()
+    const { setCategoryProduct } = useFilter();
+  
+    const handleCategoryClick = (category) => {
+      setCategoryProduct(category);
+      navigation('/shop')
+    };
   // You can define an array of colors here or a logic to generate dynamic colors
   const categoryColors = [
     "#f2fce4",
@@ -55,8 +64,10 @@ const SwiperView = ({ data, prevRef, nextRef }) => {
             {/* Iterate over each product in the current category */}
             {category.products.map((product) => (
               <div
+                // onclick set category
+                onClick={()=>handleCategoryClick(product.category)}
                 key={product._id}
-                className="flex h-60  flex-col items-center mt-4"
+                className="flex h-60 cursor-pointer flex-col items-center mt-4"
               >
                 <img
                   src={product.image} // Access product's image

@@ -24,7 +24,7 @@ export default function MiddleHeader() {
         </div>
       </div>
       <div>
-        <UsersNavigation />
+        <UsersNavigation /><p></p>
       </div>
     </div>
   );

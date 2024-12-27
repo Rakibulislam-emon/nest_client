@@ -27,7 +27,7 @@ export default function Home() {
     }
   }, [navigate]);
   return (
-    <div>
+    <>
       <ScrollToTopButton/>
       <Hero />
       <FeaturedCategory />
@@ -39,6 +39,6 @@ export default function Home() {
       <DiscountBanner />
       <PeoplesSearches />
       <Services />
-    </div>
+    </>
   );
 }

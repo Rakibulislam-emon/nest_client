@@ -6,12 +6,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useFeaturedCategory } from "../../../hooks/useFeaturedCategory";
 import Container from "../../../components/shared/Container";
+import { useFilter } from "../../../context/FilterContext";
 
 const ShopCarousels = () => {
   const { data } = useFeaturedCategory();
+  const { setCategoryProduct } = useFilter();
 
   return (
-    <Container className={"bg-[#f7f7f7] md:h-[300px] rounded-lg my-8"}>
+    <Container className={"bg-[#f7f7f7] md:h-[300px] rounded-lg md:my-8"}>
       <h2 className="md:text-4xl   font-semibold text-center p-4">
         All Products
       </h2>
@@ -38,8 +40,10 @@ const ShopCarousels = () => {
               {/* Iterate over each product in the current category */}
               {category.products.map((product) => (
                 <div
+                  // onclick set category
+                  onClick={() => setCategoryProduct(product.category)}
                   key={product._id}
-                  className="flex h-60 group cursor-pointer  rounded-full flex-col items-center mt-4"
+                  className="flex h-60 group cursor-pointer  rounded-full flex-col items-center mt-4  "
                 >
                   <img
                     src={product.image} // Access product's image
@@ -47,10 +51,10 @@ const ShopCarousels = () => {
                     className="w-28 h-28 group-hover:border-2 group-hover:border-green rounded-full p-2 object-cover mix-blend-multiply"
                   />
                   <h2 className="text-sm font-semibold">
-                    {category?.category?.length}
+                    {/* {product?.category?.length} */}
                   </h2>
                   <p className="text-center mt-2 text-sm font-medium">
-                    {product.name}
+                    {product.category}
                   </p>
                 </div>
               ))}
