@@ -10,7 +10,7 @@ import { useFilter } from "../../../context/FilterContext";
 
 const ShopCarousels = () => {
   const { data } = useFeaturedCategory();
-  const { setCategoryProduct } = useFilter();
+  const { setSelectedCategory } = useFilter();
 
   return (
     <Container className={"bg-[#f7f7f7] md:h-[300px] rounded-lg md:my-8"}>
@@ -41,7 +41,7 @@ const ShopCarousels = () => {
               {category.products.map((product) => (
                 <div
                   // onclick set category
-                  onClick={() => setCategoryProduct(product.category)}
+                  onClick={() => setSelectedCategory(product.category)}
                   key={product._id}
                   className="flex h-60 group cursor-pointer  rounded-full flex-col items-center mt-4  "
                 >

@@ -43,7 +43,8 @@ export const FilterProvider = ({ children }) => {
       page,
       limit,
       // categoryProduct ,
-      ...(categoryProduct && { categoryProduct }),
+      // categoryProduct
+      // ...(categoryProduct && { categoryProduct }),
     };
 
     const response = await axios.get("/api/products", { params });
