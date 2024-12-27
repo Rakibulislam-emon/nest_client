@@ -97,25 +97,28 @@ export const FilterProvider = ({ children }) => {
 
   // Update the URL with query params when filters change
   useEffect(() => {
-    const queryParams = new URLSearchParams();
-
-    // Only add query parameters if the value exists and differs from the default
-    if (selectedCategory)
-      queryParams.append("category", encodeURIComponent(selectedCategory));
-    if (minPrice !== 1) queryParams.append("minPrice", minPrice);
-    if (maxPrice !== 50) queryParams.append("maxPrice", maxPrice);
-    if (rating !== 3) queryParams.append("rating", rating);
-    if (availability)
-      queryParams.append("availability", encodeURIComponent(availability));
-    if (minDiscount !== 1) queryParams.append("minDiscount", minDiscount);
-    if (minDate) queryParams.append("minDate", minDate);
-    if (sortField) queryParams.append("sortField", sortField);
-    if (sortOrder) queryParams.append("sortOrder", sortOrder);
-    queryParams.append("page", page);
-    queryParams.append("limit", limit);
-
-    // Update the URL without reloading the page
-    navigate(`?${queryParams.toString()}`, { replace: true });
+    if (location.pathname === "/shop") {
+      
+      const queryParams = new URLSearchParams();
+  
+      // Only add query parameters if the value exists and differs from the default
+      if (selectedCategory)
+        queryParams.append("category", encodeURIComponent(selectedCategory));
+      if (minPrice !== 1) queryParams.append("minPrice", minPrice);
+      if (maxPrice !== 50) queryParams.append("maxPrice", maxPrice);
+      if (rating !== 3) queryParams.append("rating", rating);
+      if (availability)
+        queryParams.append("availability", encodeURIComponent(availability));
+      if (minDiscount !== 1) queryParams.append("minDiscount", minDiscount);
+      if (minDate) queryParams.append("minDate", minDate);
+      if (sortField) queryParams.append("sortField", sortField);
+      if (sortOrder) queryParams.append("sortOrder", sortOrder);
+      queryParams.append("page", page);
+      queryParams.append("limit", limit);
+  
+      // Update the URL without reloading the page
+      navigate(`?${queryParams.toString()}`, { replace: true });
+    }
   }, [
     selectedCategory,
     minPrice,
