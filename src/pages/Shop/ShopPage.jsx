@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import ScrollToTopButton from "../../components/shared/ScrollToTopButton";
 import Loader from "../../components/ui/Loader";
 import { useAllProducts } from "../../hooks/useAllProducts";
@@ -6,6 +7,10 @@ import ProductPage from "./ProductList/ProductPage";
 import ShopCarousels from "./ShopCarousels/ShopCarousels";
 
 export default function ShopPage() {
+  useEffect(() => {
+    // Scroll to top when the page is loaded
+    window.scrollTo(0, 200);
+  }, []);
   const { isLoading, isError, error } = useAllProducts(); // Fetch all products initially
   if (isLoading) {
     return <Loader className={"h-screen flex justify-center items-center"} />;

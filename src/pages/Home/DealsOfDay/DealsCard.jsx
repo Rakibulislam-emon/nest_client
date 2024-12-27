@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 /* eslint-disable react/prop-types */
 export default function DealsCard({ deal }) {
   const { image,name,price,rating,discount,available } = deal;
@@ -6,11 +8,13 @@ export default function DealsCard({ deal }) {
       <div className=" mb-20  w-full">
         <div className="relative  rounded-3xl  max-w-md max-h-[400px] z-1">
           {/* Image */}
-          <img
-            src={image}
-            alt="Deal Image"
-            className="w-full  h-[360px] rounded-lg object-cover mix-blend-multiply"
-          />
+         <Link to={`/product/detail/${deal._id}`}>
+            <img
+              src={image}
+              alt="Deal Image"
+              className="w-full  h-[360px] rounded-lg object-cover mix-blend-multiply"
+            />
+         </Link>
 
           {/* Card Content */}
           <div className="absolute  bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2/4 p-4 bg-white rounded-lg shadow-md  w-[calc(100%-70px)]">
