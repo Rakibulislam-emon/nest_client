@@ -24,6 +24,7 @@ export const FilterProvider = ({ children }) => {
   // state for search
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
  
+  
 
 
 

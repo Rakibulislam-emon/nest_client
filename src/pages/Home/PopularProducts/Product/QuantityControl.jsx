@@ -1,4 +1,3 @@
-"use client";
 
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import AddToCartButton from "./AddToCartButton";

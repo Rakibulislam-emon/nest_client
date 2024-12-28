@@ -6,10 +6,10 @@ import { Link } from "react-router";
 
 export default function BottomHeader() {
   const pages = [
-    { label: "Deals", url: "/deals", icon: <FaFire /> },
-    { label: "Home", url: "/home" },
+    // { label: "Deals", url: "/deals", icon: <FaFire /> },
+    { label: "Shop", url: "/shop" , icon: <FaFire />},
+    { label: "Home", url: "/" },
     { label: "About", url: "/about" },
-    { label: "Shop", url: "/shop" },
     { label: "Vendors", url: "/vendors" },
     { label: "MegaMenu", url: "/megamenu" },
     { label: "Blog", url: "/blog" },

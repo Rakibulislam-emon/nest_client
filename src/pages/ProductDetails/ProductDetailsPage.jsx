@@ -6,17 +6,23 @@ import { useLoaderData } from "react-router";
 import ProductCategory from "../../components/shared/ProductCategory";
 import useProductDetails from "../../hooks/useProductDetails";
 import { useEffect } from "react";
+import RelatedProducts from "./RelatedProducts/RelatedProducts";
+import PeoplesSearches from "../Home/PeoplesSearches/PeoplesSearches";
+import Services from "../../pages/Home/Services/Services";
 export default function ProductDetailsPage() {
   useEffect(() => {
     // Scroll to top when the page is loaded
     window.scrollTo(0, 0);
-  }, []); 
+  }, []);
   const product = useLoaderData();
- 
-  const { data,relatedImages =[],error,isLoading ,} = useProductDetails(product); 
+
+  const {
+    data,
+    relatedImages = [],
+    error,
+    isLoading,
+  } = useProductDetails(product);
   // use effect to refetch the products every time new product is loaded
-
-
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -28,10 +34,10 @@ export default function ProductDetailsPage() {
         <ProductInfo data={data} />
         <ProductCategory />
       </Container>
+      {/* 2nd section */}
+      <RelatedProducts />
+      <PeoplesSearches/>
+      <Services/>
     </Container>
   );
 }
-
-
-
-

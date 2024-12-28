@@ -2,18 +2,12 @@
 import SideBar from "./SideBar";
 import QuantityControl from "./QuantityControl";
 import { Link } from "react-router";
+import { useFilter } from "../../../../context/FilterContext";
 
 export default function ProductCard({ product }) {
-  const {
-    _id,
-    name,
-    category,
-    image,
-    rating,
-    price,
-    discount,
-    exp,
-  } = product;
+  const { setSelectedCategory } = useFilter();
+
+  const { _id, name, category, image, rating, price, discount, exp } = product;
 
   const fallbackImage = "https://picsum.photos/200/300";
   const img = image && image.trim() !== "" ? image : fallbackImage;
@@ -21,12 +15,20 @@ export default function ProductCard({ product }) {
   const handleImageError = (e) => {
     e.target.src = fallbackImage;
   };
+  // handle setcategory
+  const handleSetCategory = () => {
+    setSelectedCategory(category);
+  };
 
   return (
     <div className="group  rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 ">
       {/* Product image */}
       <div className="p-4 overflow-hidden hover:shadow-xl transition-all duration-200 relative">
-        <Link to={`/product/detail/${_id}`} className="flex justify-center">
+        <Link
+          onClick={handleSetCategory}
+          to={`/product/detail/${_id}`}
+          className="flex justify-center"
+        >
           <img
             src={img}
             alt={name}
@@ -36,7 +38,9 @@ export default function ProductCard({ product }) {
         </Link>
         <div className="absolute top-2 left-2 bg-red-500 text-white w-12 h-12 flex flex-col items-center justify-center rounded-full text-xs font-bold border-2 border-white shadow-md">
           <span className="text-base leading-tight">{discount}%</span>
-          <span className="text-[10px] font-medium uppercase tracking-wide">Off</span>
+          <span className="text-[10px] font-medium uppercase tracking-wide">
+            Off
+          </span>
         </div>
         <SideBar />
       </div>
@@ -50,12 +54,18 @@ export default function ProductCard({ product }) {
           <span className="text-red-500 line-through text-sm">${discount}</span>
         </div>
         <div className="flex items-center gap-2">
-          <p className="text-sm text-gray-600 md:hidden block">({rating} ratings)</p>
+          <p className="text-sm text-gray-600 md:hidden block">
+            ({rating} ratings)
+          </p>
         </div>
         <div className="flex items-center gap-2">
-          <p className="text-sm text-gray-600 hidden md:block">({rating} ratings)</p>
+          <p className="text-sm text-gray-600 hidden md:block">
+            ({rating} ratings)
+          </p>
         </div>
-        <div className="text-sm text-gray-500 hidden md:block">Expiry Date: {exp}</div>
+        <div className="text-sm text-gray-500 hidden md:block">
+          Expiry Date: {exp}
+        </div>
       </div>
       <QuantityControl className={"opacity-0"} />
     </div>
