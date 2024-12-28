@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import AddToCartButton from "./AddToCartButton";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-export default function QuantityControl({ className }) {
+export default function QuantityControl({ className,product }) {
   const [quantity, setQuantity] = useState(1);
 
   const increment = () => setQuantity(quantity + 1);
@@ -34,7 +35,7 @@ export default function QuantityControl({ className }) {
       </div>
 
       {/* Add to Cart */}
-      <AddToCartButton className={"bg-green"}/>
+      <AddToCartButton className={"bg-green"} product={product}/>
     </div>
   );
 }

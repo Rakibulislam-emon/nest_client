@@ -31,7 +31,7 @@ export default function ProductDetailsPage() {
       {/* 1st section */}
       <Container className={"md:flex  md:justify-between"}>
         <ProductImage data={data} relatedImages={relatedImages} />
-        <ProductInfo data={data} />
+        <ProductInfo product={data} />
         <ProductCategory />
       </Container>
       {/* 2nd section */}

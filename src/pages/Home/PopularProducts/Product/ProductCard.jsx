@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { useFilter } from "../../../../context/FilterContext";
 
 export default function ProductCard({ product }) {
+
   const { setSelectedCategory } = useFilter();
 
   const { _id, name, category, image, rating, price, discount, exp } = product;
@@ -67,7 +68,7 @@ export default function ProductCard({ product }) {
           Expiry Date: {exp}
         </div>
       </div>
-      <QuantityControl className={"opacity-0"} />
+      <QuantityControl className={"opacity-0"} product={product}/>
     </div>
   );
 }

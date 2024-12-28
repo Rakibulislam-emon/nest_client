@@ -1,5 +1,9 @@
 import SearchInput from "./SearchInput";
-import { IoChevronDownSharp, IoLocationOutline, IoSearchSharp } from "react-icons/io5";
+import {
+  IoChevronDownSharp,
+  IoLocationOutline,
+  IoSearchSharp,
+} from "react-icons/io5";
 import UsersNavigation from "./UsersNavigation";
 import { FaHamburger } from "react-icons/fa";
 import logo from "../../../../assets/logo.png";
@@ -45,7 +49,7 @@ export default function MiddleHeader() {
   return (
     <div>
       <div className="flex my-4 items-center justify-between ">
-        <button className="lg:hidden px-2" onClick={toggleSearch}>
+        <button className="lg:hidden px-2">
           <FaHamburger className="text-2xl" />
         </button>
         <Link>
@@ -55,7 +59,7 @@ export default function MiddleHeader() {
         </Link>
         <div className="flex-1 flex lg:px-10 gap-x-10">
           <button className=" ml-10 md:hidden" onClick={toggleSearch}>
-             <IoSearchSharp className="text-3xl" />
+            <IoSearchSharp className="text-3xl" />
           </button>
           <SearchInput className={"md:block hidden"} />
           <div className="lg:flex gap-x-1 items-center border-gray border shadow-md px-2 hidden">
@@ -73,7 +77,10 @@ export default function MiddleHeader() {
       {showSearch && (
         <div className="fixed top-0 inset-x-0 bg-black bg-opacity-50 z-50">
           <div className="flex justify-center items-center py-4">
-            <div ref={modalRef} className="bg-white p-4 w-full max-w-md rounded shadow-lg">
+            <div
+              ref={modalRef}
+              className="bg-white p-4 w-full max-w-md rounded shadow-lg"
+            >
               <SearchInput className={"md:hidden"} />
             </div>
           </div>

@@ -5,7 +5,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import QuantityControl from "../../Home/PopularProducts/Product/QuantityControl";
 import Countdown from "../../../components/shared/Countdown";
 
-export default function ProductInfo({ data }) {
+export default function ProductInfo({ product }) {
   const {
     name,
     available,
@@ -13,7 +13,7 @@ export default function ProductInfo({ data }) {
     price = 0, // Default to 0 if price is undefined
     discount = 0, // Default to 0 if discount is undefined
     rating,
-  } = data;
+  } = product;
 
   // Random reviews number
   const reviewsNumber = Math.floor(Math.random() * 100) + 1;
@@ -90,7 +90,7 @@ export default function ProductInfo({ data }) {
       {/* Quantity and Favorite */}
       <div className="mb-4 gap-x-2 md:gap-x-4 md:flex md:items-center md:justify-between w-full flex">
         <p className="text-gray-600 mt-4 md:mt-0">Quantity:</p>
-        <QuantityControl className="w-full" />
+        <QuantityControl className="w-full" product={product}/>
         <button className="p-2 hover:bg-sky-600 hover:text-white shadow-lg duration-200 hover:rounded-lg mr-2 h-8 flex">
           <FaRegHeart size={20} />
         </button>
