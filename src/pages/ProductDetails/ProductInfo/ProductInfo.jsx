@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 
 import { FaRegHeart } from "react-icons/fa6";
-import AddToCartButton from "../../Home/PopularProducts/Product/AddToCartButton";
+// import AddToCartButton from "../../Home/PopularProducts/Product/AddToCartButton";
 import QuantityControl from "../../Home/PopularProducts/Product/QuantityControl";
+import Countdown from "../../../components/shared/Countdown";
 
 export default function ProductInfo({ data }) {
   const {
@@ -39,7 +40,7 @@ export default function ProductInfo({ data }) {
 
       {/* Product Title */}
       <h1 className="text-3xl font-bold mb-2">
-      {name}
+        {name}
         <br />
         Organic Quinoa, Brown
       </h1>
@@ -67,6 +68,7 @@ export default function ProductInfo({ data }) {
         plug-and-play imperatives. Compellingly innovate proactive outsourcing
         rather than.
       </p>
+      <Countdown targetDate="2025-12-31T23:59:59"/>
 
       {/* Size / Weight Options */}
       <div className="container mx-auto px-4 py-8">
