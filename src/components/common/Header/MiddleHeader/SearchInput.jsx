@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
 import { IoSearchSharp, IoClose } from "react-icons/io5";
 import { useFilter } from "../../../../context/FilterContext";
@@ -82,7 +83,7 @@ function SearchInput({className}) {
             suggestions.map((product) => (
               <li
                 key={product._id}
-                className="p-2 hover:bg-green-100 cursor-pointer flex items-center"
+                className="p-2 hover:bg-green-100 border cursor-pointer flex items-center"
                 onClick={() => setSuggestions([])} // Close the dropdown
               >
                 <Link to={`/product/detail/${product._id}`} className="flex items-center">

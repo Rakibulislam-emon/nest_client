@@ -1,23 +1,20 @@
+import { useSelector } from "react-redux";
 import CartProductCard from "./CartProductCard";
 import OrderSummary from "./OrderSummary";
 import PromoCode from "./PromoCode";
+import { selectCartItems } from "../../utils/cartSelectors";
 
 export default function Cart() {
-  const product = {
-    image: "https://readymadeui.com/images/product6.webp",
-    name: "Black T-Shirt",
-    size: "7.5",
-    color: "Black",
-    oldPrice: "22.5",
-    newPrice: "18.5",
-  };
+
+  const products = useSelector(selectCartItems)
+ 
 
   return (
     <div className="font-sans">
       <div className="grid lg:grid-cols-3 gap-10 p-4">
         <div className="lg:col-span-2 bg-white divide-y">
-          <div className="flex items-start max-sm:flex-col gap-4 py-4">
-            <CartProductCard product={product} />
+          <div className="flex flex-col items-center justify-center  gap-8 py-4">
+          {  products.map((product)=> <CartProductCard key={product._id} product={product}/>)}
           </div>
         </div>
 

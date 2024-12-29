@@ -3,8 +3,17 @@ import { GoGitCompare } from "react-icons/go";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { LuUserPlus } from "react-icons/lu";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
+import { selectCartItems, selectFavorite } from "../../../../utils/cartSelectors";
 
 export default function UsersNavigation() {
+  const item = useSelector(selectCartItems);
+  const favorite = useSelector(selectFavorite)
+  // const item = useSelector((state)=> state.cart.cart)
+  
+  const totalItems = item.reduce((acc, item) => acc + item.quantity, 0);
+  const totalFav = favorite.length;  // This will count how many items are in the favorite array
+
   const user = false;
   return (
     <div className="flex lg:gap-x-8 gap-x-4 ">
@@ -17,14 +26,16 @@ export default function UsersNavigation() {
       <div className="text-2xl relative">
         <MdOutlineFavoriteBorder />
         <span className="absolute -top-1 -right-1 text-[10px] font-medium w-4 h-4 bg-green  text-white rounded-full flex items-center justify-center">
-          0
+          {
+            totalFav
+          }
         </span>
       </div>
       <div className="text-2xl relative">
         <Link to={"/cart"}>
           <BiShoppingBag />
           <span className="absolute -top-1 -right-1 text-[10px] font-medium w-4 h-4 bg-green  text-white rounded-full flex items-center justify-center">
-            0
+            {totalItems > 0 ? totalItems : 0}
           </span>
         </Link>
       </div>

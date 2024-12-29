@@ -9,6 +9,7 @@ import { FaHamburger } from "react-icons/fa";
 import logo from "../../../../assets/logo.png";
 import { Link, useLocation } from "react-router"; // Use useLocation from react-router-dom
 import { useState, useEffect, useRef } from "react";
+import { RiMenuUnfold2Line } from "react-icons/ri";
 
 export default function MiddleHeader() {
   const [showSearch, setShowSearch] = useState(false);
@@ -50,7 +51,7 @@ export default function MiddleHeader() {
     <div>
       <div className="flex my-4 items-center justify-between ">
         <button className="lg:hidden px-2">
-          <FaHamburger className="text-2xl" />
+          <RiMenuUnfold2Line className="text-2xl" />
         </button>
         <Link>
           <div className="w-full md:w-auto flex justify-center">

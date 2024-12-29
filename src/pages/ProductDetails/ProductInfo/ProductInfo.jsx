@@ -4,27 +4,44 @@ import { FaRegHeart } from "react-icons/fa6";
 // import AddToCartButton from "../../Home/PopularProducts/Product/AddToCartButton";
 import QuantityControl from "../../Home/PopularProducts/Product/QuantityControl";
 import Countdown from "../../../components/shared/Countdown";
+import { useSelector } from "react-redux";
+import { selectCartItems } from "../../../utils/cartSelectors";
+import { useEffect, useState } from "react";
 
 export default function ProductInfo({ product }) {
+  const [existingProduct, setExistingProduct] = useState(null);
+  
   const {
     name,
     available,
     description,
-    price = 0, // Default to 0 if price is undefined
-    discount = 0, // Default to 0 if discount is undefined
+    // price = 0, // Default to 0 if price is undefined
+    // discount = 0, // Default to 0 if discount is undefined
     rating,
   } = product;
 
   // Random reviews number
   const reviewsNumber = Math.floor(Math.random() * 100) + 1;
 
-  // Calculate discount amount
-  const discountAmount = (price * discount) / 100;
+  // // Calculate discount amount
+  // const discountAmount = (price * discount) / 100;
 
-  // Calculate discounted price
-  const discountedPrice = price - discountAmount;
+  // // Calculate discounted price
+  // const discountedPrice = price - discountAmount;
 
   const sizeOptions = ["50g", "60g", "100g", "200g", "1000g"];
+
+  
+  const items = useSelector(selectCartItems);
+
+
+  // Set the existing product from the cart items
+  useEffect(() => {
+    const availableProduct = items.find((item) => item._id === product._id);
+    if (availableProduct) {
+      setExistingProduct(availableProduct);
+    }
+  }, [items, product]);
 
   return (
     <div className="container mx-auto py-8">
@@ -44,24 +61,14 @@ export default function ProductInfo({ product }) {
         <br />
         Organic Quinoa, Brown
       </h1>
-
-      {/* Price and Discounts */}
-      <div className="flex items-center mb-4">
-        <span className="text-4xl font-bold text-green-500">
-          ${discount > 0 ? discountedPrice.toFixed(2) : price.toFixed(2)}
-        </span>
-        {discount > 0 && (
-          <>
-            <span className="text-gray-500 line-through ml-2">
-              ${price.toFixed(2)}
-            </span>
-            <span className="text-gray-500 ml-2">
-              ${discountAmount.toFixed(2)} Off
-            </span>
-          </>
-        )}
-      </div>
-
+      <div className="flex gap-x-4 my-4 items-center mt-2">
+        <strong className="text-2xl text-gray-800">
+            ${(product.price * (existingProduct?.quantity || 1)).toFixed(2)}
+          </strong>
+          <strong className="text-red-500 line-through text-sm">
+            ${(product.discount * (existingProduct?.quantity || 1)).toFixed(2)}
+          </strong>
+        </div>
       {/* Description */}
       <p className="text-gray-600 mb-4">
         {description} Seamlessly fashion cooperative platforms whereas

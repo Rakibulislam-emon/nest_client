@@ -3,12 +3,16 @@ import SideBar from "./SideBar";
 import QuantityControl from "./QuantityControl";
 import { Link } from "react-router";
 import { useFilter } from "../../../../context/FilterContext";
+import { useSelector } from "react-redux";
+import { selectCartItems } from "../../../../utils/cartSelectors";
+import { useEffect, useState } from "react";
 
 export default function ProductCard({ product }) {
+  const [existingProduct, setExistingProduct] = useState(null);
 
   const { setSelectedCategory } = useFilter();
 
-  const { _id, name, category, image, rating, price, discount, exp } = product;
+  const { _id, name, category, image, rating, discount, exp } = product;
 
   const fallbackImage = "https://picsum.photos/200/300";
   const img = image && image.trim() !== "" ? image : fallbackImage;
@@ -20,6 +24,17 @@ export default function ProductCard({ product }) {
   const handleSetCategory = () => {
     setSelectedCategory(category);
   };
+
+  const items = useSelector(selectCartItems);
+
+
+  // Set the existing product from the cart items
+  useEffect(() => {
+    const availableProduct = items.find((item) => item._id === product._id);
+    if (availableProduct) {
+      setExistingProduct(availableProduct);
+    }
+  }, [items, product]);
 
   return (
     <div className="group  rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 ">
@@ -43,7 +58,7 @@ export default function ProductCard({ product }) {
             Off
           </span>
         </div>
-        <SideBar />
+        <SideBar product={product}/>
       </div>
 
       {/* Product details */}
@@ -51,8 +66,12 @@ export default function ProductCard({ product }) {
         <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
         <span className="text-sm text-gray-600">{category}</span>
         <div className="flex gap-x-4 items-center mt-2">
-          <span className="text-lg text-gray-800">${price}</span>
-          <span className="text-red-500 line-through text-sm">${discount}</span>
+        <strong>
+            ${(product.price * (existingProduct?.quantity || 1)).toFixed(2)}
+          </strong>
+          <strong className="text-red-500 line-through text-sm">
+            ${(product.discount * (existingProduct?.quantity || 1)).toFixed(2)}
+          </strong>
         </div>
         <div className="flex items-center gap-2">
           <p className="text-sm text-gray-600 md:hidden block">
