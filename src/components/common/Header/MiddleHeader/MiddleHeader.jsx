@@ -5,7 +5,6 @@ import {
   IoSearchSharp,
 } from "react-icons/io5";
 import UsersNavigation from "./UsersNavigation";
-import { FaHamburger } from "react-icons/fa";
 import logo from "../../../../assets/logo.png";
 import { Link, useLocation } from "react-router"; // Use useLocation from react-router-dom
 import { useState, useEffect, useRef } from "react";

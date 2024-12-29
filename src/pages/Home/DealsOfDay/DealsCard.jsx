@@ -1,9 +1,30 @@
 import { Link } from "react-router";
 import Countdown from "../../../components/shared/Countdown";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../redux/cartSlice/cartSlice";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 /* eslint-disable react/prop-types */
 export default function DealsCard({ deal }) {
+  const [success ,setSuccess] = useState(false);
   const { image, name, price, rating, discount, available } = deal;
+
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    if (deal) {
+      dispatch(addToCart(deal));
+      // toast
+      toast.success("Product added to cart!", {
+        position: "top-right",
+        style: {
+          background: "black",
+          color: "#fff",
+        },
+      });
+      setSuccess(true);
+    }
+  };
   return (
     <div className=" py-20 ">
       <div className=" mb-20  w-full">
@@ -36,9 +57,20 @@ export default function DealsCard({ deal }) {
               </span>
             </div>
 
-            <button className="w-full mt-4 py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">
+          {
+            success? (
+              <div className="flex border p-2  items-center justify-center mt-4 text-xl text-white bg-green rounded-lg">
+                Product added to cart!
+              </div>
+            ) : (
+              <button
+              onClick={handleClick}
+              className="w-full mt-4 py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200"
+            >
               Add to Cart
             </button>
+            )
+          }
           </div>
         </div>
       </div>
