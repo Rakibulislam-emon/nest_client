@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 
-import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 // import AddToCartButton from "../../Home/PopularProducts/Product/AddToCartButton";
 import QuantityControl from "../../Home/PopularProducts/Product/QuantityControl";
 import Countdown from "../../../components/shared/Countdown";
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../../../utils/cartSelectors";
 import { useEffect, useState } from "react";
+import useFavorite from "../../../hooks/useFavorite";
 
 export default function ProductInfo({ product }) {
   const [existingProduct, setExistingProduct] = useState(null);
@@ -42,6 +43,7 @@ export default function ProductInfo({ product }) {
       setExistingProduct(availableProduct);
     }
   }, [items, product]);
+  const { isFavorite, toggleFavorite } = useFavorite(product);
 
   return (
     <div className="container mx-auto py-8">
@@ -95,13 +97,27 @@ export default function ProductInfo({ product }) {
       </div>
 
       {/* Quantity and Favorite */}
-      <div className="mb-4 gap-x-2 md:gap-x-4 md:flex md:items-center md:justify-between w-full flex">
-        <p className="text-gray-600 mt-4 md:mt-0">Quantity:</p>
-        <QuantityControl className="w-full" product={product}/>
-        <button className="p-2 hover:bg-sky-600 hover:text-white shadow-lg duration-200 hover:rounded-lg mr-2 h-8 flex">
-          <FaRegHeart size={20} />
-        </button>
-      </div>
+      {/* Quantity and Favorite */}
+<div className="mb-4 gap-x-2 md:gap-x-4 md:flex md:items-center md:justify-between w-full flex">
+  {/* Quantity Label */}
+  <p className="text-gray-600 mt-4 md:mt-0">Quantity:</p>
+
+  {/* Quantity Control */}
+  <QuantityControl className="w-full" product={product} />
+
+  {/* Favorite Button */}
+  <button
+    className="p-2 flex items-center justify-center rounded-md shadow-md transition duration-200 hover:bg-sky-600 hover:text-white text-sky-600 border border-sky-600 h-8"
+    onClick={toggleFavorite} // Replace with your toggle function
+  >
+    {isFavorite ? (
+      <FaHeart size={20} className="text-pink-500" /> // Filled heart for favorite
+    ) : (
+      <FaRegHeart size={20} /> // Outline heart for not favorite
+    )}
+  </button>
+</div>
+
     </div>
   );
 }

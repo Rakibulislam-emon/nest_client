@@ -1,11 +1,19 @@
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { decreesQuantity, increaseQuantity, removeFromCart } from "../../redux/cartSlice/cartSlice";
+import {
+  decreesQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "../../redux/cartSlice/cartSlice";
 import { useEffect, useState } from "react";
 import { selectCartItems } from "../../utils/cartSelectors";
+import { Link } from "react-router";
+import useFavorite from "../../hooks/useFavorite";
 
 /* eslint-disable react/prop-types */
 const CartProductCard = ({ product }) => {
+  const { isFavorite, toggleFavorite } = useFavorite(product);
+
   const [existingProduct, setExistingProduct] = useState(null);
   const dispatch = useDispatch();
   const removeCart = (product) => {
@@ -22,11 +30,7 @@ const CartProductCard = ({ product }) => {
     }
   };
 
-
- 
-
   const items = useSelector(selectCartItems);
-
 
   // Set the existing product from the cart items
   useEffect(() => {
@@ -41,13 +45,13 @@ const CartProductCard = ({ product }) => {
     if (existingProduct) {
       dispatch(increaseQuantity(product._id));
       // toast
-        toast.success("Product added to cart!", {
-          position: "top-right",
-          style: {
-            background: 'black',
-            color: '#fff',
-          },
-        });
+      toast.success("Product added to cart!", {
+        position: "top-right",
+        style: {
+          background: "black",
+          color: "#fff",
+        },
+      });
     }
   };
 
@@ -56,26 +60,28 @@ const CartProductCard = ({ product }) => {
     if (existingProduct && existingProduct.quantity > 1) {
       dispatch(decreesQuantity(product._id));
       // toast
-        toast.error("Product removed from cart!", {
-          position: "top-right",
-          style: {
-            background: 'black',
-            color: '#fff',
-          }
-        });
+      toast.error("Product removed from cart!", {
+        position: "top-right",
+        style: {
+          background: "black",
+          color: "#fff",
+        },
+      });
     }
   };
 
   return (
     <div className="flex flex-col lg:flex-row items-start gap-4 w-full">
       {/* Image Section */}
-      <div className="w-full h-44 lg:w-auto lg:shrink-0 border">
-        <img
-          src={product.image}
-          className="w-full h-full lg:w-44 object-cover rounded-md"
-          alt={product.name}
-        />
-      </div>
+      <Link to={`/product/detail/${product._id}`}>
+        <div className="w-full h-44 lg:w-auto lg:shrink-0 border">
+          <img
+            src={product.image}
+            className="w-full h-full lg:w-44 object-cover rounded-md"
+            alt={product.name}
+          />
+        </div>
+      </Link>
 
       {/* Details Section */}
       <div className="flex-1">
@@ -92,16 +98,15 @@ const CartProductCard = ({ product }) => {
           </h6>
         </div>
 
-        {/* Buttons */}
         <div className="mt-4 flex flex-wrap gap-4">
           <button
             onClick={() => removeCart(product._id)}
             type="button"
-            className="font-semibold text-red-500 text-sm flex items-center gap-2"
+            className="font-semibold text-sm flex items-center gap-2 px-3 py-2 rounded-md transition duration-200 hover:bg-red-500 hover:text-white text-red-500 border border-red-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 fill-current inline"
+              className="w-4 h-4 fill-current"
               viewBox="0 0 24 24"
             >
               <path d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"></path>
@@ -109,18 +114,24 @@ const CartProductCard = ({ product }) => {
             </svg>
             Remove
           </button>
+
           <button
+            onClick={toggleFavorite} // Toggle favorite on click
             type="button"
-            className="font-semibold text-pink-500 text-sm flex items-center gap-2"
+            className={`font-semibold text-sm flex items-center gap-2 px-3 py-2 rounded-md transition duration-200 ${
+              isFavorite
+                ? "bg-pink-500 text-white"
+                : "bg-white text-pink-500 border border-pink-500"
+            }`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 fill-current inline"
+              className="w-4 h-4 fill-current"
               viewBox="0 0 64 64"
             >
               <path d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z"></path>
             </svg>
-            Move to wish list
+            {isFavorite ? "In Wish List" : "Move to Wish List"}
           </button>
         </div>
       </div>
@@ -141,7 +152,10 @@ const CartProductCard = ({ product }) => {
               <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z"></path>
             </svg>
           </button>
-          <span className="font-bold text-sm leading-[18px]"> {existingProduct?.quantity || 0}</span>
+          <span className="font-bold text-sm leading-[18px]">
+            {" "}
+            {existingProduct?.quantity || 0}
+          </span>
           <button
             onClick={increment}
             type="button"
@@ -158,20 +172,20 @@ const CartProductCard = ({ product }) => {
         </div>
 
         <div className="mt-4">
-        <p className="text-sm text-gray-800">
-          Price:{" "}
-          <strong>
-            ${(product.price * (existingProduct?.quantity || 1)).toFixed(2)}
-          </strong>
-        </p>
-        <p className="text-sm text-gray-800">
-          Discount:{" "}
-          <strong className="text-red-500 line-through text-sm">
-            ${(product.discount * (existingProduct?.quantity || 1)).toFixed(2)}
-          </strong>
-        </p>
-        
-      </div>
+          <p className="text-sm text-gray-800">
+            Price:{" "}
+            <strong>
+              ${(product.price * (existingProduct?.quantity || 1)).toFixed(2)}
+            </strong>
+          </p>
+          <p className="text-sm text-gray-800">
+            Discount:{" "}
+            <strong className="text-red-500 line-through text-sm">
+              $
+              {(product.discount * (existingProduct?.quantity || 1)).toFixed(2)}
+            </strong>
+          </p>
+        </div>
       </div>
     </div>
   );
