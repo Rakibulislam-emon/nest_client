@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const ShippingInfoForm = ({ shippingInfo, handleChange }) => {
+const ShippingInfoForm = ({ shippingInfo, handleChange ,user }) => {
     return (
       <div>
         <h2 className="text-xl font-bold text-gray-800">Shipping info</h2>
@@ -20,7 +20,7 @@ const ShippingInfoForm = ({ shippingInfo, handleChange }) => {
             required
               type="email"
               name="email"
-              value={shippingInfo.email}
+              value={user.email}
               onChange={handleChange}
               placeholder="Email address"
               className="px-2 pb-2 bg-white text-gray-800 w-full text-sm border-b focus:border-blue-600 outline-none"

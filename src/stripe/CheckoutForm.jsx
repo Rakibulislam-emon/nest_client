@@ -13,14 +13,14 @@ import { resetCart } from "../redux/cartSlice/cartSlice";
 import { useNavigate } from "react-router";
 
 const CheckoutForm = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const products = useSelector(selectCartItems);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [clientSecret, setClientSecret] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
@@ -59,67 +59,68 @@ const CheckoutForm = () => {
     }));
   };
 
- const handleSubmit = async (event) => {
-  event.preventDefault();
-  
-  setLoading(true); // Start loading when form submission begins
-  
-  if (!stripe || !elements) {
-    setLoading(false); // End loading if stripe or elements are not ready
-    return;
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const card = elements.getElement(CardElement);
-  if (card == null) {
-    setLoading(false); // End loading if card element is missing
-    return;
-  }
+    setLoading(true); // Start loading when form submission begins
 
-  // Create payment method
-  const { error, paymentMethod } = await stripe.createPaymentMethod({
-    type: "card",
-    card,
-  });
-
-  if (error) {
-    setLoading(false); // End loading on error
-    setMessage(error.message); // Set error message
-  } else {
-    toast.success("Payment Created", paymentMethod);
-  }
-
-  // Confirm the payment
-  const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-    payment_method: {
-      card: card,
-      billing_details: {
-        email: user?.email || "anonymous",
-        name: user?.displayName || "anonymous",
-      },
-    },
-  });
-
-  if (confirmError) {
-    setLoading(false); // End loading on error
-    setMessage(confirmError.message); // Set error message
-    toast.error(confirmError.message);
-  } else {
-    if (paymentIntent.status === "succeeded") {
-      toast.success(`Payment successful! Transaction ID: ${paymentIntent.id}`);
-      setPaymentSuccess(true);
-
-      dispatch(resetCart()); // Empty the cart after successful payment
-      navigate("/"); // Redirect to home page after successful payment
-    } else {
-      setLoading(false); // End loading if payment status is not succeeded
-      setMessage("Payment failed. Please try again later.");
+    if (!stripe || !elements) {
+      setLoading(false); // End loading if stripe or elements are not ready
+      return;
     }
-  }
 
-  setLoading(false); // End loading after everything is done
-};
+    const card = elements.getElement(CardElement);
+    if (card == null) {
+      setLoading(false); // End loading if card element is missing
+      return;
+    }
 
+    // Create payment method
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card,
+    });
 
+    if (error) {
+      setLoading(false); // End loading on error
+      // setMessage(error.message); // Set error message
+    } else {
+      toast.success("Payment Created", paymentMethod);
+    }
+
+    // Confirm the payment
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            email: user?.email || "anonymous",
+            name: user?.displayName || "anonymous",
+          },
+        },
+      });
+
+    if (confirmError) {
+      setLoading(false); // End loading on error
+      // setMessage(confirmError.message); // Set error message
+      // toast.error(confirmError.message);
+    } else {
+      if (paymentIntent.status === "succeeded") {
+        toast.success(
+          `Payment successful! Transaction ID: ${paymentIntent.id}`
+        );
+        setPaymentSuccess(true);
+
+        dispatch(resetCart()); // Empty the cart after successful payment
+        navigate("/"); // Redirect to home page after successful payment
+      } else {
+        setLoading(false); // End loading if payment status is not succeeded
+        // setMessage("Payment failed. Please try again later.");
+      }
+    }
+
+    setLoading(false); // End loading after everything is done
+  };
 
   return (
     <div className="font-[sans-serif] bg-white">
@@ -134,6 +135,7 @@ const CheckoutForm = () => {
 
             <form className="lg:mt-16" onSubmit={handleSubmit}>
               <ShippingInfoForm
+              user={user}
                 shippingInfo={shippingInfo}
                 handleChange={handleShippingInfoChange}
               />
@@ -144,8 +146,6 @@ const CheckoutForm = () => {
                 loading={loading}
                 totalPrice={totalPrice}
               />
-            
-             
             </form>
           </div>
           <OrderSummary products={products} totalPrice={totalPrice} />
@@ -156,13 +156,13 @@ const CheckoutForm = () => {
 };
 
 export default CheckoutForm;
-   // const amount = paymentIntent.amount;
-        // const convertedAmount = (amount / 100).toFixed(2);
-        // const paymentInfo = {
-        //   givenAmount: `${convertedAmount} $`,
-        //   paymentIntentId: paymentIntent.id,
-        //   userName: user?.displayName,
-        //   userEmail: user?.email,
-        //   userImage: user?.photoURL,
-        // };
-        // console.log(paymentInfo);
+// const amount = paymentIntent.amount;
+// const convertedAmount = (amount / 100).toFixed(2);
+// const paymentInfo = {
+//   givenAmount: `${convertedAmount} $`,
+//   paymentIntentId: paymentIntent.id,
+//   userName: user?.displayName,
+//   userEmail: user?.email,
+//   userImage: user?.photoURL,
+// };
+// console.log(paymentInfo);
