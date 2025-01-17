@@ -20,7 +20,7 @@ const ShippingInfoForm = ({ shippingInfo, handleChange ,user }) => {
             required
               type="email"
               name="email"
-              value={user.email}
+              value={user?.email  ? user.email : shippingInfo.email}
               onChange={handleChange}
               placeholder="Email address"
               className="px-2 pb-2 bg-white text-gray-800 w-full text-sm border-b focus:border-blue-600 outline-none"
