@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { FiShoppingCart } from "react-icons/fi";
+// import { FiShoppingCart } from "react-icons/fi";
 import { LuEye } from "react-icons/lu";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useDispatch,  } from "react-redux";
@@ -29,12 +29,12 @@ function SideBar({ product }) {
 
   return (
     <div className="absolute right-2 bottom-0 border flex flex-col text-2xl border-borderColor bg-white rounded-md overflow-hidden transform translate-x-20 group-hover:translate-x-0 duration-300 z-40">
-      <button
-        onClick={addCart}
+      {/* <button
+        // onClick={addCart}
         className="p-2 hover:bg-sky-600 hover:text-white duration-200"
       >
         <FiShoppingCart />
-      </button>
+      </button> */}
       <Link to={`/product/detail/${product._id}`}>
         <button className="p-2 hover:bg-sky-600 hover:text-white border-y border-y-borderColor duration-200">
           <LuEye />

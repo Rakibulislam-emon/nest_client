@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+import { Link } from "react-router";
+
 const OrderSummary = ({ subtotal, shipping, tax, total }) => {
     return (
       <div className="shadow-md p-6 lg:sticky lg:top-0 h-max">
@@ -18,12 +21,14 @@ const OrderSummary = ({ subtotal, shipping, tax, total }) => {
           </li>
         </ul>
   
-        <button
-          type="button"
-          className="mt-4 text-sm px-5 py-2.5 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md"
-        >
-          Make Payment
-        </button>
+        <Link to={'/checkout'}>
+          <button
+            type="button"
+            className="mt-4 text-sm px-5 py-2.5 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+          >
+            Make Payment
+          </button>
+        </Link>
       </div>
     );
   };

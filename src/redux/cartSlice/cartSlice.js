@@ -18,11 +18,21 @@ export const cartSlice = createSlice({
       } else {
         state.cart.push({ ...action.payload, quantity: 1 });
       }
+       // Calculate the total price after updating the cart
+       state.totalPrice = state.cart.reduce(
+        (acc, product) => acc + product.price * product.quantity,
+        0
+      );
     },
     // remove from cart
     removeFromCart: (state, action) => {
       state.cart = state.cart.filter(
         (product) => product._id !== action.payload
+      );
+       // Calculate the total price after updating the cart
+       state.totalPrice = state.cart.reduce(
+        (acc, product) => acc + product.price * product.quantity,
+        0
       );
     },
 
@@ -33,6 +43,11 @@ export const cartSlice = createSlice({
       if (existingProduct) {
         existingProduct.quantity++;
       }
+       // Calculate the total price after updating the cart
+       state.totalPrice = state.cart.reduce(
+        (acc, product) => acc + product.price * product.quantity,
+        0
+      );
     },
     decreesQuantity: (state, action) => {
       const existingProduct = state.cart.find(
@@ -41,6 +56,11 @@ export const cartSlice = createSlice({
       if (existingProduct && existingProduct.quantity) {
         existingProduct.quantity -= 1;
       }
+       // Calculate the total price after updating the cart
+       state.totalPrice = state.cart.reduce(
+        (acc, product) => acc + product.price * product.quantity,
+        0
+      );
     },
     addToFavorite: (state, action) => {
       // Ensure state.favorite is an array
@@ -63,6 +83,11 @@ export const cartSlice = createSlice({
         state.favorite.push(action.payload);
       }
     },
+    resetCart: (state) => {
+      state.cart = [];
+      state.totalPrice = 0;
+    },
+    
   },
 });
 
@@ -73,6 +98,7 @@ export const {
   addToFavorite,
   removeFromFavorite,
   removeFromCart,
+  resetCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

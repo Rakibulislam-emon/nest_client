@@ -1,6 +1,12 @@
 import { toast } from "react-hot-toast";
 
-export const handleRegister = async (e, userType, axios, navigate) => {
+export const handleRegister = async (
+  e,
+  userType,
+  axios,
+  navigate,
+  createUser
+) => {
   e.preventDefault();
   const form = e.target;
 
@@ -18,11 +24,20 @@ export const handleRegister = async (e, userType, axios, navigate) => {
   };
 
   try {
-    const res = await axios.post("/api/registration", { registerInfos });
-    if (res.status === 201) {
-      localStorage.setItem("token", res.data.token);
-      toast.success("Registration successful");
-      navigate("/"); // Redirect to homepage or wherever you want
+    const userCredential = await createUser(email, password);
+
+    if (userCredential) {
+      
+
+      // User creation was successful, proceed with registration
+      const res = await axios.post("/api/register", registerInfos);
+      if (res.status === 201) {
+        toast.success("Registration successful!");
+      } else {
+        toast.error("Registration failed.");
+      }
+    } else {
+      toast.error("User creation failed.");
     }
   } catch (error) {
     toast.error("Error occurred during registration.");

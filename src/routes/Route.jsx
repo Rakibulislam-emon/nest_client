@@ -5,6 +5,7 @@ import ProductDetailsPage from "../pages/ProductDetails/ProductDetailsPage";
 import ShopPage from "../pages/Shop/ShopPage";
 import MyAccount from "../authentication/MyAccount";
 import Cart from "../pages/Cart/Cart";
+import CheckoutForm from "../stripe/CheckoutForm";
 
 export const route = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const route = createBrowserRouter([
         path:'/cart',
         element: <Cart/>
       },
+      {
+        path:'/checkout',
+        element:<CheckoutForm/>
+      }
     ],
   },
 ]);

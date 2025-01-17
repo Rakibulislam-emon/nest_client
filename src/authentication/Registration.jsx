@@ -2,9 +2,11 @@ import { useState } from 'react';
 import useAxios from '../hooks/useAxios';
 import { useNavigate } from 'react-router';
 import { handleRegister } from '../utils/Registration';
+import useAuth from '../hooks/useAuth';
 
 export default function Registration() {
   const axios = useAxios();
+  const {createUser,} = useAuth()
   const [userType] = useState('customer'); // No need to toggle, it's always 'customer'
   const navigate = useNavigate();
 
@@ -20,7 +22,7 @@ export default function Registration() {
       {/* Registration Form */}
       <div className="py-8">
         <form
-          onSubmit={(e) => handleRegister(e, userType, axios, navigate)}
+          onSubmit={(e) => handleRegister(e, userType, axios, navigate, createUser,)}
           className="space-y-6"
         >
           {/* Common fields */}

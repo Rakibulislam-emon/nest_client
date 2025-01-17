@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router";
 import useAxios from "../hooks/useAxios";
 import { handleLogin } from "../utils/Login";
+import useAuth from "../hooks/useAuth";
 
 export default function Login() {
   const axios = useAxios(); // Custom hook to get Axios instance
   const navigate = useNavigate(); // React Router's navigate
-
+  const { signIn } = useAuth();
   return (
     <div className="p-8 mx-auto max-w-lg lg:max-w-xl">
       {/* Header Section */}
@@ -19,9 +20,7 @@ export default function Login() {
       {/* Form Section */}
       <div className="py-8">
         <form
-          onSubmit={(e) =>
-            handleLogin({ event: e, axios, navigate })
-          }
+          onSubmit={(e) => handleLogin({ event: e, axios, navigate, signIn })}
           className="space-y-6"
         >
           {/* Email Input */}
