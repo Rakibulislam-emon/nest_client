@@ -102,7 +102,6 @@ const PaymentMethodForm = ({ loading, totalPrice,stripe,clientSecret, paymentSuc
         <button
           type="submit"
           disabled={paymentSuccess || !stripe || loading || clientSecret}
-
           className={`min-w-[150px] px-6 py-3.5 text-sm text-white rounded-lg ${
             loading ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"
           }`}

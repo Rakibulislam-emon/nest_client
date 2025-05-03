@@ -8,7 +8,8 @@ import ShippingInfoForm from "./ShippingInfoForm";
 import PaymentMethodForm from "./PaymentMethodForm";
 import OrderSummary from "./OrderSummary";
 // import useAxios from "../hooks/useAxios";
-import useAuth from "../hooks/useAuth";
+
+import { useUser } from "@clerk/clerk-react";
 import { resetCart } from "../redux/cartSlice/cartSlice";
 import { useNavigate } from "react-router";
 
@@ -23,8 +24,11 @@ const CheckoutForm = () => {
   const dispatch = useDispatch();
   const [clientSecret, setClientSecret] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const { user } = useUser();
+  const email = user.emailAddresses[0].emailAddress;
+  console.log('email:', email)
 
-  const { user } = useAuth();
+
   useEffect(() => {
     if (totalPrice > 0) {
       axios
@@ -94,8 +98,8 @@ const CheckoutForm = () => {
         payment_method: {
           card: card,
           billing_details: {
-            email: user?.email || "anonymous",
-            name: user?.displayName || "anonymous",
+            email: email || "anonymous",
+            name: user?.fullName || "anonymous",
           },
         },
       });
@@ -135,7 +139,7 @@ const CheckoutForm = () => {
 
             <form className="lg:mt-16" onSubmit={handleSubmit}>
               <ShippingInfoForm
-              user={user}
+                user={user}
                 shippingInfo={shippingInfo}
                 handleChange={handleShippingInfoChange}
               />

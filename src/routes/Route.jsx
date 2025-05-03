@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import Main from "../layout/Main";
 import Home from "../pages/Home/Home";
 import ProductDetailsPage from "../pages/ProductDetails/ProductDetailsPage";
 import ShopPage from "../pages/Shop/ShopPage";
-import MyAccount from "../authentication/MyAccount";
 import Cart from "../pages/Cart/Cart";
 import CheckoutForm from "../stripe/CheckoutForm";
 
@@ -23,16 +23,21 @@ export const route = createBrowserRouter([
           ),
       },
       {
-        path:'/authentications',
-        element: <MyAccount/>
+        path: "/cart",
+        element: <Cart />
       },
       {
-        path:'/cart',
-        element: <Cart/>
-      },
-      {
-        path:'/checkout',
-        element:<CheckoutForm/>
+        path: "/checkout",
+        element: (
+          <>
+            <SignedIn>
+              <CheckoutForm />
+            </SignedIn>
+            <SignedOut>
+              <RedirectToSignIn />
+            </SignedOut>
+          </>
+        )
       }
     ],
   },
