@@ -6,6 +6,7 @@ import ProductDetailsPage from "../pages/ProductDetails/ProductDetailsPage";
 import ShopPage from "../pages/Shop/ShopPage";
 import Cart from "../pages/Cart/Cart";
 import CheckoutForm from "../stripe/CheckoutForm";
+import About from "../pages/About/About";
 
 export const route = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ export const route = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/shop", element: <ShopPage /> },
+      { path: "/about", element: <About /> },
       {
         path: "/product/detail/:id",
         element: <ProductDetailsPage />,
