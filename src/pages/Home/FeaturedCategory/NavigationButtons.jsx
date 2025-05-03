@@ -1,6 +1,7 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { forwardRef } from "react";
 
+// eslint-disable-next-line react/prop-types
 const FeaturedNavigationButtons = forwardRef(({ prevRef, nextRef, toggleViewAll }, ref) => {
   return (
   <div className=" flex justify-end mt-4 ">
