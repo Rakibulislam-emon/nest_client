@@ -21,67 +21,98 @@ const PriceRangeFilter = ({ minPrice, maxPrice, setMinPrice, setMaxPrice }) => {
   };
 
   return (
-    <div className="p-4 mb-4  ">
-      <h2 className="text-lg font-bold mb-4">Price Range</h2>
-      <div className="flex items-center justify-between m-4 space-x-4">
-        <div className="flex flex-col items-center">
+    <div className="group/section">
+      <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-[0.15em] font-sans mb-8">
+        Price Range
+      </h3>
+
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="space-y-2">
           <label
             htmlFor="min-price"
-            className="text-sm font-medium text-gray-500"
+            className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider ml-1"
           >
             Min Price
           </label>
-          <input
-            id="min-price"
-            type="number"
-            value={minPrice}
-            onChange={(e) => handleInputChange("min", e.target.value)}
-            className="w-24 p-2 text-center border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
+          <div className="relative">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 text-sm font-bold">
+              $
+            </span>
+            <input
+              id="min-price"
+              type="number"
+              value={minPrice}
+              onChange={(e) => handleInputChange("min", e.target.value)}
+              className="w-full pl-8 pr-4 py-3 bg-neutral-50 border border-neutral-100 rounded-xl text-sm font-bold text-neutral-700 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-50 outline-none transition-all shadow-inner-soft"
+            />
+          </div>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="space-y-2">
           <label
             htmlFor="max-price"
-            className="text-sm font-medium text-gray-500"
+            className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider ml-1"
           >
             Max Price
           </label>
-          <input
-            id="max-price"
-            type="number"
-            value={maxPrice}
-            onChange={(e) => handleInputChange("max", e.target.value)}
-            className="w-24 p-2 text-center border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
+          <div className="relative">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 text-sm font-bold">
+              $
+            </span>
+            <input
+              id="max-price"
+              type="number"
+              value={maxPrice}
+              onChange={(e) => handleInputChange("max", e.target.value)}
+              className="w-full pl-8 pr-4 py-3 bg-neutral-50 border border-neutral-100 rounded-xl text-sm font-bold text-neutral-700 focus:bg-white focus:border-primary-500 focus:ring-4 focus:ring-primary-50 outline-none transition-all shadow-inner-soft"
+            />
+          </div>
         </div>
       </div>
-      <Slider
-        range
-        min={0}
-        max={50}
-        step={1}
-        value={[minPrice, maxPrice]}
-        onChange={([min, max]) => {
-          setMinPrice(min);
-          setMaxPrice(max);
-        }}
-        railStyle={{ backgroundColor: "#e5e7eb", height: 6 }}
-        trackStyle={[{ backgroundColor: "#4CAF50", height: 6 }]}
-        handleStyle={[
-          {
-            borderColor: "#4CAF50",
-            backgroundColor: "#fff",
-            height: 20,
-            width: 20,
-          },
-          {
-            borderColor: "#4CAF50",
-            backgroundColor: "#fff",
-            height: 20,
-            width: 20,
-          },
-        ]}
-      />
+      <div className="px-2">
+        <Slider
+          range
+          min={0}
+          max={50}
+          step={1}
+          value={[minPrice, maxPrice]}
+          onChange={([min, max]) => {
+            setMinPrice(min);
+            setMaxPrice(max);
+          }}
+          railStyle={{ backgroundColor: "#f3f4f6", height: 8, borderRadius: 4 }}
+          trackStyle={[
+            {
+              backgroundColor: "var(--primary-600)",
+              height: 8,
+              borderRadius: 4,
+            },
+          ]}
+          handleStyle={[
+            {
+              borderColor: "var(--primary-600)",
+              backgroundColor: "#fff",
+              height: 24,
+              width: 24,
+              marginTop: -8,
+              opacity: 1,
+              boxShadow:
+                "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+              borderWidth: 3,
+            },
+            {
+              borderColor: "var(--primary-600)",
+              backgroundColor: "#fff",
+              height: 24,
+              width: 24,
+              marginTop: -8,
+              opacity: 1,
+              boxShadow:
+                "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+              borderWidth: 3,
+            },
+          ]}
+        />
+      </div>
     </div>
   );
 };

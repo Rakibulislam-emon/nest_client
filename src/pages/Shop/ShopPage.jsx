@@ -23,12 +23,18 @@ export default function ShopPage() {
     <>
       {/* slider */}
       <ShopCarousels />
-      <div className="md:flex gap-x-10">
-        <div className="hidden md:block">
-          <FilterShopPage />
+
+      <main className="container mx-auto px-4 sm:px-8 lg:px-12 py-16 lg:py-24">
+        <div className="md:flex gap-x-12 items-start">
+          <aside className="hidden md:block w-72 lg:w-80 flex-shrink-0">
+            <FilterShopPage />
+          </aside>
+
+          <div className="flex-1 min-w-0">
+            <ProductPage />
+          </div>
         </div>
-        <ProductPage />
-      </div>
+      </main>
       <ScrollToTopButton />
     </>
   );

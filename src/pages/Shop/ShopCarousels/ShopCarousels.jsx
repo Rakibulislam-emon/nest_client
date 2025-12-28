@@ -5,64 +5,64 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { useFeaturedCategory } from "../../../hooks/useFeaturedCategory";
-import Container from "../../../components/shared/Container";
 import { useFilter } from "../../../context/FilterContext";
 
 const ShopCarousels = () => {
   const { data } = useFeaturedCategory();
-  const { setSelectedCategory } = useFilter();
+  const { setSelectedCategories } = useFilter();
 
   return (
-    <Container className={"bg-[#f7f7f7] md:h-[300px] rounded-lg md:my-8"}>
-      <h2 className="md:text-4xl   font-semibold text-center p-4">
-        All Products
-      </h2>
+    <div className="container mx-auto px-4 md:my-10">
+      <div className="mb-8 flex flex-col items-center">
+        <h2 className="text-3xl md:text-5xl font-bold font-heading text-neutral-900 mb-2">
+          Shop by <span className="text-primary-600">Category</span>
+        </h2>
+        <div className="w-20 h-1.5 bg-primary-600 rounded-full"></div>
+      </div>
+
       <Swiper
-        spaceBetween={0}
-        // loop={true} // Enable looping for infinite swiping
+        spaceBetween={20}
         modules={[Pagination, Navigation]}
         breakpoints={{
-          375: { slidesPerView: 2, spaceBetween: 20 },
-          768: { slidesPerView: 4, spaceBetween: 20 },
-          1024: { slidesPerView: 4, spaceBetween: 30 },
-          1280: { slidesPerView: 8, spaceBetween: 40 },
+          320: { slidesPerView: 2, spaceBetween: 15 },
+          640: { slidesPerView: 3, spaceBetween: 20 },
+          768: { slidesPerView: 4, spaceBetween: 25 },
+          1024: { slidesPerView: 6, spaceBetween: 30 },
+          1280: { slidesPerView: 8, spaceBetween: 30 },
         }}
-        className="mySwiper  md:max-w-6xl "
+        className="pb-12"
       >
         {data?.map((category, idx) => {
-          return (
-            <SwiperSlide
-              key={idx}
-              className="flex   rounded-lg  flex-col pb-4  items-center "
-            >
-              {/* Display the category name */}
+          // Flatten product images to get category representations
+          const categoryImage = category.products[0]?.image;
 
-              {/* Iterate over each product in the current category */}
-              {category.products.map((product) => (
-                <div
-                  // onclick set category
-                  onClick={() => setSelectedCategory(product.category)}
-                  key={product._id}
-                  className="flex h-60 group cursor-pointer  rounded-full flex-col items-center mt-4  "
-                >
-                  <img
-                    src={product.image} // Access product's image
-                    alt={product.name} // Access product's name as alt text
-                    className="w-28 h-28 group-hover:border-2 group-hover:border-green rounded-full p-2 object-cover mix-blend-multiply"
-                  />
-                  <h2 className="text-sm font-semibold">
-                    {/* {product?.category?.length} */}
-                  </h2>
-                  <p className="text-center mt-2 text-sm font-medium">
-                    {product.category}
-                  </p>
+          return (
+            <SwiperSlide key={idx}>
+              <button
+                onClick={() => setSelectedCategories([category.category])}
+                className="w-full group focus:outline-none"
+              >
+                <div className="flex flex-col items-center p-4 rounded-2xl bg-white border border-neutral-100 shadow-soft hover:shadow-premium hover:-translate-y-2 transition-all duration-500 active:scale-95 bg-gradient-to-br from-white to-neutral-50/50">
+                  <div className="w-20 h-20 md:w-24 md:h-24 mb-4 rounded-full bg-primary-50/50 p-2 overflow-hidden flex items-center justify-center group-hover:bg-primary-100/50 transition-colors">
+                    <img
+                      src={categoryImage}
+                      alt={category.category}
+                      className="w-full h-full object-contain mix-blend-multiply transform transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+                  <h3 className="text-sm font-bold text-neutral-800 tracking-tight group-hover:text-primary-600 transition-colors capitalize">
+                    {category.category}
+                  </h3>
+                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mt-1">
+                    {category.products.length} Items
+                  </span>
                 </div>
-              ))}
+              </button>
             </SwiperSlide>
           );
         })}
       </Swiper>
-    </Container>
+    </div>
   );
 };
 

@@ -6,10 +6,10 @@ import Badge from "../../../components/common/Badge";
 export default function PeoplesSearches() {
   const { data } = useFeaturedCategory();
   const navigation = useNavigate();
-  const { setSelectedCategory } = useFilter();
+  const { setSelectedCategories } = useFilter();
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategories([category]);
     navigation("/shop");
   };
 

@@ -10,10 +10,10 @@ import { useNavigate } from "react-router";
 
 const SwiperView = ({ data, prevRef, nextRef }) => {
   const navigation = useNavigate();
-  const { setSelectedCategory } = useFilter();
+  const { setSelectedCategories } = useFilter();
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategories([category]);
     navigation("/shop");
   };
 

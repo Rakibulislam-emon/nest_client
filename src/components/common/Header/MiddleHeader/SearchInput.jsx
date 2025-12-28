@@ -82,7 +82,7 @@ function SearchInput({ className }) {
         <IoSearchSharp className="text-xl" />
       </span>
       {Array.isArray(suggestions) && suggestions.length > 0 && (
-        <ul className="absolute top-full left-0 w-full bg-white border border-neutral-100 z-10 max-h-60 overflow-y-auto rounded-lg shadow-medium mt-1 animate-fade-in">
+        <ul className="absolute top-full left-0 w-full bg-white border border-neutral-100 z-[100] max-h-60 overflow-y-auto rounded-lg shadow-medium mt-1 animate-fade-in">
           {isLoading ? (
             <li className="p-3 text-neutral-500 text-sm text-center">
               Loading...

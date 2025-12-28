@@ -40,7 +40,7 @@ export default function UsersNavigation() {
           </span>
         </Link>
       </div>
-      <div className="text-2xl relative cursor-pointer group">
+      <div className="text-2xl relative cursor-pointer group mr-2">
         {isSignedIn ? (
           <UserButton afterSignOutUrl="/" />
         ) : (

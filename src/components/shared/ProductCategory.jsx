@@ -5,10 +5,10 @@ import { useFeaturedCategory } from "../../hooks/useFeaturedCategory";
 import { twMerge } from "tailwind-merge";
 export default function ProductCategory({ className }) {
   const { data } = useFeaturedCategory();
-  const { setSelectedCategory } = useFilter();
+  const { setSelectedCategories } = useFilter();
   const navigate = useNavigate();
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategories([category]);
     navigate("/shop");
   };
   return (
@@ -28,9 +28,7 @@ export default function ProductCategory({ className }) {
                 key={category.category} // Assuming each category has a unique 'id'
                 className={`flex cursor-pointer  items-center border  p-3 rounded-lg `}
               >
-                <span
-                
-                className="ml-2 font-medium  text-gray-800">
+                <span className="ml-2 font-medium  text-gray-800">
                   {category.category} {/* Category name dynamically */}
                 </span>
               </div>

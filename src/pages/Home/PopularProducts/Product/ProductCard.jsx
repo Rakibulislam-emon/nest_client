@@ -12,8 +12,8 @@ import Badge from "../../../../components/common/Badge";
 
 export default function ProductCard({ product }) {
   const [existingProduct, setExistingProduct] = useState(null);
-  const { setSelectedCategory } = useFilter();
-  const { _id, name, category, image, rating, discount, exp, price } = product;
+  const { setSelectedCategories } = useFilter();
+  const { _id, name, category, image, rating, discount, price } = product;
 
   // Favorite Logic
   const { isFavorite, toggleFavorite } = useFavorite(product);
@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
   };
 
   const handleSetCategory = () => {
-    setSelectedCategory(category);
+    setSelectedCategories([category]);
   };
 
   const items = useSelector(selectCartItems);
