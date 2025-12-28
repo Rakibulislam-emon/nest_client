@@ -2,32 +2,36 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { forwardRef } from "react";
 
 // eslint-disable-next-line react/prop-types
-const FeaturedNavigationButtons = forwardRef(({ prevRef, nextRef, toggleViewAll }, ref) => {
-  return (
-  <div className=" flex justify-end mt-4 ">
-      <div className="flex gap-x-2 items-center ">
+const FeaturedNavigationButtons = forwardRef(
+  ({ prevRef, nextRef, toggleViewAll }, ref) => {
+    return (
+      <div className="flex gap-4 mt-4 md:mt-0">
         <button
           onClick={toggleViewAll}
-          className="border mr-2 px-4 py-2 text-white bg-[#6bb252] hover:bg-[#ffc107] rounded-lg font-semibold"
+          className="px-5 py-2 text-sm font-semibold text-neutral-700 bg-white border border-neutral-200 hover:border-primary-500 hover:text-primary-600 rounded-lg shadow-sm transition-all duration-200"
         >
           View All
         </button>
-        <button
-          ref={prevRef}
-          className="text-gray-500 hover:text-black bg-[#eaeaea] hover:bg-[#6bb252] rounded-lg"
-        >
-          <FaAngleLeft size={40} />
-        </button>
-        <button
-          ref={nextRef}
-          className="text-gray-500 hover:text-black bg-[#eaeaea] hover:bg-[#6bb252] rounded-lg"
-        >
-          <FaAngleRight size={40} />
-        </button>
+        <div className="flex gap-2">
+          <button
+            ref={prevRef}
+            className="p-2 text-neutral-500 bg-neutral-100 hover:bg-primary-500 hover:text-white rounded-full transition-all duration-300 disabled:opacity-50"
+            aria-label="Previous"
+          >
+            <FaAngleLeft size={20} />
+          </button>
+          <button
+            ref={nextRef}
+            className="p-2 text-neutral-500 bg-neutral-100 hover:bg-primary-500 hover:text-white rounded-full transition-all duration-300 disabled:opacity-50"
+            aria-label="Next"
+          >
+            <FaAngleRight size={20} />
+          </button>
+        </div>
       </div>
-  </div>
-  );
-});
+    );
+  }
+);
 
 // Add a display name for debugging purposes
 FeaturedNavigationButtons.displayName = "FeaturedNavigationButtons";

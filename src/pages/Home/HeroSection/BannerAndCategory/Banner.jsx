@@ -1,26 +1,36 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router";
+import Button from "../../../../components/common/Button";
+import { HiArrowRight, HiArrowLeft } from "react-icons/hi2";
+import { BsFire } from "react-icons/bs";
+
 export const Banner = () => {
   const [currentSlider, setCurrentSlider] = useState(0);
 
   const carouselData = [
     {
       image: "https://i.ibb.co/5G57SXd/img2.webp",
-      offerTitle: "Organic Products",
-      offerDescription: "Discover a wide range of organic grocery items.",
-      buttonText: "Explore",
+      offerTitle: "Fresh & Organic",
+      offerDescription:
+        "Experience the true taste of nature with our certified organic collection.",
+      buttonText: "Shop Collection",
+      color: "from-green-600/90 to-black/30",
     },
     {
       image: "https://i.ibb.co/T8nggpB/img3.jpg",
-      offerTitle: "Limited Time Discounts",
-      offerDescription: "Save up to 50% on your favorite grocery items.",
-      buttonText: "Grab Now",
+      offerTitle: "Flash Sale Alert",
+      offerDescription:
+        "Up to 50% off on premium pantry staples. Limited time offer.",
+      buttonText: "Grab Deal",
+      color: "from-amber-600/90 to-black/30",
     },
     {
       image: "https://i.ibb.co/sHXZV4C/img4.jpg",
-      offerTitle: "Weekly Deals",
-      offerDescription: "Exclusive deals on pantry staples and more.",
-      buttonText: "Check Deals",
+      offerTitle: "Weekly Essentials",
+      offerDescription:
+        "Stock up on your daily needs with our exclusive bundle offers.",
+      buttonText: "View Offers",
+      color: "from-blue-600/90 to-black/30",
     },
   ];
 
@@ -39,77 +49,85 @@ export const Banner = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       nextSlider();
-    }, 3000);
+    }, 5000); // Increased to 5s for better readability
     return () => clearInterval(intervalId);
   }, [nextSlider]);
 
   return (
-    <div className="h-60 w-full md:h-[470px] lg:h-[540px] relative overflow-hidden rounded-lg ">
+    <div className="h-64 w-full md:h-[480px] lg:h-[550px] relative overflow-hidden rounded-2xl shadow-premium group">
       {/* Arrow Left */}
       <button
         onClick={prevSlider}
-        className="absolute top-1/2 left-3 z-50 flex justify-center items-center bg-white rounded-full w-6 h-6 md:w-8 md:h-8"
+        className="absolute top-1/2 left-4 z-20 flex justify-center items-center bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-neutral-900 rounded-full w-10 h-10 md:w-12 md:h-12 transition-all duration-300 -translate-x-20 group-hover:translate-x-0"
+        aria-label="Previous Slide"
       >
-        <svg
-          className="icon h-4 w-4 fill-black/50 md:h-6 md:w-6"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M685.248 104.704a64 64 0 010 90.496L368.448 512l316.8 316.8a64 64 0 01-90.496 90.496L232.704 557.248a64 64 0 010-90.496l362.048-362.048a64 64 0 0190.496 0z"></path>
-        </svg>
+        <HiArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
       </button>
+
       {/* Arrow Right */}
       <button
         onClick={nextSlider}
-        className="absolute top-1/2 z-50 right-3  flex justify-center items-center bg-white rounded-full w-6 h-6 md:w-8 md:h-8"
+        className="absolute top-1/2 right-4 z-20 flex justify-center items-center bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-neutral-900 rounded-full w-10 h-10 md:w-12 md:h-12 transition-all duration-300 translate-x-20 group-hover:translate-x-0"
+        aria-label="Next Slide"
       >
-        <svg
-          className="icon h-4 w-4 fill-black/50 md:h-6 md:w-6"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-          transform="rotate(180)"
-        >
-          <path d="M685.248 104.704a64 64 0 010 90.496L368.448 512l316.8 316.8a64 64 0 01-90.496 90.496L232.704 557.248a64 64 0 010-90.496l362.048-362.048a64 64 0 0190.496 0z"></path>
-        </svg>
+        <HiArrowRight className="w-5 h-5 md:w-6 md:h-6" />
       </button>
+
       {/* Dots */}
-      <div className="flex justify-center items-center rounded-full z-50 absolute bottom-4 w-full gap-1">
+      <div className="flex justify-center items-center gap-2 z-20 absolute bottom-6 w-full">
         {carouselData.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentSlider(idx)}
-            className={`rounded-full duration-500 bg-white ${
-              currentSlider === idx ? "w-8" : "w-2"
-            } h-2`}
+            className={`rounded-full transition-all duration-500 h-2 md:h-2.5 shadow-sm ${
+              currentSlider === idx
+                ? "w-8 bg-white"
+                : "w-2.5 bg-white/50 hover:bg-white/80"
+            }`}
+            aria-label={`Go to slide ${idx + 1}`}
           ></button>
         ))}
       </div>
+
       {/* Carousel Container */}
       <div
-        className="ease-linear duration-500 flex transform-gpu"
+        className="flex h-full transition-transform duration-700 ease-out"
         style={{ transform: `translateX(-${currentSlider * 100}%)` }}
       >
         {carouselData.map((slide, idx) => (
-          <div
-            key={idx}
-            className="relative min-w-full h-60 sm:h-96 md:h-[540px]"
-          >
+          <div key={idx} className="relative min-w-full h-full">
             <img
               src={slide.image}
-              alt={`Slider - ${idx + 1}`}
-              className="w-full h-full object-cover rounded-lg shadow-lg"
+              alt={slide.offerTitle}
+              className="w-full h-full object-cover"
             />
-            {/* Overlay with Content */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/30 flex flex-col justify-center items-center text-center text-white p-4 rounded-lg shadow-lg">
-              <h2 className="text-xl md:text-4xl font-extrabold tracking-wide leading-tight drop-shadow-lg">
-                {slide.offerTitle}
-              </h2>
-              <p className="mt-2 text-sm md:text-lg text-gray-200 tracking-wide">
-                {slide.offerDescription}
-              </p>
-              <Link to={'/shop'} className="mt-4 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-sm md:text-base   rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                {slide.buttonText}
-              </Link>
+            {/* Overlay */}
+            <div
+              className={`absolute inset-0 bg-gradient-to-r ${slide.color} via-black/40 to-transparent flex flex-col justify-center items-start text-white p-8 md:p-16 lg:p-24`}
+            >
+              <div className="animate-slide-up space-y-4 max-w-xl">
+                <div className="flex items-center gap-2 text-warning-400 font-bold tracking-wider text-xs md:text-sm uppercase bg-white/10 w-fit px-3 py-1 rounded-full backdrop-blur-sm border border-white/10">
+                  <BsFire /> Trending Now
+                </div>
+                <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight drop-shadow-lg font-heading">
+                  {slide.offerTitle}
+                </h2>
+                <p className="text-lg md:text-xl text-neutral-100 font-medium opacity-95 leading-relaxed drop-shadow-md max-w-lg">
+                  {slide.offerDescription}
+                </p>
+                <div className="pt-4">
+                  <Link to="/shop">
+                    <Button
+                      size="lg"
+                      variant="primary"
+                      rightIcon={<HiArrowRight />}
+                      className="shadow-glow hover:scale-105"
+                    >
+                      {slide.buttonText}
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         ))}
