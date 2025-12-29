@@ -11,6 +11,8 @@ import Blog from "../pages/Blog/Blog";
 import BlogDetail from "../pages/Blog/BlogDetail";
 import CategoryPage from "../pages/Blog/CategoryPage";
 import Contact from "../pages/Contact/Contact";
+import OrderSuccess from "../pages/Checkout/OrderSuccess";
+import Wishlist from "../pages/Wishlist/Wishlist";
 
 export const route = createBrowserRouter([
   {
@@ -24,6 +26,7 @@ export const route = createBrowserRouter([
       { path: "/blog/:id", element: <BlogDetail /> },
       { path: "/blog/category/:category", element: <CategoryPage /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/order-success", element: <OrderSuccess /> },
       {
         path: "/product/detail/:id",
         element: <ProductDetailsPage />,
@@ -34,7 +37,11 @@ export const route = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart />
+        element: <Cart />,
+      },
+      {
+        path: "/wishlist",
+        element: <Wishlist />,
       },
       {
         path: "/checkout",
@@ -47,8 +54,8 @@ export const route = createBrowserRouter([
               <RedirectToSignIn />
             </SignedOut>
           </>
-        )
-      }
+        ),
+      },
     ],
   },
 ]);

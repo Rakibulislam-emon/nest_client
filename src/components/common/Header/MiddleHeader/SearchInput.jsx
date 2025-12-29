@@ -78,21 +78,25 @@ function SearchInput({ className }) {
           className="text-xl absolute top-2.5 right-12 text-neutral-400 hover:text-red-500 cursor-pointer duration-fast transition-colors"
         />
       )}
-      <span className="w-10 h-10 inline-flex items-center justify-center absolute top-0 right-0 bg-primary-500 text-white rounded-r-lg hover:bg-primary-600 transition-colors duration-fast cursor-pointer shadow-sm">
+      <button
+        aria-label="Submit Search"
+        className="w-10 h-10 inline-flex items-center justify-center absolute top-0 right-0 bg-primary-500 text-white rounded-r-lg hover:bg-primary-600 transition-colors duration-fast cursor-pointer shadow-sm group-hover:shadow-glow-sm"
+      >
         <IoSearchSharp className="text-xl" />
-      </span>
-      {Array.isArray(suggestions) && suggestions.length > 0 && (
-        <ul className="absolute top-full left-0 w-full bg-white border border-neutral-100 z-[100] max-h-60 overflow-y-auto rounded-lg shadow-medium mt-1 animate-fade-in">
+      </button>
+      {Array.isArray(suggestions) && search && (
+        <ul className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border border-neutral-100 z-[100] max-h-80 overflow-y-auto rounded-2xl shadow-premium mt-3 animate-slide-down border-white/40">
           {isLoading ? (
-            <li className="p-3 text-neutral-500 text-sm text-center">
-              Loading...
+            <li className="p-8 text-neutral-500 text-sm text-center">
+              <div className="w-6 h-6 border-2 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+              <span>Searching the Elite Market...</span>
             </li>
-          ) : (
+          ) : suggestions.length > 0 ? (
             suggestions.map((product) => (
               <li
                 key={product._id}
-                className="p-2 hover:bg-primary-50 border-b border-neutral-50 last:border-0 cursor-pointer transition-colors duration-fast"
-                onClick={() => setSuggestions([])} // Close the dropdown
+                className="p-3 hover:bg-primary-50/50 border-b border-neutral-50 last:border-0 cursor-pointer transition-colors duration-fast group"
+                onClick={() => setSuggestions([])}
               >
                 <Link
                   to={`/product/detail/${product._id}`}
@@ -101,14 +105,29 @@ function SearchInput({ className }) {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-10 h-10 object-cover mr-3 rounded-md border border-neutral-200"
+                    className="w-12 h-12 object-cover mr-4 rounded-xl border border-neutral-200 group-hover:scale-105 transition-transform"
                   />
-                  <span className="text-neutral-800 font-medium text-sm line-clamp-1">
-                    {product.name}
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="text-neutral-800 font-bold text-sm line-clamp-1 group-hover:text-primary-600 transition-colors">
+                      {product.name}
+                    </span>
+                    <span className="text-primary-600 text-xs font-bold mt-0.5">
+                      ${product.price}
+                    </span>
+                  </div>
                 </Link>
               </li>
             ))
+          ) : (
+            <li className="p-10 text-center">
+              <div className="text-4xl mb-3 opacity-50">🔍</div>
+              <p className="text-neutral-900 font-bold mb-1">
+                No products found
+              </p>
+              <p className="text-neutral-500 text-xs">
+                Try different keywords for better results
+              </p>
+            </li>
           )}
         </ul>
       )}

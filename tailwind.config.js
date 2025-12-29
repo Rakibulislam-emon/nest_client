@@ -2,6 +2,23 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1700px", // Elite Hybrid Limit
+      },
+    },
     extend: {
       // Comprehensive color system
       colors: {
@@ -74,6 +91,7 @@ export default {
         strong: "0 8px 32px rgba(0, 0, 0, 0.12)",
         premium: "0 20px 60px rgba(0, 0, 0, 0.15)",
         glow: "0 0 20px rgba(34, 197, 94, 0.3)",
+        "glow-sm": "0 0 10px rgba(34, 197, 94, 0.2)",
         "glow-secondary": "0 0 20px rgba(245, 158, 11, 0.3)",
         "inner-soft": "inset 0 2px 4px rgba(0, 0, 0, 0.06)",
       },
@@ -86,6 +104,7 @@ export default {
         lg: "1rem",
         xl: "1.5rem",
         "2xl": "2rem",
+        "3xl": "3rem",
         full: "9999px",
       },
 
@@ -98,6 +117,8 @@ export default {
         shimmer: "shimmer 2s linear infinite",
         "bounce-slow": "bounce 2s infinite",
         "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        float: "float 6s ease-in-out infinite",
+        spring: "spring 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
       },
 
       // Keyframes for animations
@@ -121,6 +142,14 @@ export default {
         shimmer: {
           "0%": { backgroundPosition: "-1000px 0" },
           "100%": { backgroundPosition: "1000px 0" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        spring: {
+          "0%": { transform: "scale(0.95)" },
+          "100%": { transform: "scale(1)" },
         },
       },
 

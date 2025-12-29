@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  IoChevronDownSharp,
-  IoLocationOutline,
-  IoSearchSharp,
-} from "react-icons/io5";
+import { IoSearchSharp } from "react-icons/io5";
 import { RiMenuUnfold2Line } from "react-icons/ri";
 import { Link, useLocation } from "react-router";
 import logo from "../../../../assets/logo_elite.png";
 import SearchInput from "./SearchInput";
 import UsersNavigation from "./UsersNavigation";
+import LocationSelector from "./LocationSelector";
 
 // eslint-disable-next-line react/prop-types
 export default function MiddleHeader({ toggleMobileMenu }) {
@@ -48,66 +45,63 @@ export default function MiddleHeader({ toggleMobileMenu }) {
   }, [location]); // Runs whenever the route changes
 
   return (
-    <div>
-      <div className="flex my-6 items-center justify-between gap-x-4">
-        {/* Mobile Menu Button */}
-        <button
-          onClick={toggleMobileMenu}
-          className="lg:hidden px-2 text-neutral-700 hover:text-primary-600 transition-colors duration-fast"
-          aria-label="Open menu"
-        >
-          <RiMenuUnfold2Line className="text-3xl" />
-        </button>
-
-        {/* Logo */}
-        <Link
-          to="/"
-          className="transition-transform duration-base hover:scale-105 group"
-        >
-          <div className="flex items-center gap-1">
-            <img
-              src={logo}
-              alt="Nest"
-              className="h-10 ml-4 md:h-12 w-auto object-contain"
-            />
-            <div className="flex flex-col -gap-1">
-              <span className="text-2xl md:text-3xl font-bold font-heading tracking-[0.1em] text-neutral-900 group-hover:text-primary-600 transition-colors leading-none uppercase">
-                Nest
-              </span>
-              <span className="text-[10px] font-bold text-primary-600 tracking-[0.2em] uppercase opacity-80">
-                 grocery store
-              </span>
-            </div>
-          </div>
-        </Link>
-
-        {/* Search and Location Section */}
-        <div className="flex-1 flex lg:px-10 gap-x-6 items-center">
-          {/* Mobile Search Button */}
+    <>
+      <div className="container">
+        <div className="flex my-6 items-center justify-between gap-x-4">
+          {/* Mobile Menu Button */}
           <button
-            className="ml-10 md:hidden text-neutral-700 hover:text-primary-600 transition-colors duration-fast"
-            onClick={toggleSearch}
-            aria-label="Search"
+            onClick={toggleMobileMenu}
+            className="lg:hidden px-2 text-neutral-700 hover:text-primary-600 transition-colors duration-fast"
+            aria-label="Open menu"
           >
-            <IoSearchSharp className="text-3xl" />
+            <RiMenuUnfold2Line className="text-3xl" />
           </button>
 
-          {/* Desktop Search */}
-          <SearchInput className={"md:block hidden"} />
+          {/* Logo */}
+          <Link
+            to="/"
+            aria-label="Nest Premium Home"
+            className="transition-transform duration-base hover:scale-105 group"
+          >
+            <div className="flex items-center gap-1">
+              <img
+                src={logo}
+                alt="Elite Nest Logo"
+                className="h-10 ml-4 md:h-12 w-auto object-contain bg-white rounded-lg p-1 shadow-glow-sm group-hover:rotate-3 transition-all"
+              />
+              <div className="flex flex-col -gap-1">
+                <span className="text-2xl md:text-3xl font-bold font-heading tracking-[0.1em] text-neutral-900 group-hover:text-primary-600 transition-colors leading-none uppercase">
+                  Nest
+                </span>
+                <span className="text-[10px] font-bold text-primary-600 tracking-[0.2em] uppercase opacity-80">
+                  grocery store
+                </span>
+              </div>
+            </div>
+          </Link>
 
-          {/* Location Dropdown */}
-          <button className="lg:flex gap-x-2 items-center border border-neutral-200 hover:border-primary-400 shadow-soft hover:shadow-medium px-4 py-2.5 rounded-lg hidden transition-all duration-base group">
-            <IoLocationOutline className="text-primary-600 text-xl" />
-            <span className="text-primary-600 font-semibold text-sm">
-              Your location
-            </span>
-            <IoChevronDownSharp className="text-neutral-500 group-hover:text-primary-600 transition-colors" />
-          </button>
-        </div>
+          {/* Search and Location Section */}
+          <div className="flex-1 flex lg:px-10 gap-x-6 items-center">
+            {/* Mobile Search Button */}
+            <button
+              className="ml-10 md:hidden text-neutral-700 hover:text-primary-600 transition-colors duration-fast"
+              onClick={toggleSearch}
+              aria-label="Search"
+            >
+              <IoSearchSharp className="text-3xl" />
+            </button>
 
-        {/* User Navigation */}
-        <div>
-          <UsersNavigation />
+            {/* Desktop Search */}
+            <SearchInput className={"md:block hidden"} />
+
+            {/* Location Dropdown */}
+            <LocationSelector />
+          </div>
+
+          {/* User Navigation */}
+          <div>
+            <UsersNavigation />
+          </div>
         </div>
       </div>
 
@@ -124,6 +118,6 @@ export default function MiddleHeader({ toggleMobileMenu }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

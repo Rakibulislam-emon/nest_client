@@ -39,11 +39,11 @@ const Countdown = ({ targetDate }) => {
   }, [targetDate]);
 
   const TimeBlock = ({ value, label }) => (
-    <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-xl px-2.5 py-1.5 min-w-[55px] md:min-w-[65px] shadow-sm border border-neutral-100/50 hover:shadow-md transition-all group">
-      <h2 className="text-xl md:text-2xl font-bold text-primary-600 font-heading leading-tight group-hover:scale-110 transition-transform">
+    <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-xl px-2 py-1 min-w-[45px] md:min-w-[55px] shadow-sm border border-neutral-100/50 hover:shadow-md transition-all group">
+      <h2 className="text-lg md:text-xl font-bold text-primary-600 font-heading leading-tight group-hover:scale-110 transition-transform">
         {String(value).padStart(2, "0")}
       </h2>
-      <p className="text-[10px] md:text-xs font-bold text-neutral-400 uppercase tracking-tighter">
+      <p className="text-[8px] md:text-[10px] font-bold text-neutral-400 uppercase tracking-tighter">
         {label}
       </p>
     </div>
@@ -55,8 +55,8 @@ const Countdown = ({ targetDate }) => {
   };
 
   return (
-    <div className="flex gap-1.5 md:gap-2 justify-center items-center w-full">
-      <TimeBlock value={timeLeft.days} label="Days" />
+    <div className="flex gap-2 md:gap-3 justify-center items-center w-full">
+      {timeLeft.days > 0 && <TimeBlock value={timeLeft.days} label="Days" />}
       <TimeBlock value={timeLeft.hours} label="Hours" />
       <TimeBlock value={timeLeft.minutes} label="Mins" />
       <TimeBlock value={timeLeft.seconds} label="Secs" />

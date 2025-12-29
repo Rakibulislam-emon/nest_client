@@ -9,30 +9,16 @@ import { useEffect, useState } from "react";
 import { selectCartItems } from "../../utils/cartSelectors";
 import { Link } from "react-router";
 import useFavorite from "../../hooks/useFavorite";
+import Badge from "../../components/common/Badge";
+import { FaTrash, FaHeart, FaRegHeart, FaPlus, FaMinus } from "react-icons/fa6";
 
 /* eslint-disable react/prop-types */
 const CartProductCard = ({ product }) => {
   const { isFavorite, toggleFavorite } = useFavorite(product);
-
   const [existingProduct, setExistingProduct] = useState(null);
   const dispatch = useDispatch();
-  const removeCart = (product) => {
-    if (product) {
-      dispatch(removeFromCart(product));
-      // toast
-      toast.error("Product removed from cart!", {
-        position: "top-right",
-        style: {
-          background: "black",
-          color: "#fff",
-        },
-      });
-    }
-  };
-
   const items = useSelector(selectCartItems);
 
-  // Set the existing product from the cart items
   useEffect(() => {
     const availableProduct = items.find((item) => item._id === product._id);
     if (availableProduct) {
@@ -40,151 +26,112 @@ const CartProductCard = ({ product }) => {
     }
   }, [items, product]);
 
-  // Increment product quantity
-  const increment = () => {
-    if (existingProduct) {
-      dispatch(increaseQuantity(product._id));
-      // toast
-      toast.success("Product added to cart!", {
-        position: "top-right",
-        style: {
-          background: "black",
-          color: "#fff",
-        },
-      });
-    }
+  const removeCart = (id) => {
+    dispatch(removeFromCart(id));
+    toast.error("Removed from cart", {
+      position: "top-right",
+      style: { background: "black", color: "#fff" },
+    });
   };
 
-  // Decrement product quantity
+  const increment = () => {
+    if (existingProduct) dispatch(increaseQuantity(product._id));
+  };
+
   const decrement = () => {
     if (existingProduct && existingProduct.quantity > 1) {
       dispatch(decreesQuantity(product._id));
-      // toast
-      toast.error("Product removed from cart!", {
-        position: "top-right",
-        style: {
-          background: "black",
-          color: "#fff",
-        },
-      });
     }
   };
 
+  const currentPrice =
+    Number(product.price || 0) * (existingProduct?.quantity || 1);
+  const originalPrice =
+    Number(product.discount || 0) * (existingProduct?.quantity || 1);
+
   return (
-    <div className="flex flex-col lg:flex-row items-start gap-4 w-full">
-      {/* Image Section */}
-      <Link to={`/product/detail/${product._id}`}>
-        <div className="w-full h-44 lg:w-auto lg:shrink-0 border">
+    <div className="group/item flex flex-col md:flex-row items-center gap-6 py-8 first:pt-0 last:pb-0 border-b last:border-0 border-neutral-100 transition-all duration-300">
+      {/* Product Image */}
+      <Link to={`/product/detail/${product._id}`} className="shrink-0">
+        <div className="w-32 h-32 md:w-40 md:h-40 bg-neutral-50 rounded-2xl overflow-hidden border border-neutral-100 flex items-center justify-center group-hover/item:shadow-md transition-shadow duration-500">
           <img
             src={product.image}
-            className="w-full h-full lg:w-44 object-cover rounded-md"
             alt={product.name}
+            className="w-full h-full object-contain p-4 mix-blend-multiply group-hover/item:scale-110 transition-transform duration-700"
           />
         </div>
       </Link>
 
       {/* Details Section */}
-      <div className="flex-1">
-        <h3 className="text-lg font-bold text-gray-800 mb-1">{product.name}</h3>
-        <div className="space-y-1">
-          <h6 className="text-sm text-gray-800">
-            Category: <strong className="ml-2">{product.category}</strong>
-          </h6>
-          <h6 className="text-sm text-gray-800">
-            Expiry Date: <strong className="ml-2">{product.exp}</strong>
-          </h6>
-          <h6 className="text-sm text-gray-800">
-            Available: <strong className="ml-2">{product.available}</strong>
-          </h6>
+      <div className="flex-1 min-w-0 space-y-4 text-center md:text-left">
+        <div>
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-2">
+            <Badge variant="primary" size="sm">
+              {product.category}
+            </Badge>
+            <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">
+              Exp: {product.exp}
+            </span>
+          </div>
+          <Link to={`/product/detail/${product._id}`}>
+            <h3 className="text-xl font-bold text-neutral-900 font-heading hover:text-primary-600 transition-colors line-clamp-1">
+              {product.name}
+            </h3>
+          </Link>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-4">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
           <button
             onClick={() => removeCart(product._id)}
-            type="button"
-            className="font-semibold text-sm flex items-center gap-2 px-3 py-2 rounded-md transition duration-200 hover:bg-red-500 hover:text-white text-red-500 border border-red-500"
+            className="flex items-center gap-2 text-xs font-bold text-rose-500 hover:text-rose-600 transition-colors py-1 group/btn"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current"
-              viewBox="0 0 24 24"
-            >
-              <path d="M19 7a1 1 0 0 0-1 1v11.191A1.92 1.92 0 0 1 15.99 21H8.01A1.92 1.92 0 0 1 6 19.191V8a1 1 0 0 0-2 0v11.191A3.918 3.918 0 0 0 8.01 23h7.98A3.918 3.918 0 0 0 20 19.191V8a1 1 0 0 0-1-1Zm1-3h-4V2a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v2H4a1 1 0 0 0 0 2h16a1 1 0 0 0 0-2ZM10 4V3h4v1Z"></path>
-              <path d="M11 17v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Zm4 0v-7a1 1 0 0 0-2 0v7a1 1 0 0 0 2 0Z"></path>
-            </svg>
-            Remove
+            <FaTrash className="group-hover/btn:animate-shake" /> Remove
           </button>
-
           <button
-            onClick={toggleFavorite} // Toggle favorite on click
-            type="button"
-            className={`font-semibold text-sm flex items-center gap-2 px-3 py-2 rounded-md transition duration-200 ${
+            onClick={toggleFavorite}
+            className={`flex items-center gap-2 text-xs font-bold transition-colors py-1 ${
               isFavorite
-                ? "bg-pink-500 text-white"
-                : "bg-white text-pink-500 border border-pink-500"
+                ? "text-primary-600"
+                : "text-neutral-400 hover:text-primary-500"
             }`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 fill-current"
-              viewBox="0 0 64 64"
-            >
-              <path d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z"></path>
-            </svg>
-            {isFavorite ? "In Wish List" : "Move to Wish List"}
+            {isFavorite ? <FaHeart /> : <FaRegHeart />}
+            {isFavorite ? "Saved" : "Save for later"}
           </button>
         </div>
       </div>
 
-      {/* Price and Quantity Section */}
-      <div className="mt-4 lg:mt-0 lg:ml-auto text-right  flex md:flex-col gap-x-4">
-        <div className="flex items-center justify-end gap-3 ">
+      {/* Quantity & Pricing Container */}
+      <div className="flex flex-col items-center md:items-end gap-4 shrink-0">
+        {/* Modern Quantity Selector */}
+        <div className="flex items-center bg-neutral-100 rounded-xl p-1 border border-neutral-200 shadow-inner">
           <button
             onClick={decrement}
-            type="button"
-            className="flex items-center justify-center w-5 h-5 bg-blue-600 outline-none rounded-full"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-neutral-500 hover:text-rose-500 hover:shadow-sm transition-all"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-2 fill-white"
-              viewBox="0 0 124 124"
-            >
-              <path d="M112 50H12C5.4 50 0 55.4 0 62s5.4 12 12 12h100c6.6 0 12-5.4 12-12s-5.4-12-12-12z"></path>
-            </svg>
+            <FaMinus size={10} />
           </button>
-          <span className="font-bold text-sm leading-[18px]">
-            {" "}
+          <span className="w-12 text-center font-black text-neutral-900 text-sm">
             {existingProduct?.quantity || 0}
           </span>
           <button
             onClick={increment}
-            type="button"
-            className="flex items-center justify-center w-5 h-5 bg-blue-600 outline-none rounded-full"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-neutral-500 hover:text-primary-600 hover:shadow-sm transition-all"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-2 fill-white"
-              viewBox="0 0 42 42"
-            >
-              <path d="M37.059 16H26V4.941C26 2.224 23.718 0 21 0s-5 2.224-5 4.941V16H4.941C2.224 16 0 18.282 0 21s2.224 5 4.941 5H16v11.059C16 39.776 18.282 42 21 42s5-2.224 5-4.941V26h11.059C39.776 26 42 23.718 42 21s-2.224-5-4.941-5z"></path>
-            </svg>
+            <FaPlus size={10} />
           </button>
         </div>
 
-        <div className="mt-4">
-          <p className="text-sm text-gray-800">
-            Price:{" "}
-            <strong>
-              ${(product.price * (existingProduct?.quantity || 1)).toFixed(2)}
-            </strong>
-          </p>
-          <p className="text-sm text-gray-800">
-            Discount:{" "}
-            <strong className="text-red-500 line-through text-sm">
-              $
-              {(product.discount * (existingProduct?.quantity || 1)).toFixed(2)}
-            </strong>
-          </p>
+        {/* Pricing Block */}
+        <div className="text-center md:text-right">
+          <div className="text-2xl font-black text-neutral-900 font-heading">
+            ${currentPrice.toFixed(2)}
+          </div>
+          {originalPrice > currentPrice && (
+            <div className="text-sm font-bold text-neutral-300 line-through">
+              ${originalPrice.toFixed(2)}
+            </div>
+          )}
         </div>
       </div>
     </div>

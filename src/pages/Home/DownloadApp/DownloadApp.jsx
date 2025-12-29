@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 export default function DownloadApp() {
   return (
-    <main className="max-w-screen-2xl mx-auto rounded-3xl mt-12 bg-gradient-to-r from-emerald-100 to-green-50 overflow-hidden relative shadow-lg">
+    <main className="container rounded-3xl mt-12 bg-gradient-to-r from-emerald-100 to-green-50 overflow-hidden relative shadow-lg">
       <div className="flex flex-col lg:flex-row justify-between items-center p-8 lg:p-16 h-full min-h-[400px]">
         {/* Text Section */}
         <div className="flex flex-col text-center lg:text-left z-10 max-w-xl">

@@ -3,8 +3,10 @@ import Loader from "../../../components/ui/Loader";
 import { useFilter } from "../../../context/FilterContext";
 import { useAllProducts } from "../../../hooks/useAllProducts";
 import ProductCard from "../../Home/PopularProducts/Product/ProductCard";
+import ProductSkeleton from "./ProductSkeleton";
 import FilterToggleButton from "../../../components/shared/Filter/FilterToggleButton";
 import Button from "../../../components/common/Button";
+import EliteEmptyState from "../../../components/shared/EliteEmptyState";
 import {
   HiViewColumns,
   HiSquares2X2,
@@ -28,6 +30,7 @@ export default function ProductPage() {
     totalPages,
     sortField,
     sortOrder,
+    clearFilters,
   } = useFilter(); // Get filtered products and sorting functions from context
 
   const [isSortOpen, setIsSortOpen] = useState(false);
@@ -81,11 +84,11 @@ export default function ProductPage() {
   return (
     <div className="py-2">
       {/* Header Section */}
-      <div className="mb-12 text-center  md:text-center" ref={headerRef}>
+      <div className="mb-12 text-center md:text-center" ref={headerRef}>
         <h1 className="text-3xl md:text-5xl font-bold font-heading text-neutral-900 mb-4 tracking-tight">
           Our <span className="text-primary-600">Products</span>
         </h1>
-        <p className="text-neutral-500 font-medium ">
+        <p className="text-neutral-500 font-medium">
           Discover our wide range of premium products, curated for your daily
           needs.
         </p>
@@ -120,7 +123,7 @@ export default function ProductPage() {
               Found:
             </span>
             <span className="text-xl font-bold text-primary-600 font-heading">
-              {productsToDisplay.length}
+              {filterLoading ? "..." : productsToDisplay.length}
             </span>
             <span className="text-sm font-semibold text-neutral-500">
               Products
@@ -190,22 +193,36 @@ export default function ProductPage() {
       </div>
 
       {/* Products Grid */}
-      <div
-        className={twMerge(
-          "grid gap-8 lg:gap-10 transition-all duration-500",
-          filterLoading && "opacity-50 pointer-events-none",
-          columns === 2 && "grid-cols-2",
-          columns === 3 && "grid-cols-2 lg:grid-cols-3",
-          columns === 4 && "grid-cols-2 lg:grid-cols-4"
-        )}
-      >
-        {Array.isArray(productsToDisplay) &&
-          productsToDisplay.map((product) => (
-            <div key={product._id}>
-              <ProductCard product={product} />
-            </div>
-          ))}
-      </div>
+      {Array.isArray(productsToDisplay) && productsToDisplay.length > 0 ? (
+        <div
+          className={twMerge(
+            "grid gap-8 lg:gap-10 transition-all duration-700",
+            columns === 2 && "grid-cols-1 sm:grid-cols-2",
+            columns === 3 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+            columns === 4 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+          )}
+        >
+          {filterLoading
+            ? [...Array(columns * 2)].map((_, idx) => (
+                <ProductSkeleton key={idx} />
+              ))
+            : productsToDisplay.map((product) => (
+                <div key={product._id} className="animate-fade-in">
+                  <ProductCard product={product} />
+                </div>
+              ))}
+        </div>
+      ) : (
+        !filterLoading && (
+          <EliteEmptyState
+            icon="🥑"
+            title="No matches found"
+            description="We searched our elite stores but couldn't find a match for your current filters."
+            buttonText="Reset All Filters"
+            onButtonClick={clearFilters}
+          />
+        )
+      )}
 
       {/* Pagination Section */}
       <div className="flex justify-center items-center gap-6 mt-20 pt-12 border-t border-neutral-100">

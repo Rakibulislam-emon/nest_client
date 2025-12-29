@@ -3,7 +3,7 @@ import Button from "../../../components/common/Button";
 
 export default function DiscountBanner() {
   return (
-    <main className="max-w-screen-2xl mt-16 mb-16 mx-auto px-4">
+    <main className="container mt-16 mb-16">
       <div
         className="relative flex flex-col lg:flex-row items-center justify-between lg:h-[300px] bg-cover bg-center rounded-3xl shadow-premium overflow-hidden group"
         style={{

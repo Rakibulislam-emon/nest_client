@@ -14,7 +14,7 @@ export default function PeoplesSearches() {
   };
 
   return (
-    <div className="py-12 px-4 mx-auto max-w-screen-2xl">
+    <div className="container py-12">
       <h1 className="text-xl md:text-2xl font-bold text-neutral-800 mb-6 border-b pb-4">
         Popular Searches
       </h1>

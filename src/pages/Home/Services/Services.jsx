@@ -39,7 +39,7 @@ export default function Services() {
   ];
 
   return (
-    <div className="py-12 px-4 mx-auto max-w-screen-2xl">
+    <div className="container py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         {services.map((service, idx) => (
           <div

@@ -54,42 +54,42 @@ export default function DealsCard({ deal }) {
         </div>
 
         {/* Content Area */}
-        <div className="p-6 flex flex-col flex-grow">
-          <div className="flex justify-between items-start mb-3">
+        <div className="p-5 flex flex-col flex-grow">
+          <div className="flex justify-between items-start mb-2">
             <Link to={`/product/detail/${deal._id}`} className="flex-1 mr-2">
               <h3
-                className="text-2xl font-heading font-bold text-neutral-900 line-clamp-2 hover:text-primary-600 transition-colors leading-tight"
+                className="text-lg font-heading font-bold text-neutral-900 line-clamp-2 hover:text-primary-600 transition-colors leading-tight"
                 title={name}
               >
                 {name}
               </h3>
             </Link>
-            <div className="flex bg-secondary-100/50 text-secondary-700 px-2.5 py-1 rounded-md text-sm font-bold items-center gap-1.5 backdrop-blur-sm">
-              {rating} <FaStar size={12} className="text-secondary-500" />
+            <div className="flex bg-secondary-100/50 text-secondary-700 px-2 py-0.5 rounded-md text-xs font-bold items-center gap-1 backdrop-blur-sm shrink-0">
+              {rating} <FaStar size={10} className="text-secondary-500" />
             </div>
           </div>
 
-          <div className="flex items-center gap-2 mb-6 text-sm text-neutral-500">
-            <span className="bg-primary-50 text-primary-700 px-3 py-1 rounded-full text-sm font-semibold tracking-wide border border-primary-100">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="bg-primary-50 text-primary-700 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide border border-primary-100">
               In Stock: {available}
             </span>
           </div>
 
-          <div className="mt-auto pt-5 border-t border-dashed border-neutral-200">
-            <div className="flex justify-between items-end mb-5">
+          <div className="mt-auto pt-4 border-t border-dashed border-neutral-100">
+            <div className="flex justify-between items-end mb-4">
               <div>
-                <p className="text-xs font-bold text-neutral-400 mb-1 uppercase tracking-wider">
+                <p className="text-[10px] font-bold text-neutral-400 mb-0.5 uppercase tracking-wider">
                   Price
                 </p>
-                <p className="text-3xl font-heading font-bold text-neutral-900 leading-none">
+                <p className="text-2xl font-heading font-bold text-neutral-900 leading-none">
                   ${price}
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-xs font-bold text-neutral-400 mb-1 uppercase tracking-wider">
+                <p className="text-[10px] font-bold text-neutral-400 mb-0.5 uppercase tracking-wider">
                   Was
                 </p>
-                <p className="text-lg text-rose-500 line-through font-medium">
+                <p className="text-sm text-rose-500 line-through font-medium">
                   ${discount}
                 </p>
               </div>
@@ -98,11 +98,13 @@ export default function DealsCard({ deal }) {
             <Button
               onClick={handleClick}
               variant={success ? "success" : "primary"}
-              size="lg"
-              className="w-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all"
-              leftIcon={success ? <FaCheck /> : <FaCartPlus />}
+              size="md"
+              className="w-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all py-2.5 text-xs uppercase font-bold tracking-wider"
+              leftIcon={
+                success ? <FaCheck size={12} /> : <FaCartPlus size={12} />
+              }
             >
-              {success ? "Added to Cart" : "Add to Cart"}
+              {success ? "Added" : "Add to Cart"}
             </Button>
           </div>
         </div>

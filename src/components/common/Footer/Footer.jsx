@@ -11,99 +11,111 @@ import { Link } from "react-router";
 
 export default function Footer() {
   return (
-    <footer className="font-sans tracking-wide bg-neutral-900 pt-12 pb-6 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-primary"></div>
+    <footer className="font-sans tracking-wide bg-neutral-900 pt-20 pb-10 relative overflow-hidden">
+      {/* Premium Background Accents */}
+      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-primary shadow-glow-sm"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary-500/5 blur-[120px] rounded-full"></div>
 
-      <div className="container mx-auto px-6">
-        {/* Newsletter Section */}
-        <div className="bg-neutral-800/50 rounded-2xl p-8 mb-12 flex flex-col md:flex-row items-center justify-between gap-8 border border-neutral-800">
-          <div className="md:w-1/2">
-            <h3 className="text-2xl font-bold text-white mb-2">
-              Subscribe to our Newsletter
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Newsletter Section - Elite Glassmorphism */}
+        <div className="glass-dark rounded-[2.5rem] p-10 md:p-14 mb-20 flex flex-col lg:flex-row items-center justify-between gap-10 border border-white/5 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-primary-500/10 blur-3xl rounded-full -mr-20 -mt-20"></div>
+
+          <div className="lg:w-1/2 relative z-10">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-heading tracking-tight">
+              Join the <span className="text-primary-400">Elite</span> Circle
             </h3>
-            <p className="text-neutral-400">
-              Get the latest updates, exclusive offers, and green groceries
-              delivered to you.
+            <p className="text-neutral-400 text-lg max-w-md leading-relaxed">
+              Experience the pinnacle of grocery shopping. Get exclusive access
+              to seasonal harvests and premium offers.
             </p>
           </div>
-          <div className="w-full md:w-1/2 max-w-lg">
-            <form className="flex gap-2">
+          <div className="w-full lg:w-1/2 max-w-xl relative z-10">
+            <form className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
-                placeholder="Your email address"
-                className="flex-1 bg-neutral-900 border border-neutral-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:border-primary-500 transition-colors"
+                placeholder="Enter your email address..."
+                className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-primary-500/50 transition-all placeholder:text-neutral-500 backdrop-blur-md"
               />
-              <button className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-fast shadow-glow">
-                Subscribe
+              <button className="bg-primary-600 hover:bg-primary-500 text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 shadow-glow-sm hover:shadow-glow hover:-translate-y-0.5 active:scale-95 whitespace-nowrap">
+                Subscribe Now
               </button>
             </form>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
-            <Link to="/" className="inline-block mb-6 group">
-              <div className="flex items-center gap-3">
-                <img
-                  src={logo}
-                  alt="Nest"
-                  className="h-12 w-auto object-contain"
-                />
-                <div className="flex flex-col -gap-1">
-                  <span className="text-2xl font-bold font-heading tracking-[0.1em] text-white group-hover:text-primary-400 transition-colors leading-none uppercase">
-                    Nest
+          <div className="lg:col-span-4 max-w-sm">
+            <Link to="/" className="inline-block mb-8 group">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center p-2 shadow-glow-sm group-hover:rotate-6 transition-transform duration-500">
+                  <img
+                    src={logo}
+                    alt="Elite Nest"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold font-heading tracking-tight text-white leading-none">
+                    NEST <span className="text-primary-500">PREMIUM</span>
                   </span>
-                  <span className="text-[10px] font-bold text-primary-500 tracking-[0.2em] uppercase opacity-90">
-                    grocery store
+                  <span className="text-[10px] font-black text-neutral-500 tracking-[0.3em] uppercase mt-1">
+                    Elite Market Group
                   </span>
                 </div>
               </div>
             </Link>
-            <p className="text-neutral-400 text-sm leading-relaxed mb-6 max-w-sm">
-              Nest Grocery provides fresh, organic, and sustainable produce
-              directly from farms to your table. We believe in quality,
-              transparency, and health for all our customers.
+            <p className="text-neutral-400 text-base leading-relaxed mb-8">
+              Pioneering the future of digital grocery with farm-to-door
+              transparency and curated organic selections that redefine quality
+              standards.
             </p>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3 text-neutral-400 group">
-                <FiMapPin className="text-primary-500 text-xl mt-1 shrink-0 group-hover:text-primary-400 transition-colors" />
-                <span className="text-sm group-hover:text-neutral-300 transition-colors">
-                  5171 W Campbell Ave undefined Kent, Utah 53127 United States
+            <div className="space-y-5">
+              <div className="flex items-start gap-4 text-neutral-400 group cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-neutral-800/50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+                  <FiMapPin className="text-lg" />
+                </div>
+                <span className="text-sm pt-2 group-hover:text-neutral-200 transition-colors">
+                  5171 W Campbell Ave, Kent, Utah 53127
                 </span>
               </div>
-              <div className="flex items-center gap-3 text-neutral-400 group">
-                <FiMail className="text-primary-500 text-xl shrink-0 group-hover:text-primary-400 transition-colors" />
-                <span className="text-sm group-hover:text-neutral-300 transition-colors">
-                  support@nestgrocery.com
+              <div className="flex items-center gap-4 text-neutral-400 group cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-neutral-800/50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+                  <FiMail className="text-lg" />
+                </div>
+                <span className="text-sm group-hover:text-neutral-200 transition-colors">
+                  concierge@nestpremium.com
                 </span>
               </div>
-              <div className="flex items-center gap-3 text-neutral-400 group">
-                <FiPhoneCall className="text-primary-500 text-xl shrink-0 group-hover:text-primary-400 transition-colors" />
-                <span className="text-sm group-hover:text-neutral-300 transition-colors">
-                  (+91) - 540-025-124553
+              <div className="flex items-center gap-4 text-neutral-400 group cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-neutral-800/50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+                  <FiPhoneCall className="text-lg" />
+                </div>
+                <span className="text-sm group-hover:text-neutral-200 transition-colors">
+                  +1 (234) 567-8910
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Links Column 1 */}
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Company</h4>
+          {/* Links Columns */}
+          <div className="lg:col-span-2">
+            <h4 className="text-white font-heading font-bold text-xl mb-8">
+              Company
+            </h4>
             <ul className="space-y-4">
               {[
                 "About Us",
-                "Delivery Information",
+                "Sustainability",
                 "Privacy Policy",
-                "Terms & Conditions",
-                "Contact Us",
-                "Support Center",
+                "Terms of Service",
+                "Contact",
               ].map((item) => (
                 <li key={item}>
                   <Link
                     to="#"
-                    className="text-neutral-400 hover:text-primary-500 text-sm transition-colors duration-fast block hover:translate-x-1 transform"
+                    className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-x-1 inline-block"
                   >
                     {item}
                   </Link>
@@ -112,22 +124,22 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Links Column 2 */}
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Account</h4>
+          <div className="lg:col-span-2">
+            <h4 className="text-white font-heading font-bold text-xl mb-8">
+              Experience
+            </h4>
             <ul className="space-y-4">
               {[
-                "Sign In",
-                "View Cart",
-                "My Wishlist",
-                "Track My Order",
-                "Help Ticket",
-                "Shipping Details",
+                "Personalized Feed",
+                "Your Wishlist",
+                "Tracking",
+                "Support Center",
+                "Elite Membership",
               ].map((item) => (
                 <li key={item}>
                   <Link
                     to="#"
-                    className="text-neutral-400 hover:text-primary-500 text-sm transition-colors duration-fast block hover:translate-x-1 transform"
+                    className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-x-1 inline-block"
                   >
                     {item}
                   </Link>
@@ -136,53 +148,51 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Links Column 3 */}
-          <div>
-            <h4 className="text-white font-bold text-lg mb-6">Install App</h4>
-            <p className="text-neutral-400 text-sm mb-4">
-              From App Store or Google Play
+          {/* Apps Column */}
+          <div className="lg:col-span-4 lg:pl-10">
+            <h4 className="text-white font-heading font-bold text-xl mb-8">
+              App Experience
+            </h4>
+            <p className="text-neutral-400 text-sm mb-6 leading-relaxed">
+              Take the premium market anywhere. Exclusive app-only collections
+              available.
             </p>
-            <div className="flex flex-col gap-3 mb-6">
-              <button className="bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-white px-4 py-2 rounded-lg flex items-center gap-3 transition-all duration-fast w-full max-w-[170px]">
-                <div className="text-3xl"></div>
+            <div className="space-y-4 mb-8">
+              <button className="group glass-dark hover:bg-white/10 border border-white/5 text-white px-6 py-3 rounded-2xl flex items-center gap-4 transition-all duration-300 w-full max-w-[200px] hover:-translate-y-1">
+                <div className="text-3xl group-hover:scale-110 transition-transform">
+                  
+                </div>
                 <div className="text-left">
-                  <div className="text-[10px] leading-none">
-                    Download on the
-                  </div>
-                  <div className="text-sm font-bold leading-tight">
+                  <div className="text-[10px] text-neutral-500 uppercase font-black">
                     App Store
                   </div>
+                  <div className="text-sm font-bold">iOS Download</div>
                 </div>
               </button>
-              <button className="bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 text-white px-4 py-2 rounded-lg flex items-center gap-3 transition-all duration-fast w-full max-w-[170px]">
-                <div className="text-2xl">▶</div>
+              <button className="group glass-dark hover:bg-white/10 border border-white/5 text-white px-6 py-3 rounded-2xl flex items-center gap-4 transition-all duration-300 w-full max-w-[200px] hover:-translate-y-1">
+                <div className="text-2xl group-hover:scale-110 transition-transform">
+                  ▶
+                </div>
                 <div className="text-left">
-                  <div className="text-[10px] leading-none">GET IT ON</div>
-                  <div className="text-sm font-bold leading-tight">
+                  <div className="text-[10px] text-neutral-500 uppercase font-black">
                     Google Play
                   </div>
+                  <div className="text-sm font-bold">Android App</div>
                 </div>
               </button>
             </div>
-            <p className="text-neutral-400 text-sm mb-4">
-              Secured Payment Gateways
-            </p>
-            <div className="flex gap-2 opacity-80">
-              {/* Payment Icons Placeholder */}
-              <div className="h-6 w-10 bg-white/10 rounded"></div>
-              <div className="h-6 w-10 bg-white/10 rounded"></div>
-              <div className="h-6 w-10 bg-white/10 rounded"></div>
-              <div className="h-6 w-10 bg-white/10 rounded"></div>
+            <div className="flex gap-3 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+              <div className="h-8 w-12 bg-white/10 rounded-lg"></div>
+              <div className="h-8 w-12 bg-white/10 rounded-lg"></div>
+              <div className="h-8 w-12 bg-white/10 rounded-lg"></div>
             </div>
           </div>
         </div>
 
-        <hr className="border-neutral-800 mb-8" />
-
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-neutral-500 text-sm text-center md:text-left">
-            © 2024 <strong className="text-primary-500">Nest Grocery</strong> -
-            All rights reserved
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-neutral-500 text-sm font-medium">
+            © 2024 <span className="text-white">Nest Premium Market</span>. All
+            architectural standards reserved.
           </p>
 
           <div className="flex gap-4">
@@ -191,9 +201,9 @@ export default function Footer() {
                 <a
                   key={index}
                   href="#"
-                  className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-white hover:bg-primary-600 hover:-translate-y-1 transition-all duration-fast shadow-soft"
+                  className="w-11 h-11 rounded-2xl bg-neutral-800/50 flex items-center justify-center text-white hover:bg-primary-600 hover:-translate-y-1.5 transition-all duration-300 border border-white/5 hover:border-primary-400 hover:shadow-glow-sm group"
                 >
-                  <Icon className="text-sm" />
+                  <Icon className="text-base group-hover:scale-110 transition-transform" />
                 </a>
               )
             )}

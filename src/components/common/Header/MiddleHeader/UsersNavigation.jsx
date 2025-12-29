@@ -1,5 +1,4 @@
 import { BiShoppingBag } from "react-icons/bi";
-import { GoGitCompare } from "react-icons/go";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { LuUserPlus } from "react-icons/lu";
 import { Link } from "react-router";
@@ -20,20 +19,28 @@ export default function UsersNavigation() {
 
   return (
     <div className="flex lg:gap-x-8 gap-x-5 items-center">
-      <div className="text-2xl relative lg:block hidden group cursor-pointer">
+      {/* <div className="text-2xl relative lg:block hidden group cursor-pointer">
         <GoGitCompare className="text-neutral-600 group-hover:text-primary-600 transition-colors duration-fast" />
         <span className="absolute -top-2 -right-2 text-[10px] font-bold w-5 h-5 bg-primary-500 text-white rounded-full flex items-center justify-center border-2 border-white shadow-sm">
           0
         </span>
-      </div>
-      <div className="text-2xl relative group cursor-pointer">
+      </div> */}
+      <Link
+        to="/wishlist"
+        aria-label={`View ${totalFav} favorite items`}
+        className="text-2xl relative group cursor-pointer focus:outline-none"
+      >
         <MdOutlineFavoriteBorder className="text-neutral-600 group-hover:text-primary-600 transition-colors duration-fast" />
         <span className="absolute -top-2 -right-2 text-[10px] font-bold w-5 h-5 bg-primary-500 text-white rounded-full flex items-center justify-center border-2 border-white shadow-sm">
           {totalFav}
         </span>
-      </div>
+      </Link>
       <div className="text-2xl relative group cursor-pointer">
-        <Link to={"/cart"}>
+        <Link
+          to={"/cart"}
+          aria-label={`View cart with ${totalItems} items`}
+          className="focus:outline-none"
+        >
           <BiShoppingBag className="text-neutral-600 group-hover:text-primary-600 transition-colors duration-fast" />
           <span className="absolute -top-2 -right-2 text-[10px] font-bold w-5 h-5 bg-primary-500 text-white rounded-full flex items-center justify-center border-2 border-white shadow-sm">
             {totalItems > 0 ? totalItems : 0}

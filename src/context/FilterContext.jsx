@@ -220,6 +220,19 @@ export const FilterProvider = ({ children }) => {
         currentPage,
         totalPages,
         setSearchQuery,
+        clearFilters: () => {
+          setSelectedCategories([]);
+          setMinPrice(1);
+          setMaxPrice(50);
+          setRating(3);
+          setAvailability("");
+          setMinDiscount(1);
+          setMinDate("");
+          setSortField("");
+          setSortOrder("asc");
+          setPage(1);
+          setSearchQuery("");
+        },
       }}
     >
       {children}

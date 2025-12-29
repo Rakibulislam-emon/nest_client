@@ -1,49 +1,55 @@
 import { IoChevronDownSharp } from "react-icons/io5";
+import { Link } from "react-router";
 
 export default function TopHeader() {
   const Links = [
-    { name: "Home", href: "#" },
-    { name: "Products", href: "#" },
-    { name: "About", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Home", href: "/" },
+    { name: "Products", href: "/shop" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
   return (
-    <div className="lg:flex justify-between items-center hidden bg-gradient-primary text-white px-6 py-2.5 shadow-soft">
-      {/* Left Navigation Links */}
-      <div className="flex gap-x-1">
-        {Links.map((link, index) => (
-          <a
-            key={link.name}
-            href={link.href}
-            className={`px-3 text-sm font-medium hover:text-secondary-200 transition-colors duration-fast ${
-              index !== Links.length - 1 ? "border-r border-white/30" : ""
-            }`}
-          >
-            {link.name}
-          </a>
-        ))}
-      </div>
+    <div className="bg-neutral-900 border-b border-neutral-800 hidden lg:block font-heading">
+      <div className="container flex justify-between items-center text-neutral-400 py-2">
+        {/* Left Navigation Links */}
+        <div className="flex gap-x-4">
+          {Links.map((link) => (
+            <Link
+              key={link.name}
+              to={link.href}
+              className="text-[10px] uppercase tracking-[0.15em] font-bold hover:text-white transition-colors duration-300"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
 
-      {/* Center Message */}
-      <div className="flex-1 text-center">
-        <p className="text-sm font-medium">
-          🚚 100% Secure delivery without contacting the courier
-        </p>
-      </div>
+        {/* Center Message */}
+        <div className="flex-1 text-center">
+          <p className="text-[11px] font-medium tracking-wide text-neutral-500">
+            <span className="text-primary-600 mr-2">●</span>
+            Premium contactless delivery available
+          </p>
+        </div>
 
-      {/* Right Info Section */}
-      <div className="flex gap-x-4 items-center text-sm">
-        <p className="font-medium">
-          Need help? Call Us: <span className="font-bold">+1800 900</span>
-        </p>
-        <button className="flex items-center gap-1 px-3 py-1 border-l border-r border-white/30 hover:bg-white/10 transition-colors duration-fast rounded">
-          English
-          <IoChevronDownSharp className="text-xs" />
-        </button>
-        <button className="flex items-center gap-1 hover:bg-white/10 px-2 py-1 transition-colors duration-fast rounded">
-          USD
-          <IoChevronDownSharp className="text-xs" />
-        </button>
+        {/* Right Info Section */}
+        <div className="flex gap-x-6 items-center">
+          <p className="text-[11px] font-medium tracking-wide">
+            Concierge Support:{" "}
+            <span className="text-white font-bold ml-1">+1 800 900</span>
+          </p>
+          <div className="h-3 w-px bg-neutral-800"></div>
+          <div className="flex gap-4">
+            <button className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.1em] hover:text-white transition-colors">
+              English
+              <IoChevronDownSharp className="text-[8px] ml-0.5" />
+            </button>
+            <button className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.1em] hover:text-white transition-colors">
+              USD
+              <IoChevronDownSharp className="text-[8px] ml-0.5" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

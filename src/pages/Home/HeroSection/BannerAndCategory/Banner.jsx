@@ -4,33 +4,47 @@ import Button from "../../../../components/common/Button";
 import { HiArrowRight, HiArrowLeft } from "react-icons/hi2";
 import { BsFire } from "react-icons/bs";
 
+// Elite Visual Assets
+import organicArtisan from "../../../../assets/hero/organic_artisan.png";
+import eliteMembership from "../../../../assets/hero/elite_membership.png";
+import modernPantry from "../../../../assets/hero/modern_pantry.png";
+import natureBounty from "../../../../assets/hero/nature_bounty.png";
+
 export const Banner = () => {
   const [currentSlider, setCurrentSlider] = useState(0);
 
   const carouselData = [
     {
-      image: "https://i.ibb.co/5G57SXd/img2.webp",
-      offerTitle: "Fresh & Organic",
+      image: organicArtisan,
+      offerTitle: "Artisan Organic Harvest",
       offerDescription:
-        "Experience the true taste of nature with our certified organic collection.",
+        "Hand-selected heirloom harvests delivered with source-to-table integrity and unmatched freshness.",
       buttonText: "Shop Collection",
-      color: "from-green-600/90 to-black/30",
+      color: "from-green-600/95 to-black/40",
     },
     {
-      image: "https://i.ibb.co/T8nggpB/img3.jpg",
-      offerTitle: "Flash Sale Alert",
+      image: eliteMembership,
+      offerTitle: "Elite Privilege Access",
       offerDescription:
-        "Up to 50% off on premium pantry staples. Limited time offer.",
-      buttonText: "Grab Deal",
-      color: "from-amber-600/90 to-black/30",
+        "Unlock 20% OFF site-wide and exclusive concierge benefits. Use code: ELITE at checkout.",
+      buttonText: "Claim Discount",
+      color: "from-neutral-900/90 to-black/60",
     },
     {
-      image: "https://i.ibb.co/sHXZV4C/img4.jpg",
-      offerTitle: "Weekly Essentials",
+      image: modernPantry,
+      offerTitle: "The Modern Pantry",
       offerDescription:
-        "Stock up on your daily needs with our exclusive bundle offers.",
-      buttonText: "View Offers",
-      color: "from-blue-600/90 to-black/30",
+        "Elevate your culinary journey with our curated selection of ultra-premium organic staples.",
+      buttonText: "Explore Essentials",
+      color: "from-amber-700/90 to-black/40",
+    },
+    {
+      image: natureBounty,
+      offerTitle: "Nature's Purest Bounty",
+      offerDescription:
+        "Vibrant, sun-ripened freshness from certified sustainable orchards to your doorstep.",
+      buttonText: "View Selection",
+      color: "from-blue-700/80 to-black/40",
     },
   ];
 
@@ -115,13 +129,13 @@ export const Banner = () => {
                 <p className="text-lg md:text-xl text-neutral-100 font-medium opacity-95 leading-relaxed drop-shadow-md max-w-lg">
                   {slide.offerDescription}
                 </p>
-                <div className="pt-4">
+                <div className="pb-8 md:pt-4 lg:pt-6 " >
                   <Link to="/shop">
                     <Button
                       size="lg"
                       variant="primary"
                       rightIcon={<HiArrowRight />}
-                      className="shadow-glow hover:scale-105"
+                      className="shadow-glow mb-4  md:mb-0 hover:scale-105"
                     >
                       {slide.buttonText}
                     </Button>

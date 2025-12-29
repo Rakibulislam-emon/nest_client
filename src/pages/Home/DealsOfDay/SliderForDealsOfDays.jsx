@@ -22,7 +22,7 @@ export default function SliderForDealsOfDays() {
   }
 
   return (
-    <div className="px-4 md:px-8 lg:px-12 py-20 bg-white">
+    <div className="container py-20 bg-white">
       <div className="text-center mb-12">
         <span className="text-primary-600 font-bold tracking-widest uppercase text-xs mb-3 block">
           Limited Time Offers
@@ -46,9 +46,11 @@ export default function SliderForDealsOfDays() {
         spaceBetween={10}
         freeMode={true}
         breakpoints={{
-          640: { slidesPerView: 1, spaceBetween: 15 }, // Small screens (sm)
-          768: { slidesPerView: 2, spaceBetween: 20 }, // Medium screens (md)
-          1024: { slidesPerView: 4, spaceBetween: 30 }, // Large screens (lg)
+          640: { slidesPerView: 1, spaceBetween: 15 },
+          768: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 24 },
+          1280: { slidesPerView: 4, spaceBetween: 30 },
+          1440: { slidesPerView: 5, spaceBetween: 30 },
         }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"

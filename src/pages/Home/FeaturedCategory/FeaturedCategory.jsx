@@ -24,7 +24,7 @@ export default function FeaturedCategory() {
   }
 
   return (
-    <section className="max-w-screen-2xl mx-auto lg:h-auto my-16">
+    <section className="container my-16">
       <div className="text-center mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-neutral-900 font-heading tracking-tight leading-tight">
           Featured Categories
@@ -33,7 +33,6 @@ export default function FeaturedCategory() {
           Explore our wide range of handpicked categories for your daily needs.
         </p>
       </div>
-
       <div className="flex items-center justify-between mb-6">
         <div className="h-px bg-neutral-200 flex-1 mr-8 hidden md:block"></div>
         <FeaturedNavigationButtons

@@ -17,7 +17,7 @@ export default function BottomHeader() {
 
   return (
     <div className="hidden lg:block border-b border-neutral-200 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="container">
         <div className="flex items-center justify-between h-20 gap-x-8">
           {/* Browse Categories Button */}
           <div className="relative group z-50">
