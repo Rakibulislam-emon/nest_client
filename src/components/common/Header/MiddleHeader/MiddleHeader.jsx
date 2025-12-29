@@ -1,15 +1,14 @@
-import SearchInput from "./SearchInput";
-import {
-  IoChevronDownSharp,
-  IoLocationOutline,
-  IoSearchSharp,
-} from "react-icons/io5";
-import UsersNavigation from "./UsersNavigation";
-import logo from "../../../../assets/logo.png";
-import { Link, useLocation } from "react-router"; // Use useLocation from react-router-dom
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { IoSearchSharp } from "react-icons/io5";
 import { RiMenuUnfold2Line } from "react-icons/ri";
-export default function MiddleHeader({toggleMobileMenu}) {
+import { Link, useLocation } from "react-router";
+import logo from "../../../../assets/logo_elite.png";
+import SearchInput from "./SearchInput";
+import UsersNavigation from "./UsersNavigation";
+import LocationSelector from "./LocationSelector";
+
+// eslint-disable-next-line react/prop-types
+export default function MiddleHeader({ toggleMobileMenu }) {
   const [showSearch, setShowSearch] = useState(false);
 
   // Reference for modal to check if clicked outside
@@ -46,48 +45,79 @@ export default function MiddleHeader({toggleMobileMenu}) {
   }, [location]); // Runs whenever the route changes
 
   return (
-    <div>
-      <div className="flex my-4 items-center justify-between ">
-        <button 
-        // onclick to open bottom header
-        onClick={toggleMobileMenu}
-        className="lg:hidden px-2">
-          <RiMenuUnfold2Line className="text-2xl" />
-        </button>
-        <Link>
-          <div className="w-full md:w-auto flex justify-center">
-            <img src={logo} alt="logo" className="h-10 md:h-16" />
-          </div>
-        </Link>
-        <div className="flex-1 flex lg:px-10 gap-x-10">
-          <button className=" ml-10 md:hidden" onClick={toggleSearch}>
-            <IoSearchSharp className="text-3xl" />
+    <>
+      <div className="container">
+        <div className="flex my-6 items-center justify-between gap-x-4">
+          {/* Mobile Menu Button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="lg:hidden px-2 text-neutral-700 hover:text-primary-600 transition-colors duration-fast"
+            aria-label="Open menu"
+          >
+            <RiMenuUnfold2Line className="text-3xl" />
           </button>
-          <SearchInput className={"md:block hidden"} />
-          <div className="lg:flex gap-x-1 items-center border-gray border shadow-md px-2 hidden">
-            <IoLocationOutline />
-            <span className="text-green font-semibold">Your location</span>
-            <IoChevronDownSharp />
+
+          {/* Logo */}
+          <Link
+            to="/"
+            aria-label="Nest Premium Home"
+            className="transition-transform duration-base hover:scale-105 group"
+          >
+            <div className="flex items-center gap-1">
+              <img
+                src={logo}
+                alt="Elite Nest Logo"
+                className="h-10 ml-4 md:h-12 w-auto object-contain bg-white rounded-lg p-1 shadow-glow-sm group-hover:rotate-3 transition-all"
+              />
+              <div className="flex flex-col -gap-1">
+                <span className="text-2xl md:text-3xl font-bold font-heading tracking-[0.1em] text-neutral-900 group-hover:text-primary-600 transition-colors leading-none uppercase">
+                  Nest
+                </span>
+                <span className="text-[10px] font-bold text-primary-600 tracking-[0.2em] uppercase opacity-80">
+                  grocery store
+                </span>
+              </div>
+            </div>
+          </Link>
+
+          {/* Search and Location Section */}
+          <div className="flex-1 flex lg:px-10 gap-x-6 items-center">
+            {/* Mobile Search Button */}
+            <button
+              className="ml-10 md:hidden text-neutral-700 hover:text-primary-600 transition-colors duration-fast"
+              onClick={toggleSearch}
+              aria-label="Search"
+            >
+              <IoSearchSharp className="text-3xl" />
+            </button>
+
+            {/* Desktop Search */}
+            <SearchInput className={"md:block hidden"} />
+
+            {/* Location Dropdown */}
+            <LocationSelector />
           </div>
-        </div>
-        <div>
-          <UsersNavigation />
+
+          {/* User Navigation */}
+          <div>
+            <UsersNavigation />
+          </div>
         </div>
       </div>
 
-      {/* Modal (Search Bar at the Bottom) */}
+      {/* Mobile Search Modal */}
       {showSearch && (
-        <div className="fixed top-0 inset-x-0 bg-black bg-opacity-50 z-50">
-          <div className="flex justify-center items-center py-4">
+        <div className="fixed top-0 inset-x-0 bg-black/60 backdrop-blur-sm z-50 animate-fade-in">
+          <div className="flex justify-center items-center py-6 px-4">
             <div
               ref={modalRef}
-              className="bg-white p-4 w-full max-w-md rounded shadow-lg"
+              className="bg-white p-6 w-full max-w-md rounded-xl shadow-premium animate-slide-down"
             >
               <SearchInput className={"md:hidden"} />
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

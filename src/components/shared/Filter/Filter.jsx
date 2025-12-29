@@ -12,8 +12,9 @@ const Filter = () => {
   const { data } = useFeaturedCategory();
   const categories = data?.map((item) => item?.category);
   const {
-    selectedCategory,
-    setSelectedCategory,
+    selectedCategories,
+    setSelectedCategories,
+    toggleCategory,
     minPrice,
     setMinPrice,
     maxPrice,
@@ -29,20 +30,81 @@ const Filter = () => {
   } = useFilter(); // Using context
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4">Filter Products</h2>
-      <PriceRangeFilter
-        minPrice={minPrice}
-        maxPrice={maxPrice}
-        setMinPrice={setMinPrice}
-        setMaxPrice={setMaxPrice}
-      />
-      <CategoryFilter categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/> {/* Now using context */}
-      <RatingFilter rating={rating} setRating={setRating} />
-      <AvailabilityFilter availability={availability} setAvailability={setAvailability} />
-      <DiscountFilter minDiscount={minDiscount} setMinDiscount={setMinDiscount} />
-      <ExpirationDateFilter minDate={minDate} setMinDate={setMinDate} />
-      <FilterBottomImage />
+    <div className="flex flex-col gap-10 p-8 bg-white rounded-3xl border border-neutral-100 shadow-soft">
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-2xl font-bold font-heading text-neutral-900 tracking-tight">
+          Filter <span className="text-primary-600">Products</span>
+        </h2>
+        <button
+          onClick={() => {
+            setSelectedCategories([]);
+            setMinPrice(0);
+            setMaxPrice(50);
+            setRating(0);
+            setAvailability("");
+            setMinDiscount("");
+            setMinDate("");
+          }}
+          className="text-xs font-bold text-neutral-400 hover:text-primary-600 uppercase tracking-widest transition-colors"
+        >
+          Clear All
+        </button>
+      </div>
+
+      <div className="space-y-12">
+        <section>
+          <PriceRangeFilter
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+            setMinPrice={setMinPrice}
+            setMaxPrice={setMaxPrice}
+          />
+        </section>
+
+        <div className="h-px bg-neutral-100" />
+
+        <section>
+          <CategoryFilter
+            categories={categories}
+            selectedCategories={selectedCategories}
+            toggleCategory={toggleCategory}
+          />
+        </section>
+
+        <div className="h-px bg-neutral-100" />
+
+        <section>
+          <RatingFilter rating={rating} setRating={setRating} />
+        </section>
+
+        <div className="h-px bg-neutral-100" />
+
+        <section>
+          <AvailabilityFilter
+            availability={availability}
+            setAvailability={setAvailability}
+          />
+        </section>
+
+        <div className="h-px bg-neutral-100" />
+
+        <section>
+          <DiscountFilter
+            minDiscount={minDiscount}
+            setMinDiscount={setMinDiscount}
+          />
+        </section>
+
+        <div className="h-px bg-neutral-100" />
+
+        <section>
+          <ExpirationDateFilter minDate={minDate} setMinDate={setMinDate} />
+        </section>
+      </div>
+
+      <div className="mt-4">
+        <FilterBottomImage />
+      </div>
     </div>
   );
 };

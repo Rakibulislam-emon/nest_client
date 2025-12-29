@@ -5,7 +5,7 @@ import { useFilter } from "../../../../context/FilterContext";
 import useAxios from "../../../../hooks/useAxios";
 import { Link } from "react-router";
 import { twMerge } from "tailwind-merge";
-function SearchInput({className}) {
+function SearchInput({ className }) {
   const axios = useAxios();
   const { setSearchQuery } = useFilter();
   const [search, setSearch] = useState("");
@@ -58,44 +58,76 @@ function SearchInput({className}) {
   }, []);
 
   return (
-    <div className= {twMerge(" flex-1 md:inline-flex h-10 relative",className)} ref={dropdownRef}>
+    <div
+      className={twMerge(
+        " flex-1 md:inline-flex h-10 relative group",
+        className
+      )}
+      ref={dropdownRef}
+    >
       <input
         type="text"
         placeholder="Search Products here..."
-        className="w-full h-full border-2 border-green px-4 outline-none rounded-l-lg"
+        className="w-full h-full border border-neutral-300 focus:border-primary-500 px-4 outline-none rounded-l-lg transition-colors duration-fast text-sm"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
       {search && (
         <IoClose
           onClick={() => setSearch("")}
-          className="text-xl absolute top-2.5 right-12 text-gray-500 hover:text-red-500 cursor-pointer duration-200"
+          className="text-xl absolute top-2.5 right-12 text-neutral-400 hover:text-red-500 cursor-pointer duration-fast transition-colors"
         />
       )}
-      <span className="w-10 h-10 inline-flex items-center justify-center absolute top-0 right-0 hover:bg-green duration-200 cursor-pointer">
-        <IoSearchSharp className="text-3xl" />
-      </span>
-      {Array.isArray(suggestions) && suggestions.length > 0 && (
-        <ul className="absolute top-full left-0 w-full bg-white border border-gray-200 z-10 max-h-60 overflow-y-auto rounded-lg shadow-lg">
+      <button
+        aria-label="Submit Search"
+        className="w-10 h-10 inline-flex items-center justify-center absolute top-0 right-0 bg-primary-500 text-white rounded-r-lg hover:bg-primary-600 transition-colors duration-fast cursor-pointer shadow-sm group-hover:shadow-glow-sm"
+      >
+        <IoSearchSharp className="text-xl" />
+      </button>
+      {Array.isArray(suggestions) && search && (
+        <ul className="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border border-neutral-100 z-[100] max-h-80 overflow-y-auto rounded-2xl shadow-premium mt-3 animate-slide-down border-white/40">
           {isLoading ? (
-            <li className="p-2 text-gray-500">Loading...</li>
-          ) : (
+            <li className="p-8 text-neutral-500 text-sm text-center">
+              <div className="w-6 h-6 border-2 border-primary-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+              <span>Searching the Elite Market...</span>
+            </li>
+          ) : suggestions.length > 0 ? (
             suggestions.map((product) => (
               <li
                 key={product._id}
-                className="p-2 hover:bg-green-100 border cursor-pointer flex items-center"
-                onClick={() => setSuggestions([])} // Close the dropdown
+                className="p-3 hover:bg-primary-50/50 border-b border-neutral-50 last:border-0 cursor-pointer transition-colors duration-fast group"
+                onClick={() => setSuggestions([])}
               >
-                <Link to={`/product/detail/${product._id}`} className="flex items-center">
+                <Link
+                  to={`/product/detail/${product._id}`}
+                  className="flex items-center"
+                >
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-10 h-10 object-cover mr-4 rounded-md border border-gray-300"
+                    className="w-12 h-12 object-cover mr-4 rounded-xl border border-neutral-200 group-hover:scale-105 transition-transform"
                   />
-                  <span className="text-gray-800 font-medium">{product.name}</span>
+                  <div className="flex flex-col">
+                    <span className="text-neutral-800 font-bold text-sm line-clamp-1 group-hover:text-primary-600 transition-colors">
+                      {product.name}
+                    </span>
+                    <span className="text-primary-600 text-xs font-bold mt-0.5">
+                      ${product.price}
+                    </span>
+                  </div>
                 </Link>
               </li>
             ))
+          ) : (
+            <li className="p-10 text-center">
+              <div className="text-4xl mb-3 opacity-50">🔍</div>
+              <p className="text-neutral-900 font-bold mb-1">
+                No products found
+              </p>
+              <p className="text-neutral-500 text-xs">
+                Try different keywords for better results
+              </p>
+            </li>
           )}
         </ul>
       )}

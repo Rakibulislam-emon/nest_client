@@ -24,11 +24,17 @@ export default function FeaturedCategory() {
   }
 
   return (
-    <section className="max-w-screen-2xl mx-auto lg:h-auto my-10">
-      <div className="lg:py-0 md:flex md:items-center md:justify-between">
-        <h1 className="md:text-4xl text-2xl font-bold lg:text-start text-center py-4">
-          Featured Category
+    <section className="container my-16">
+      <div className="text-center mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold text-neutral-900 font-heading tracking-tight leading-tight">
+          Featured Categories
         </h1>
+        <p className="text-sm md:text-base text-neutral-500 mt-2 font-medium">
+          Explore our wide range of handpicked categories for your daily needs.
+        </p>
+      </div>
+      <div className="flex items-center justify-between mb-6">
+        <div className="h-px bg-neutral-200 flex-1 mr-8 hidden md:block"></div>
         <FeaturedNavigationButtons
           prevRef={prevRef}
           nextRef={nextRef}

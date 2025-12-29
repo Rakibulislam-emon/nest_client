@@ -4,7 +4,20 @@ const initialState = {
   cart: [],
   favorite: [],
   totalPrice: 0,
+  appliedPromo: null,
+  discountPercent: 0,
 };
+
+const calculateTotal = (state) => {
+  const subtotal = state.cart.reduce(
+    (acc, product) =>
+      acc + Number(product.price || 0) * Number(product.quantity || 0),
+    0
+  );
+  const discountAmount = subtotal * (state.discountPercent / 100);
+  state.totalPrice = subtotal - discountAmount;
+};
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -18,24 +31,14 @@ export const cartSlice = createSlice({
       } else {
         state.cart.push({ ...action.payload, quantity: 1 });
       }
-       // Calculate the total price after updating the cart
-       state.totalPrice = state.cart.reduce(
-        (acc, product) => acc + product.price * product.quantity,
-        0
-      );
+      calculateTotal(state);
     },
-    // remove from cart
     removeFromCart: (state, action) => {
       state.cart = state.cart.filter(
         (product) => product._id !== action.payload
       );
-       // Calculate the total price after updating the cart
-       state.totalPrice = state.cart.reduce(
-        (acc, product) => acc + product.price * product.quantity,
-        0
-      );
+      calculateTotal(state);
     },
-
     increaseQuantity: (state, action) => {
       const existingProduct = state.cart.find(
         (product) => product._id === action.payload
@@ -43,51 +46,64 @@ export const cartSlice = createSlice({
       if (existingProduct) {
         existingProduct.quantity++;
       }
-       // Calculate the total price after updating the cart
-       state.totalPrice = state.cart.reduce(
-        (acc, product) => acc + product.price * product.quantity,
-        0
-      );
+      calculateTotal(state);
     },
     decreesQuantity: (state, action) => {
       const existingProduct = state.cart.find(
         (product) => product._id === action.payload
       );
-      if (existingProduct && existingProduct.quantity) {
+      if (existingProduct && existingProduct.quantity > 1) {
         existingProduct.quantity -= 1;
+      } else if (existingProduct && existingProduct.quantity === 1) {
+        state.cart = state.cart.filter(
+          (product) => product._id !== action.payload
+        );
       }
-       // Calculate the total price after updating the cart
-       state.totalPrice = state.cart.reduce(
-        (acc, product) => acc + product.price * product.quantity,
-        0
-      );
+      calculateTotal(state);
+    },
+    applyPromoCode: (state, action) => {
+      const code = action.payload.toUpperCase();
+      const promos = {
+        NEST2025: 10,
+        ELITE: 20,
+        WELCOME: 15,
+      };
+
+      if (promos[code]) {
+        state.appliedPromo = code;
+        state.discountPercent = promos[code];
+      } else {
+        state.appliedPromo = null;
+        state.discountPercent = 0;
+      }
+      calculateTotal(state);
+    },
+    removePromoCode: (state) => {
+      state.appliedPromo = null;
+      state.discountPercent = 0;
+      calculateTotal(state);
     },
     addToFavorite: (state, action) => {
-      // Ensure state.favorite is an array
       if (!Array.isArray(state.favorite)) {
-        console.error("state.favorite is not an array! Resetting to []");
-        state.favorite = []; // Reset to empty array if not an array
+        state.favorite = [];
       }
-
       const existingProduct = state.favorite.find(
         (product) => product._id === action.payload._id
       );
-
-      // If the product is already in favorites, remove it
       if (existingProduct) {
         state.favorite = state.favorite.filter(
           (product) => product._id !== action.payload._id
         );
       } else {
-        // Otherwise, add the product to favorites
         state.favorite.push(action.payload);
       }
     },
     resetCart: (state) => {
       state.cart = [];
       state.totalPrice = 0;
+      state.appliedPromo = null;
+      state.discountPercent = 0;
     },
-    
   },
 });
 
@@ -96,9 +112,10 @@ export const {
   increaseQuantity,
   decreesQuantity,
   addToFavorite,
-  removeFromFavorite,
   removeFromCart,
   resetCart,
+  applyPromoCode,
+  removePromoCode,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

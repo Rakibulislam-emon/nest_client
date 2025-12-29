@@ -1,155 +1,24 @@
-// import { useState } from "react";
-// import Loader from "../../../components/ui/Loader";
-// import { useFilter } from "../../../context/FilterContext";
-// import { useAllProducts } from "../../../hooks/useAllProducts";
-// import ProductCard from "../../Home/PopularProducts/Product/ProductCard";
-// import FilterToggleButton from "../../../components/shared/Filter/FilterToggleButton";
-
-// export default function ProductPage() {
-//   const [columns, setColumns] = useState(4); // Default to 4 columns
-//   const { data: allProducts } = useAllProducts(); // Fetch all products initially
-//   const {
-//     filteredProducts,
-//     loading,
-//     setSortField,
-//     setSortOrder,
-//     page,
-//     setPage,
-//     totalPages,
-//   } = useFilter(); // Get filtered products and sorting functions from context
-
-//   if (loading) {
-//     // Render loading state
-//     return <Loader className={"h-screen flex justify-center items-center"} />;
-//   }
-
-//   const productsToDisplay =
-//     filteredProducts.length > 0 ? filteredProducts : allProducts;
-
-//   const gridBtn = (numColumns) => {
-//     setColumns(numColumns); // Update the number of columns
-//   };
-
-//   const handleSortChange = (e) => {
-//     const [field, order] = e.target.value.split("-");
-//     setSortField(field);
-//     setSortOrder(order);
-//   };
-
-//   const handlePageChange = (newPage) => {
-//     setPage(newPage);
-//   };
-
-//   return (
-//     <div className="container mx-auto p-6 ">
-//       {/* Header */}
-//       <header className="mb-6">
-//         <h1 className="text-4xl font-bold text-center text-gray-800 mb-4">
-//           Our Products
-//         </h1>
-//         <p className="text-center text-gray-600">
-//           Discover our wide range of products and choose the best for you.
-//         </p>
-//       </header>
-
-//       {/* Controls */}
-//       <div className="md:flex  md:justify-between items-center mb-6 ">
-//         <div className="md:flex hidden gap-x-4 ">
-//           <button
-//             onClick={() => gridBtn(2)} // Set to 2 columns
-//             className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600"
-//           >
-//             2 Columns
-//           </button>
-//           <button
-//             onClick={() => gridBtn(3)} // Set to 3 columns
-//             className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600"
-//           >
-//             3 Columns
-//           </button>
-//           <button
-//             onClick={() => gridBtn(4)} // Set to 4 columns
-//             className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600"
-//           >
-//             4 Columns
-//           </button>
-//         </div>
-//         <div className="flex flex-col justify-end  items-end gap-y-4">
-//           <div className="md:hidden">
-//             <FilterToggleButton />
-//           </div>
-//           <div className="flex items-center">
-//             <label htmlFor="sort" className="mr-2 text-gray-700">
-//               Sort by:
-//             </label>
-//             <select
-//               id="sort"
-//               onChange={handleSortChange}
-//               className="bg-white border border-gray-300 rounded-lg px-4 py-2"
-//             >
-//               <option value="">None</option>
-//               <option value="price-asc">Price: Low to High</option>
-//               <option value="price-desc">Price: High to Low</option>
-//               <option value="name-asc">Name: A to Z</option>
-//               <option value="name-desc">Name: Z to A</option>
-//               <option value="rating-asc">Rating: Low to High</option>
-//               <option value="rating-desc">Rating: High to Low</option>
-//             </select>
-//           </div>
-//         </div>
-
-//         <div>
-//           <h1 className="text-xl  mt-8 md:mt-0 text-center  font-bold text-gray-700">
-//             {productsToDisplay.length} Products
-//           </h1>
-//         </div>
-//       </div>
-
-//       {/* Products Grid */}
-//       <div
-//         className={`grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-${columns} xl:grid-cols-${columns}  bg-gray-50  `}
-//       >
-//         {productsToDisplay.map((product) => (
-//           <div className="  hover:scale-105" key={product._id}>
-//             <ProductCard product={product} />
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Pagination Controls */}
-//       <div className="flex justify-center mt-6">
-//         <button
-//           onClick={() => handlePageChange(page - 1)}
-//           disabled={page === 1}
-//           className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600 disabled:opacity-50"
-//         >
-//           Previous
-//         </button>
-//         <span className="mx-4 text-gray-700">
-//           Page {page} of {totalPages}
-//         </span>
-//         <button
-//           onClick={() => handlePageChange(page + 1)}
-//           disabled={page === totalPages}
-//           className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600 disabled:opacity-50"
-//         >
-//           Next
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Loader from "../../../components/ui/Loader";
 import { useFilter } from "../../../context/FilterContext";
 import { useAllProducts } from "../../../hooks/useAllProducts";
 import ProductCard from "../../Home/PopularProducts/Product/ProductCard";
+import ProductSkeleton from "./ProductSkeleton";
 import FilterToggleButton from "../../../components/shared/Filter/FilterToggleButton";
+import Button from "../../../components/common/Button";
+import EliteEmptyState from "../../../components/shared/EliteEmptyState";
+import {
+  HiViewColumns,
+  HiSquares2X2,
+  HiSquaresPlus,
+  HiChevronDown,
+  HiChevronLeft,
+  HiChevronRight,
+} from "react-icons/hi2";
+import { twMerge } from "tailwind-merge";
 
 export default function ProductPage() {
-  const [columns, setColumns] = useState(4); // Default to 4 columns
+  const [columns, setColumns] = useState(3); // Default to 3 columns
   const { data: allProducts, loading: productsLoading } = useAllProducts(); // Fetch all products initially
   const {
     filteredProducts,
@@ -159,12 +28,38 @@ export default function ProductPage() {
     page,
     setPage,
     totalPages,
+    sortField,
+    sortOrder,
+    clearFilters,
   } = useFilter(); // Get filtered products and sorting functions from context
 
-  if (productsLoading || filterLoading) {
-    // Render loading state if either products or filters are still loading
-    return <Loader className={"h-screen flex justify-center items-center"} />;
-  }
+  const [isSortOpen, setIsSortOpen] = useState(false);
+  const sortRef = useRef(null);
+  const headerRef = useRef(null);
+
+  const sortOptions = [
+    { label: "Default Sorting", value: "-" },
+    { label: "Price: Low to High", value: "price-asc" },
+    { label: "Price: High to Low", value: "price-desc" },
+    { label: "Name: A to Z", value: "name-asc" },
+    { label: "Name: Z to A", value: "name-desc" },
+    { label: "Highest Rated", value: "rating-desc" },
+  ];
+
+  const currentSortLabel =
+    sortOptions.find((opt) => opt.value === `${sortField}-${sortOrder}`)
+      ?.label || "Default Sorting";
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sortRef.current && !sortRef.current.contains(event.target)) {
+        setIsSortOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Ensure filteredProducts and allProducts are arrays
   const productsToDisplay =
@@ -174,116 +69,209 @@ export default function ProductPage() {
       ? allProducts
       : []; // Fallback to an empty array if neither is valid
 
-  const gridBtn = (numColumns) => {
-    setColumns(numColumns); // Update the number of columns
-  };
-
-  const handleSortChange = (e) => {
-    const [field, order] = e.target.value.split("-");
-    setSortField(field);
-    setSortOrder(order);
-  };
+  if (productsLoading || (filterLoading && productsToDisplay.length === 0)) {
+    // Render full-page Loader only on initial load or if no products are available
+    return <Loader className={"h-screen flex justify-center items-center"} />;
+  }
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
+    if (headerRef.current) {
+      headerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
-    <div className="container mx-auto p-6">
-      {/* Header */}
-      <header className="mb-6">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-4">
-          Our Products
+    <div className="py-2">
+      {/* Header Section */}
+      <div className="mb-12 text-center md:text-center" ref={headerRef}>
+        <h1 className="text-3xl md:text-5xl font-bold font-heading text-neutral-900 mb-4 tracking-tight">
+          Our <span className="text-primary-600">Products</span>
         </h1>
-        <p className="text-center text-gray-600">
-          Discover our wide range of products and choose the best for you.
+        <p className="text-neutral-500 font-medium">
+          Discover our wide range of premium products, curated for your daily
+          needs.
         </p>
-      </header>
+      </div>
 
-      {/* Controls */}
-      <div className="md:flex md:justify-between items-center mb-6">
-        <div className="md:flex hidden gap-x-4">
-          <button
-            onClick={() => gridBtn(2)} // Set to 2 columns
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600"
-          >
-            2 Columns
-          </button>
-          <button
-            onClick={() => gridBtn(3)} // Set to 3 columns
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600"
-          >
-            3 Columns
-          </button>
-          <button
-            onClick={() => gridBtn(4)} // Set to 4 columns
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600"
-          >
-            4 Columns
-          </button>
+      {/* Controls Bar */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16 pb-8 border-b border-neutral-100">
+        <div className="flex items-center justify-between md:justify-start gap-8">
+          {/* Grid View Toggles (Desktop) */}
+          <div className="hidden lg:flex items-center gap-2 p-1.5 bg-neutral-100 rounded-xl">
+            {[2, 3, 4].map((num) => (
+              <button
+                key={num}
+                onClick={() => setColumns(num)}
+                className={twMerge(
+                  "p-2 rounded-lg transition-all duration-300",
+                  columns === num
+                    ? "bg-white text-primary-600 shadow-soft"
+                    : "text-neutral-400 hover:text-neutral-600"
+                )}
+                title={`${num} Columns`}
+              >
+                {num === 2 && <HiViewColumns size={20} />}
+                {num === 3 && <HiSquares2X2 size={20} />}
+                {num === 4 && <HiSquaresPlus size={20} />}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <span className="text-sm font-bold text-neutral-400 uppercase tracking-widest">
+              Found:
+            </span>
+            <span className="text-xl font-bold text-primary-600 font-heading">
+              {filterLoading ? "..." : productsToDisplay.length}
+            </span>
+            <span className="text-sm font-semibold text-neutral-500">
+              Products
+            </span>
+          </div>
         </div>
-        <div className="flex flex-col justify-end items-end gap-y-4">
+
+        <div className="flex items-center gap-4">
           <div className="md:hidden">
             <FilterToggleButton />
           </div>
-          <div className="flex items-center">
-            <label htmlFor="sort" className="mr-2 text-gray-700">
-              Sort by:
-            </label>
-            <select
-              id="sort"
-              onChange={handleSortChange}
-              className="bg-white border border-gray-300 rounded-lg px-4 py-2"
-            >
-              <option value="">None</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="name-asc">Name: A to Z</option>
-              <option value="name-desc">Name: Z to A</option>
-              <option value="rating-asc">Rating: Low to High</option>
-              <option value="rating-desc">Rating: High to Low</option>
-            </select>
-          </div>
-        </div>
 
-        <div>
-          <h1 className="text-xl mt-8 md:mt-0 text-center font-bold text-gray-700">
-            {productsToDisplay.length} Products
-          </h1>
+          {/* Elite Custom Sort Dropdown */}
+          <div className="relative" ref={sortRef}>
+            <button
+              onClick={() => setIsSortOpen(!isSortOpen)}
+              className="flex items-center gap-6 bg-white border border-neutral-200 rounded-full pl-6 pr-4 py-3 shadow-soft hover:shadow-medium transition-all duration-300 group min-w-[220px] justify-between"
+            >
+              <div className="flex flex-col items-start leading-none gap-1">
+                <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-[0.2em] font-sans">
+                  Sort By:
+                </span>
+                <span className="text-sm font-bold text-neutral-800 font-heading tracking-tight">
+                  {currentSortLabel}
+                </span>
+              </div>
+              <HiChevronDown
+                className={twMerge(
+                  "text-neutral-400 transition-transform duration-300",
+                  isSortOpen
+                    ? "rotate-180 text-primary-600"
+                    : "group-hover:text-neutral-600"
+                )}
+                size={18}
+              />
+            </button>
+
+            {/* Dropdown Options List */}
+            {isSortOpen && (
+              <div className="absolute top-full right-0 mt-3 w-64 bg-white rounded-2xl shadow-premium border border-neutral-100 py-3 z-[110] animate-scale-in origin-top-right">
+                {sortOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => {
+                      const [field, order] = option.value.split("-");
+                      setSortField(field || "");
+                      setSortOrder(order || "");
+                      setIsSortOpen(false);
+                    }}
+                    className={twMerge(
+                      "w-full px-6 py-2.5 text-left text-sm font-medium transition-colors hover:bg-neutral-50 flex items-center justify-between group",
+                      currentSortLabel === option.label
+                        ? "text-primary-600 bg-primary-50/30 font-bold"
+                        : "text-neutral-600"
+                    )}
+                  >
+                    {option.label}
+                    {currentSortLabel === option.label && (
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary-600 shadow-glow" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Products Grid */}
-      <div
-        className={`grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-${columns} xl:grid-cols-${columns} bg-gray-50`}
-      >
-        {Array.isArray(productsToDisplay) &&
-          productsToDisplay.map((product) => (
-            <div className="hover:scale-105" key={product._id}>
-              <ProductCard product={product} />
-            </div>
-          ))}
-      </div>
+      {Array.isArray(productsToDisplay) && productsToDisplay.length > 0 ? (
+        <div
+          className={twMerge(
+            "grid gap-8 lg:gap-10 transition-all duration-700",
+            columns === 2 && "grid-cols-1 sm:grid-cols-2",
+            columns === 3 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+            columns === 4 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+          )}
+        >
+          {filterLoading
+            ? [...Array(columns * 2)].map((_, idx) => (
+                <ProductSkeleton key={idx} />
+              ))
+            : productsToDisplay.map((product) => (
+                <div key={product._id} className="animate-fade-in">
+                  <ProductCard product={product} />
+                </div>
+              ))}
+        </div>
+      ) : (
+        !filterLoading && (
+          <EliteEmptyState
+            icon="🥑"
+            title="No matches found"
+            description="We searched our elite stores but couldn't find a match for your current filters."
+            buttonText="Reset All Filters"
+            onButtonClick={clearFilters}
+          />
+        )
+      )}
 
-      {/* Pagination Controls */}
-      <div className="flex justify-center mt-6">
-        <button
+      {/* Pagination Section */}
+      <div className="flex justify-center items-center gap-6 mt-20 pt-12 border-t border-neutral-100">
+        <Button
+          variant="outline"
+          size="md"
           onClick={() => handlePageChange(page - 1)}
           disabled={page === 1}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600 disabled:opacity-50"
+          className="min-w-[120px] rounded-2xl border-neutral-200 hover:border-primary-500 hover:bg-primary-50 px-4 group"
+          leftIcon={
+            <HiChevronLeft
+              className="group-hover:-translate-x-1 transition-transform"
+              size={18}
+            />
+          }
         >
           Previous
-        </button>
-        <span className="mx-4 text-gray-700">
-          Page {page} of {totalPages}
-        </span>
-        <button
+        </Button>
+
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-bold text-neutral-400 uppercase tracking-widest font-sans">
+            Page
+          </span>
+          <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-primary-600 text-white font-bold font-heading shadow-premium ring-4 ring-primary-50">
+            {page}
+          </div>
+          <span className="text-xs font-bold text-neutral-400 uppercase tracking-widest font-sans">
+            of
+          </span>
+          <span className="text-lg font-bold text-neutral-800 font-heading">
+            {totalPages}
+          </span>
+        </div>
+
+        <Button
+          variant="outline"
+          size="md"
           onClick={() => handlePageChange(page + 1)}
           disabled={page === totalPages}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg transition duration-300 hover:bg-blue-600 disabled:opacity-50"
+          className="min-w-[120px] rounded-2xl border-neutral-200 hover:border-primary-500 hover:bg-primary-50 px-4 group"
+          rightIcon={
+            <HiChevronRight
+              className="group-hover:translate-x-1 transition-transform"
+              size={18}
+            />
+          }
         >
           Next
-        </button>
+        </Button>
       </div>
     </div>
   );

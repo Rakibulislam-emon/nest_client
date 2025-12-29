@@ -12,6 +12,7 @@ import OrderSummary from "./OrderSummary";
 import { useUser } from "@clerk/clerk-react";
 import { resetCart } from "../redux/cartSlice/cartSlice";
 import { useNavigate } from "react-router";
+import Badge from "../components/common/Badge";
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -21,13 +22,13 @@ const CheckoutForm = () => {
   // const [message, setMessage] = useState("");
   const products = useSelector(selectCartItems);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const discountPercent = useSelector((state) => state.cart.discountPercent);
   const dispatch = useDispatch();
   const [clientSecret, setClientSecret] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const { user } = useUser();
-  const email = user.emailAddresses[0].emailAddress;
-  console.log('email:', email)
-
+  const email = user?.emailAddresses?.[0]?.emailAddress;
+  console.log("email:", email);
 
   useEffect(() => {
     if (totalPrice > 0) {
@@ -87,9 +88,9 @@ const CheckoutForm = () => {
 
     if (error) {
       setLoading(false); // End loading on error
-      // setMessage(error.message); // Set error message
+      toast.error(error.message);
     } else {
-      toast.success("Payment Created", paymentMethod);
+      console.log("Payment Method logic:", paymentMethod);
     }
 
     // Confirm the payment
@@ -106,20 +107,19 @@ const CheckoutForm = () => {
 
     if (confirmError) {
       setLoading(false); // End loading on error
-      // setMessage(confirmError.message); // Set error message
-      // toast.error(confirmError.message);
+      toast.error(confirmError.message);
     } else {
       if (paymentIntent.status === "succeeded") {
-        toast.success(
-          `Payment successful! Transaction ID: ${paymentIntent.id}`
-        );
+        toast.success(`Payment successful!`);
         setPaymentSuccess(true);
 
         dispatch(resetCart()); // Empty the cart after successful payment
-        navigate("/"); // Redirect to home page after successful payment
+        navigate("/order-success", {
+          state: { orderId: paymentIntent.id, amount: totalPrice },
+        });
       } else {
         setLoading(false); // End loading if payment status is not succeeded
-        // setMessage("Payment failed. Please try again later.");
+        toast.error("Payment failed. Please try again.");
       }
     }
 
@@ -127,32 +127,56 @@ const CheckoutForm = () => {
   };
 
   return (
-    <div className="font-[sans-serif] bg-white">
-      <div className="max-lg:max-w-xl mx-auto w-full">
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 max-lg:order-1 p-6 !pr-0 max-w-4xl mx-auto w-full">
-            <div className="text-center max-lg:hidden">
-              <h2 className="text-3xl font-bold text-gray-800 inline-block border-b-2 border-gray-800 pb-1">
-                Checkout
-              </h2>
-            </div>
+    <div className="container py-12 md:py-24 space-y-16">
+      <div className="space-y-6">
+        <Badge
+          variant="primary"
+          size="lg"
+          className="uppercase tracking-[0.3em]"
+        >
+          Checkout
+        </Badge>
+        <h1 className="text-5xl md:text-8xl font-black text-neutral-900 font-heading tracking-tight leading-none">
+          Complete your <span className="text-primary-500">Journey</span>
+        </h1>
+        <p className="text-lg md:text-xl text-neutral-500 max-w-2xl font-medium">
+          Finalize your selection and secure your premium organic experience.
+        </p>
+      </div>
 
-            <form className="lg:mt-16" onSubmit={handleSubmit}>
-              <ShippingInfoForm
-                user={user}
-                shippingInfo={shippingInfo}
-                handleChange={handleShippingInfoChange}
-              />
-              <PaymentMethodForm
-                paymentSuccess={paymentSuccess}
-                stripe={stripe}
-                setClientSecret={setClientSecret}
-                loading={loading}
-                totalPrice={totalPrice}
-              />
-            </form>
-          </div>
-          <OrderSummary products={products} totalPrice={totalPrice} />
+      <div className="grid lg:grid-cols-5 gap-16 items-start">
+        {/* Left Side: Forms */}
+        <div className="lg:col-span-3 space-y-16">
+          <form id="checkout-form" onSubmit={handleSubmit}>
+            <div className="space-y-24">
+              <section>
+                <ShippingInfoForm
+                  user={user}
+                  shippingInfo={shippingInfo}
+                  handleChange={handleShippingInfoChange}
+                />
+              </section>
+
+              <section className="pt-16 border-t border-neutral-100">
+                <PaymentMethodForm
+                  paymentSuccess={paymentSuccess}
+                  stripe={stripe}
+                  clientSecret={clientSecret}
+                  loading={loading}
+                  totalPrice={totalPrice}
+                />
+              </section>
+            </div>
+          </form>
+        </div>
+
+        {/* Right Side: Summary */}
+        <div className="lg:col-span-2 lg:sticky lg:top-32 h-fit">
+          <OrderSummary
+            products={products}
+            totalPrice={totalPrice}
+            discountPercent={discountPercent}
+          />
         </div>
       </div>
     </div>

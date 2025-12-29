@@ -1,42 +1,109 @@
 /* eslint-disable react/prop-types */
-const OrderSummary = ({ products, totalPrice }) => {
-    return (
-      <div className="bg-gray-100 lg:h-screen lg:sticky lg:top-0 lg:max-w-[430px] w-full lg:ml-auto">
-        <div className="relative h-full">
-          <div className="p-6 overflow-auto max-lg:max-h-[450px] lg:h-[calc(100vh-50px)]">
-            <h2 className="text-xl font-bold text-gray-800">Order Summary</h2>
-            <div className="space-y-6 mt-8">
-              {products.map((product) => (
-                <div key={product._id} className="flex gap-4">
-                  <div className="w-[124px] h-[100px] flex items-center justify-center p-4 shrink-0 bg-gray-200 rounded-lg">
-                    <img src={product.image} className="w-full object-contain" alt={product.name} />
+const OrderSummary = ({ products, totalPrice, discountPercent = 0 }) => {
+  const subtotal = products.reduce(
+    (acc, product) =>
+      acc + Number(product.price || 0) * Number(product.quantity || 0),
+    0
+  );
+  const discountAmount = subtotal * (discountPercent / 100);
+
+  return (
+    <div className="bg-white/40 backdrop-blur-xl rounded-[3rem] p-10 border border-white/40 shadow-premium space-y-10 animate-fade-in">
+      <div className="space-y-1">
+        <h2 className="text-2xl font-black text-neutral-900 font-heading">
+          Cart Reservoir
+        </h2>
+        <p className="text-xs font-black text-neutral-400 uppercase tracking-widest">
+          Inventory review before finalizing
+        </p>
+      </div>
+
+      <div className="space-y-8 max-h-[500px] overflow-y-auto pr-4 custom-scrollbar">
+        {products.map((product) => (
+          <div key={product._id} className="group flex gap-6 items-center">
+            <div className="w-24 h-24 shrink-0 bg-white rounded-3xl p-3 border border-neutral-100 shadow-soft group-hover:scale-105 transition-transform duration-500">
+              <img
+                src={product.image}
+                className="w-full h-full object-contain"
+                alt={product.name}
+              />
+            </div>
+            <div className="flex-1 space-y-1.5">
+              <h3 className="text-base font-black text-neutral-900 font-heading leading-tight line-clamp-2">
+                {product.name}
+              </h3>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">
+                    Qty: {product.quantity}
                   </div>
-                  <div className="w-full">
-                    <h3 className="text-sm text-gray-800 font-bold">{product.name}</h3>
-                    <ul className="text-xs text-gray-800 space-y-1 mt-2">
-                      <li className="flex flex-wrap gap-4">
-                        Size <span className="ml-auto">37</span>
-                      </li>
-                      <li className="flex flex-wrap gap-4">
-                        Quantity <span className="ml-auto">{product.quantity}</span>
-                      </li>
-                      <li className="flex flex-wrap gap-4">
-                        Total Price <span className="ml-auto">${(product.price * product.quantity).toFixed(2)}</span>
-                      </li>
-                    </ul>
+                  <div className="w-1 h-1 bg-neutral-200 rounded-full" />
+                  <div className="text-[10px] font-black text-primary-600 uppercase tracking-widest">
+                    ${Number(product.price || 0).toFixed(2)}
                   </div>
                 </div>
-              ))}
-            </div>
-            <div className="lg:absolute lg:left-0 lg:bottom-0 bg-gray-200 w-full p-4">
-              <h4 className="flex flex-wrap gap-4 text-sm text-gray-800 font-bold">
-                Total <span className="ml-auto">${totalPrice.toFixed(2)}</span>
-              </h4>
+                <div className="text-sm font-black text-neutral-900 font-heading">
+                  $
+                  {(
+                    Number(product.price || 0) * Number(product.quantity || 0)
+                  ).toFixed(2)}
+                </div>
+              </div>
             </div>
           </div>
+        ))}
+      </div>
+
+      <div className="pt-8 border-t border-neutral-100 space-y-6">
+        <div className="flex items-center justify-between text-neutral-500 font-medium">
+          <span className="text-sm uppercase tracking-widest font-black text-neutral-400">
+            Subtotal
+          </span>
+          <span className="text-sm font-black text-neutral-900 font-heading">
+            ${subtotal.toFixed(2)}
+          </span>
+        </div>
+
+        {discountPercent > 0 && (
+          <div className="flex items-center justify-between text-primary-600 font-medium animate-fadeIn">
+            <span className="text-sm uppercase tracking-widest font-black">
+              Discount ({discountPercent}%)
+            </span>
+            <span className="text-sm font-black font-heading">
+              -${discountAmount.toFixed(2)}
+            </span>
+          </div>
+        )}
+
+        <div className="flex items-center justify-between text-neutral-500 font-medium">
+          <span className="text-sm uppercase tracking-widest font-black text-neutral-400">
+            Logistics Fee
+          </span>
+          <span className="text-sm font-black text-neutral-900 font-heading">
+            Complimentary
+          </span>
+        </div>
+        <div className="flex items-end justify-between bg-primary-50 p-6 rounded-3xl border border-primary-100 shadow-sm">
+          <div className="space-y-0.5">
+            <span className="text-[10px] font-black text-primary-600 uppercase tracking-widest">
+              Aggregate Total
+            </span>
+            <div className="text-sm text-primary-600/60 font-medium">
+              All taxes included
+            </div>
+          </div>
+          <span className="text-4xl font-black text-primary-600 font-heading tracking-tight">
+            ${Number(totalPrice || 0).toFixed(2)}
+          </span>
         </div>
       </div>
-    );
-  };
-  
-  export default OrderSummary;
+
+      <div className="text-center p-4 bg-neutral-50 rounded-2xl border border-neutral-100 italic text-[11px] text-neutral-400 font-medium">
+        &quot;Nest Premium ensures source-to-table integrity for every
+        selection.&quot;
+      </div>
+    </div>
+  );
+};
+
+export default OrderSummary;

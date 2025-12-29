@@ -22,10 +22,19 @@ export default function SliderForDealsOfDays() {
   }
 
   return (
-    <div className="px-4 md:px-8 lg:px-12">
-      <h2 className="text-2xl md:text-4xl font-bold text-center lg:text-start py-4">
-        Deals Of The Days
-      </h2>
+    <div className="container py-20 bg-white">
+      <div className="text-center mb-12">
+        <span className="text-primary-600 font-bold tracking-widest uppercase text-xs mb-3 block">
+          Limited Time Offers
+        </span>
+        <h2 className="text-3xl md:text-5xl font-bold text-neutral-900 font-heading tracking-tight leading-tight">
+          Deals of the Day
+        </h2>
+        <div className="w-20 h-1.5 bg-primary-500 mx-auto mt-6 rounded-full"></div>
+        <p className="text-neutral-500 mt-6 max-w-xl mx-auto text-sm md:text-base font-medium">
+          Our most popular products at unbeatable prices, refreshing daily.
+        </p>
+      </div>
       <Swiper
         // dots
         pagination={{
@@ -37,9 +46,11 @@ export default function SliderForDealsOfDays() {
         spaceBetween={10}
         freeMode={true}
         breakpoints={{
-          640: { slidesPerView: 1, spaceBetween: 15 }, // Small screens (sm)
-          768: { slidesPerView: 2, spaceBetween: 20 }, // Medium screens (md)
-          1024: { slidesPerView: 4, spaceBetween: 30 }, // Large screens (lg)
+          640: { slidesPerView: 1, spaceBetween: 15 },
+          768: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 24 },
+          1280: { slidesPerView: 4, spaceBetween: 30 },
+          1440: { slidesPerView: 5, spaceBetween: 30 },
         }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"

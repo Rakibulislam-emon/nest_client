@@ -1,6 +1,4 @@
 import { useEffect } from "react";
-import Container from "../../components/shared/Container";
-import ScrollToTopButton from "../../components/shared/ScrollToTopButton";
 import BlogHero from "./BlogHero";
 import BlogPosts from "./BlogPosts";
 import RecentPosts from "./RecentPosts";
@@ -13,22 +11,23 @@ export default function Blog() {
   }, []);
 
   return (
-    <Container>
+    <div className="container py-12 md:py-20">
       <BlogHero />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-12">
-        <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-16">
+        {/* Main Content: Blog List */}
+        <div className="lg:col-span-8">
           <BlogPosts />
         </div>
-        <div className="lg:col-span-1">
-          <div className="sticky top-24">
+
+        {/* Sidebar */}
+        <div className="lg:col-span-4 space-y-12">
+          <div className="sticky top-28 space-y-12">
             <RecentPosts />
             <Categories />
           </div>
         </div>
       </div>
-
-      <ScrollToTopButton />
-    </Container>
+    </div>
   );
 }

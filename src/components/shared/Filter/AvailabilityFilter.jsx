@@ -1,38 +1,60 @@
 /* eslint-disable react/prop-types */
+import { twMerge } from "tailwind-merge";
 
 const AvailabilityFilter = ({ availability, setAvailability }) => {
   return (
-    <div className=" p-4 ">
-      <h2 className="text-lg font-bold mb-4 text-gray-800">Availability</h2>
-      <ul className="space-y-3">
-        {/* In Stock Option */}
-        <li className="flex items-center space-x-3">
-          <input
-            type="radio"
-            name="availability"
-            value="In Stock"
-            checked={availability === "In Stock"}
-            onChange={() => setAvailability("In Stock")}
-            className="form-radio h-5 w-5 text-green-600 focus:ring-2 focus:ring-green-400"
-          />
-          <label htmlFor="in-stock" className="text-gray-700 font-medium">
-            In Stock
-          </label>
-        </li>
-        {/* Out of Stock Option */}
-        <li className="flex items-center space-x-3">
-          <input
-            type="radio"
-            name="availability"
-            value="Out of Stock"
-            checked={availability === "Out of Stock"}
-            onChange={() => setAvailability("Out of Stock")}
-            className="form-radio h-5 w-5 text-red-600 focus:ring-2 focus:ring-red-400"
-          />
-          <label htmlFor="out-of-stock" className="text-gray-700 font-medium">
-            Out of Stock
-          </label>
-        </li>
+    <div className="group/section">
+      <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-[0.15em] font-sans mb-6">
+        Availability
+      </h3>
+
+      <ul className="grid gap-2.5">
+        {[
+          { label: "In Stock", value: "In Stock", color: "primary" },
+          { label: "Out of Stock", value: "Out of Stock", color: "danger" },
+        ].map((option) => {
+          const isSelected = availability === option.value;
+          return (
+            <li key={option.value}>
+              <button
+                onClick={() => setAvailability(isSelected ? "" : option.value)}
+                className={twMerge(
+                  "w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 group/item text-left",
+                  isSelected
+                    ? "bg-neutral-50 active:scale-[0.98]"
+                    : "hover:bg-neutral-50 active:scale-[0.98]"
+                )}
+              >
+                {/* Custom Radio */}
+                <div
+                  className={twMerge(
+                    "w-5 h-5 flex-shrink-0 rounded-full border-2 flex items-center justify-center transition-all duration-300",
+                    isSelected
+                      ? option.color === "primary"
+                        ? "bg-primary-600 border-primary-600 shadow-glow"
+                        : "bg-red-500 border-red-500 shadow-glow-red"
+                      : "border-neutral-200 bg-white group-hover/item:border-primary-400"
+                  )}
+                >
+                  {isSelected && (
+                    <div className="w-1.5 h-1.5 rounded-full bg-white" />
+                  )}
+                </div>
+
+                <span
+                  className={twMerge(
+                    "text-sm font-semibold transition-colors leading-none",
+                    isSelected
+                      ? "text-neutral-900"
+                      : "text-neutral-600 group-hover/item:text-neutral-900"
+                  )}
+                >
+                  {option.label}
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

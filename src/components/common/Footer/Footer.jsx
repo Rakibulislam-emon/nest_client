@@ -1,290 +1,214 @@
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo_elite.png";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
+import { FiPhoneCall, FiMail, FiMapPin } from "react-icons/fi";
+import { Link } from "react-router";
+
 export default function Footer() {
   return (
-    <footer className="font-sans tracking-wide bg-gray-50 px-10 pt-12 pb-6">
-      <div className="flex flex-wrap justify-between gap-10">
-        <div className="max-w-md">
-          <a href="">
-            <img src={logo} alt="logo" className="w-36" />
-          </a>
-          <div className="mt-6">
-            <p className="text-gray-600 leading-relaxed text-sm">
-              <strong>Address:</strong> 1234 Street Name, City, Country <br />
-              <strong>Call:</strong> +123 456 7890 <br />
-              <strong>Contact Email:</strong> contact@readymadeui.com <br />
-              <strong>WhatsApp:</strong> +123 456 7890 <br />
-              <strong>Author:</strong> John Doe <br />
+    <footer className="font-sans tracking-wide bg-neutral-900 pt-20 pb-10 relative overflow-hidden">
+      {/* Premium Background Accents */}
+      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-primary shadow-glow-sm"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary-500/5 blur-[120px] rounded-full"></div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Newsletter Section - Elite Glassmorphism */}
+        <div className="glass-dark rounded-[2.5rem] p-10 md:p-14 mb-20 flex flex-col lg:flex-row items-center justify-between gap-10 border border-white/5 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-primary-500/10 blur-3xl rounded-full -mr-20 -mt-20"></div>
+
+          <div className="lg:w-1/2 relative z-10">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-heading tracking-tight">
+              Join the <span className="text-primary-400">Elite</span> Circle
+            </h3>
+            <p className="text-neutral-400 text-lg max-w-md leading-relaxed">
+              Experience the pinnacle of grocery shopping. Get exclusive access
+              to seasonal harvests and premium offers.
             </p>
           </div>
-          <ul className="mt-10 flex space-x-5">
-            <li>
-              <a href="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="fill-blue-600 w-8 h-8"
-                  viewBox="0 0 49.652 49.652"
-                >
-                  <path
-                    d="M24.826 0C11.137 0 0 11.137 0 24.826c0 13.688 11.137 24.826 24.826 24.826 13.688 0 24.826-11.138 24.826-24.826C49.652 11.137 38.516 0 24.826 0zM31 25.7h-4.039v14.396h-5.985V25.7h-2.845v-5.088h2.845v-3.291c0-2.357 1.12-6.04 6.04-6.04l4.435.017v4.939h-3.219c-.524 0-1.269.262-1.269 1.386v2.99h4.56z"
-                    data-original="#000000"
+          <div className="w-full lg:w-1/2 max-w-xl relative z-10">
+            <form className="flex flex-col sm:flex-row gap-3">
+              <input
+                type="email"
+                placeholder="Enter your email address..."
+                className="flex-1 bg-white/5 border border-white/10 text-white px-6 py-4 rounded-2xl focus:outline-none focus:border-primary-500/50 transition-all placeholder:text-neutral-500 backdrop-blur-md"
+              />
+              <button className="bg-primary-600 hover:bg-primary-500 text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 shadow-glow-sm hover:shadow-glow hover:-translate-y-0.5 active:scale-95 whitespace-nowrap">
+                Subscribe Now
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
+          {/* Brand Column */}
+          <div className="lg:col-span-4 max-w-sm">
+            <Link to="/" className="inline-block mb-8 group">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center p-2 shadow-glow-sm group-hover:rotate-6 transition-transform duration-500">
+                  <img
+                    src={logo}
+                    alt="Elite Nest"
+                    className="w-full h-full object-contain"
                   />
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8"
-                  viewBox="0 0 112.196 112.196"
-                >
-                  <circle
-                    cx="56.098"
-                    cy="56.097"
-                    r="56.098"
-                    fill="#007ab9"
-                    data-original="#007ab9"
-                  />
-                  <path
-                    fill="#fff"
-                    d="M89.616 60.611v23.128H76.207V62.161c0-5.418-1.936-9.118-6.791-9.118-3.705 0-5.906 2.491-6.878 4.903-.353.862-.444 2.059-.444 3.268v22.524h-13.41s.18-36.546 0-40.329h13.411v5.715c-.027.045-.065.089-.089.132h.089v-.132c1.782-2.742 4.96-6.662 12.085-6.662 8.822 0 15.436 5.764 15.436 18.149zm-54.96-36.642c-4.587 0-7.588 3.011-7.588 6.967 0 3.872 2.914 6.97 7.412 6.97h.087c4.677 0 7.585-3.098 7.585-6.97-.089-3.956-2.908-6.967-7.496-6.967zm-6.791 59.77H41.27v-40.33H27.865v40.33z"
-                    data-original="#f1f2f2"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8"
-                  viewBox="0 0 152 152"
-                >
-                  <linearGradient
-                    id="a"
-                    x1="22.26"
-                    x2="129.74"
-                    y1="22.26"
-                    y2="129.74"
-                    gradientUnits="userSpaceOnUse"
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold font-heading tracking-tight text-white leading-none">
+                    NEST <span className="text-primary-500">PREMIUM</span>
+                  </span>
+                  <span className="text-[10px] font-black text-neutral-500 tracking-[0.3em] uppercase mt-1">
+                    Elite Market Group
+                  </span>
+                </div>
+              </div>
+            </Link>
+            <p className="text-neutral-400 text-base leading-relaxed mb-8">
+              Pioneering the future of digital grocery with farm-to-door
+              transparency and curated organic selections that redefine quality
+              standards.
+            </p>
+            <div className="space-y-5">
+              <div className="flex items-start gap-4 text-neutral-400 group cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-neutral-800/50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+                  <FiMapPin className="text-lg" />
+                </div>
+                <span className="text-sm pt-2 group-hover:text-neutral-200 transition-colors">
+                  5171 W Campbell Ave, Kent, Utah 53127
+                </span>
+              </div>
+              <div className="flex items-center gap-4 text-neutral-400 group cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-neutral-800/50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+                  <FiMail className="text-lg" />
+                </div>
+                <span className="text-sm group-hover:text-neutral-200 transition-colors">
+                  concierge@nestpremium.com
+                </span>
+              </div>
+              <div className="flex items-center gap-4 text-neutral-400 group cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-neutral-800/50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300">
+                  <FiPhoneCall className="text-lg" />
+                </div>
+                <span className="text-sm group-hover:text-neutral-200 transition-colors">
+                  +1 (234) 567-8910
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Links Columns */}
+          <div className="lg:col-span-2">
+            <h4 className="text-white font-heading font-bold text-xl mb-8">
+              Company
+            </h4>
+            <ul className="space-y-4">
+              {[
+                "About Us",
+                "Sustainability",
+                "Privacy Policy",
+                "Terms of Service",
+                "Contact",
+              ].map((item) => (
+                <li key={item}>
+                  <Link
+                    to="#"
+                    className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-x-1 inline-block"
                   >
-                    <stop offset="0" stopColor="#fae100" />
-                    <stop offset=".15" stopColor="#fcb720" />
-                    <stop offset=".3" stopColor="#ff7950" />
-                    <stop offset=".5" stopColor="#ff1c74" />
-                    <stop offset="1" stopColor="#6c1cd1" />
-                  </linearGradient>
-                  <g data-name="Layer 2">
-                    <g data-name="03.Instagram">
-                      <rect
-                        width="152"
-                        height="152"
-                        fill="url(#a)"
-                        data-original="url(#a)"
-                        rx="76"
-                      />
-                      <g fill="#fff">
-                        <path
-                          fill="#ffffff10"
-                          d="M133.2 26c-11.08 20.34-26.75 41.32-46.33 60.9S46.31 122.12 26 133.2q-1.91-1.66-3.71-3.46A76 76 0 1 1 129.74 22.26q1.8 1.8 3.46 3.74z"
-                          data-original="#ffffff10"
-                        />
-                        <path
-                          d="M94 36H58a22 22 0 0 0-22 22v36a22 22 0 0 0 22 22h36a22 22 0 0 0 22-22V58a22 22 0 0 0-22-22zm15 54.84A18.16 18.16 0 0 1 90.84 109H61.16A18.16 18.16 0 0 1 43 90.84V61.16A18.16 18.16 0 0 1 61.16 43h29.68A18.16 18.16 0 0 1 109 61.16z"
-                          data-original="#ffffff"
-                        />
-                        <path
-                          d="m90.59 61.56-.19-.19-.16-.16A20.16 20.16 0 0 0 76 55.33 20.52 20.52 0 0 0 55.62 76a20.75 20.75 0 0 0 6 14.61 20.19 20.19 0 0 0 14.42 6 20.73 20.73 0 0 0 14.55-35.05zM76 89.56A13.56 13.56 0 1 1 89.37 76 13.46 13.46 0 0 1 76 89.56zm26.43-35.18a4.88 4.88 0 0 1-4.85 4.92 4.81 4.81 0 0 1-3.42-1.43 4.93 4.93 0 0 1 3.43-8.39 4.82 4.82 0 0 1 3.09 1.12l.1.1a3.05 3.05 0 0 1 .44.44l.11.12a4.92 4.92 0 0 1 1.1 3.12z"
-                          data-original="#ffffff"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-8 h-8"
-                  viewBox="0 0 1227 1227"
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-2">
+            <h4 className="text-white font-heading font-bold text-xl mb-8">
+              Experience
+            </h4>
+            <ul className="space-y-4">
+              {[
+                "Personalized Feed",
+                "Your Wishlist",
+                "Tracking",
+                "Support Center",
+                "Elite Membership",
+              ].map((item) => (
+                <li key={item}>
+                  <Link
+                    to="#"
+                    className="text-neutral-400 hover:text-primary-400 text-sm transition-all duration-300 hover:translate-x-1 inline-block"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Apps Column */}
+          <div className="lg:col-span-4 lg:pl-10">
+            <h4 className="text-white font-heading font-bold text-xl mb-8">
+              App Experience
+            </h4>
+            <p className="text-neutral-400 text-sm mb-6 leading-relaxed">
+              Take the premium market anywhere. Exclusive app-only collections
+              available.
+            </p>
+            <div className="space-y-4 mb-8">
+              <button className="group glass-dark hover:bg-white/10 border border-white/5 text-white px-6 py-3 rounded-2xl flex items-center gap-4 transition-all duration-300 w-full max-w-[200px] hover:-translate-y-1">
+                <div className="text-3xl group-hover:scale-110 transition-transform">
+                  
+                </div>
+                <div className="text-left">
+                  <div className="text-[10px] text-neutral-500 uppercase font-black">
+                    App Store
+                  </div>
+                  <div className="text-sm font-bold">iOS Download</div>
+                </div>
+              </button>
+              <button className="group glass-dark hover:bg-white/10 border border-white/5 text-white px-6 py-3 rounded-2xl flex items-center gap-4 transition-all duration-300 w-full max-w-[200px] hover:-translate-y-1">
+                <div className="text-2xl group-hover:scale-110 transition-transform">
+                  ▶
+                </div>
+                <div className="text-left">
+                  <div className="text-[10px] text-neutral-500 uppercase font-black">
+                    Google Play
+                  </div>
+                  <div className="text-sm font-bold">Android App</div>
+                </div>
+              </button>
+            </div>
+            <div className="flex gap-3 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+              <div className="h-8 w-12 bg-white/10 rounded-lg"></div>
+              <div className="h-8 w-12 bg-white/10 rounded-lg"></div>
+              <div className="h-8 w-12 bg-white/10 rounded-lg"></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-neutral-500 text-sm font-medium">
+            © 2024 <span className="text-white">Nest Premium Market</span>. All
+            architectural standards reserved.
+          </p>
+
+          <div className="flex gap-4">
+            {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube].map(
+              (Icon, index) => (
+                <a
+                  key={index}
+                  href="#"
+                  className="w-11 h-11 rounded-2xl bg-neutral-800/50 flex items-center justify-center text-white hover:bg-primary-600 hover:-translate-y-1.5 transition-all duration-300 border border-white/5 hover:border-primary-400 hover:shadow-glow-sm group"
                 >
-                  <path
-                    d="M613.5 0C274.685 0 0 274.685 0 613.5S274.685 1227 613.5 1227 1227 952.315 1227 613.5 952.315 0 613.5 0z"
-                    data-original="#000000"
-                  />
-                  <path
-                    fill="#fff"
-                    d="m680.617 557.98 262.632-305.288h-62.235L652.97 517.77 470.833 252.692H260.759l275.427 400.844-275.427 320.142h62.239l240.82-279.931 192.35 279.931h210.074L680.601 557.98zM345.423 299.545h95.595l440.024 629.411h-95.595z"
-                    data-original="#ffffff"
-                  />
-                </svg>
-              </a>
-            </li>
-          </ul>
+                  <Icon className="text-base group-hover:scale-110 transition-transform" />
+                </a>
+              )
+            )}
+          </div>
         </div>
-
-        <div className="max-lg:min-w-[140px]">
-          <h4 className="text-gray-800 font-semibold text-base relative max-sm:cursor-pointer">
-            Services
-          </h4>
-
-          <ul className="mt-6 space-y-4">
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Fresh Fruits & Vegetables
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Daily Essentials
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Organic Products
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Exclusive Deals
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Customer Support
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="max-lg:min-w-[140px]">
-          <h4 className="text-gray-800 font-semibold text-base relative max-sm:cursor-pointer">
-            Account
-          </h4>
-          <ul className="space-y-4 mt-6">
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                My Orders
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Wishlist
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Payment Methods
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Address Book
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Account Settings
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="max-lg:min-w-[140px]">
-          <h4 className="text-gray-800 font-semibold text-base relative max-sm:cursor-pointer">
-            Popular
-          </h4>
-
-          <ul className="space-y-4 mt-6">
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Fresh Produce
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Weekly Deals
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Best Sellers
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                New Arrivals
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Seasonal Favorites
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="max-lg:min-w-[140px]">
-          <h4 className="text-gray-800 font-semibold text-base relative max-sm:cursor-pointer">
-            Additional
-          </h4>
-
-          <ul className="space-y-4 mt-6">
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                FAQ
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Partners
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Sitemap
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                Contact
-              </a>
-            </li>
-            <li>
-              <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-                News
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <hr className="mt-10 mb-6 border-gray-300" />
-
-      <div className="flex flex-wrap max-md:flex-col gap-4">
-        <ul className="md:flex md:space-x-6 max-md:space-y-2">
-          <li>
-            <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-              Terms of Service
-            </a>
-          </li>
-          <li>
-            <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-              Privacy Policy
-            </a>
-          </li>
-          <li>
-            <a href="" className="hover:text-gray-800 text-gray-600 text-sm">
-              Security
-            </a>
-          </li>
-        </ul>
-
-        <p className="text-gray-600 text-sm md:ml-auto">
-          © ReadymadeUI. All rights reserved.
-        </p>
       </div>
     </footer>
   );

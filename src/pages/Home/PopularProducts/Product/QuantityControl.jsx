@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import AddToCartButton from "./AddToCartButton";
 import { useEffect, useState } from "react";
@@ -14,12 +13,9 @@ import toast from "react-hot-toast";
 
 export default function QuantityControl({ className, product }) {
   const [existingProduct, setExistingProduct] = useState(null);
-
   const items = useSelector(selectCartItems);
-
   const dispatch = useDispatch();
 
-  // Set the existing product from the cart items
   useEffect(() => {
     const availableProduct = items.find((item) => item._id === product._id);
     if (availableProduct) {
@@ -27,63 +23,55 @@ export default function QuantityControl({ className, product }) {
     }
   }, [items, product]);
 
-  // Increment product quantity
+  const toastStyle = {
+    background: "black",
+    color: "#fff",
+  };
+
   const increment = () => {
     if (existingProduct) {
       dispatch(increaseQuantity(product._id));
-      // toast
-        toast.success("Product added to cart!", {
-          position: "top-right",
-          style: {
-            background: 'black',
-            color: '#fff',
-          },
-        });
+      toast.success("Quantity updated!", {
+        position: "top-right",
+        style: toastStyle,
+      });
     }
   };
 
-  // Decrement product quantity
   const decrement = () => {
     if (existingProduct && existingProduct.quantity > 1) {
       dispatch(decreesQuantity(product._id));
-      // toast
-        toast.error("Product removed from cart!", {
-          position: "top-right",
-          style: {
-            background: 'black',
-            color: '#fff',
-          }
-        });
+      toast.error("Quantity decreased!", {
+        position: "top-right",
+        style: toastStyle,
+      });
     }
   };
 
   return (
-    <div
-      className={twMerge(
-        `p-2 gap-x-6 md:flex justify-between items-center group-hover:opacity-100 transition-opacity duration-300`,
-        className
-      )}
-    >
+    <div className={twMerge(`w-full`, className)}>
       {existingProduct ? (
-        <div className="flex border-dashed border items-center space-x-2 p-1 rounded-lg w-full">
+        <div className="flex items-center justify-between bg-neutral-100 rounded-lg p-1 shadow-inner">
           <button
             onClick={decrement}
-            className="p-1 rounded-full w-full bg-gray-200 hover:bg-gray-300 flex justify-center"
+            className="w-8 h-8 flex items-center justify-center rounded-md bg-white text-neutral-600 shadow-sm hover:bg-rose-50 hover:text-rose-500 transition-colors"
           >
-            <FaMinus />
+            <FaMinus size={10} />
           </button>
-          <span className="text-lg">{existingProduct.quantity}</span>
+
+          <span className="font-bold text-neutral-800 text-sm">
+            {existingProduct.quantity} in Cart
+          </span>
+
           <button
             onClick={increment}
-            className="p-1 rounded-full w-full flex justify-center bg-gray-200 hover:bg-gray-300"
+            className="w-8 h-8 flex items-center justify-center rounded-md bg-white text-neutral-600 shadow-sm hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
           >
-            <FaPlus />
+            <FaPlus size={10} />
           </button>
         </div>
       ) : (
-        <div className="flex-grow">
-          <AddToCartButton className={"bg-green"} product={product} />
-        </div>
+        <AddToCartButton product={product} />
       )}
     </div>
   );
