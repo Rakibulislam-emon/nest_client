@@ -26,7 +26,7 @@ export default function AdBanners() {
 
   return (
     <main className="container mt-10 lg:h-[470px] mb-20 flex flex-col md:flex-row gap-y-10 gap-x-10">
-      <div className="relative w-full md:w-1/2 group overflow-hidden rounded-[2rem] shadow-premium bg-neutral-200">
+      <div className="relative w-full md:w-1/2 min-h-[400px] group overflow-hidden rounded-[2rem] shadow-premium bg-neutral-200">
         <img
           src={adData[0].image}
           alt={adData[0].title}

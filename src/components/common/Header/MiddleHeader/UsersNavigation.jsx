@@ -18,7 +18,7 @@ export default function UsersNavigation() {
   const totalFav = favorite.length;
 
   return (
-    <div className="flex lg:gap-x-8 gap-x-5 items-center">
+    <div className="flex lg:gap-x-8 gap-x-3 items-center">
       {/* <div className="text-2xl relative lg:block hidden group cursor-pointer">
         <GoGitCompare className="text-neutral-600 group-hover:text-primary-600 transition-colors duration-fast" />
         <span className="absolute -top-2 -right-2 text-[10px] font-bold w-5 h-5 bg-primary-500 text-white rounded-full flex items-center justify-center border-2 border-white shadow-sm">

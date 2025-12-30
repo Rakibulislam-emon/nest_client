@@ -68,7 +68,7 @@ export const Banner = () => {
   }, [nextSlider]);
 
   return (
-    <div className="h-64 w-full md:h-[480px] lg:h-[550px] relative overflow-hidden rounded-2xl shadow-premium group">
+    <div className="h-[500px] w-full md:h-[550px] lg:h-[600px] relative overflow-hidden rounded-2xl shadow-premium group">
       {/* Arrow Left */}
       <button
         onClick={prevSlider}
@@ -117,19 +117,19 @@ export const Banner = () => {
             />
             {/* Overlay */}
             <div
-              className={`absolute inset-0 bg-gradient-to-r ${slide.color} via-black/40 to-transparent flex flex-col justify-center items-start text-white p-8 md:p-16 lg:p-24`}
+              className={`absolute inset-0 bg-gradient-to-r ${slide.color} via-black/40 to-transparent flex flex-col justify-center items-start text-white p-6 md:p-16 lg:p-24`}
             >
               <div className="animate-slide-up space-y-4 max-w-xl">
                 <div className="flex items-center gap-2 text-warning-400 font-bold tracking-wider text-xs md:text-sm uppercase bg-white/10 w-fit px-3 py-1 rounded-full backdrop-blur-sm border border-white/10">
                   <BsFire /> Trending Now
                 </div>
-                <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight drop-shadow-lg font-heading">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight drop-shadow-lg font-heading">
                   {slide.offerTitle}
                 </h2>
                 <p className="text-lg md:text-xl text-neutral-100 font-medium opacity-95 leading-relaxed drop-shadow-md max-w-lg">
                   {slide.offerDescription}
                 </p>
-                <div className="pb-8 md:pt-4 lg:pt-6 " >
+                <div className="pb-8 md:pt-4 lg:pt-6 ">
                   <Link to="/shop">
                     <Button
                       size="lg"

@@ -52,10 +52,15 @@ const FilterPopularProducts = ({ productsData }) => {
         </div>
       </div>
 
-      {/* Products Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6">
+      {/* Products Grid / Slider */}
+      <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-4 px-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-6 md:pb-0 md:mx-0 md:px-0 md:overflow-visible hide-scrollbar">
         {productsToShow?.map((product) => (
-          <ProductCard key={product._id} product={product} />
+          <div
+            key={product._id}
+            className="min-w-[280px] w-[85vw] sm:w-[320px] snap-center md:min-w-0 md:w-auto"
+          >
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
 
