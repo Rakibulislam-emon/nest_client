@@ -67,13 +67,13 @@ export default function MiddleHeader({ toggleMobileMenu }) {
               <img
                 src={logo}
                 alt="Elite Nest Logo"
-                className="h-10 ml-4 md:h-12 w-auto object-contain bg-white rounded-lg p-1 shadow-glow-sm group-hover:rotate-3 transition-all"
+                className="h-8 ml-2 md:ml-4 md:h-12 w-auto object-contain bg-white rounded-lg p-1 shadow-glow-sm group-hover:rotate-3 transition-all"
               />
               <div className="flex flex-col -gap-1">
-                <span className="text-2xl md:text-3xl font-bold font-heading tracking-[0.1em] text-neutral-900 group-hover:text-primary-600 transition-colors leading-none uppercase">
+                <span className="text-xl md:text-3xl font-bold font-heading tracking-[0.1em] text-neutral-900 group-hover:text-primary-600 transition-colors leading-none uppercase">
                   Nest
                 </span>
-                <span className="text-[10px] font-bold text-primary-600 tracking-[0.2em] uppercase opacity-80">
+                <span className="text-[8px] md:text-[10px] font-bold text-primary-600 tracking-[0.2em] uppercase opacity-80">
                   grocery store
                 </span>
               </div>
@@ -81,14 +81,14 @@ export default function MiddleHeader({ toggleMobileMenu }) {
           </Link>
 
           {/* Search and Location Section */}
-          <div className="flex-1 flex lg:px-10 gap-x-6 items-center">
+          <div className="flex-1 flex lg:px-10 gap-x-6 items-center justify-end md:justify-start">
             {/* Mobile Search Button */}
             <button
-              className="ml-10 md:hidden text-neutral-700 hover:text-primary-600 transition-colors duration-fast"
+              className="md:hidden text-neutral-700 hover:text-primary-600 transition-colors duration-fast mr-2"
               onClick={toggleSearch}
               aria-label="Search"
             >
-              <IoSearchSharp className="text-3xl" />
+              <IoSearchSharp className="text-2xl" />
             </button>
 
             {/* Desktop Search */}

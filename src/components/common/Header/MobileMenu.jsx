@@ -1,9 +1,10 @@
-import { NavLink } from "react-router";
+import { Link, useLocation } from "react-router";
 import { IoClose } from "react-icons/io5";
 import logo from "../../../assets/logo_elite.png";
 
 // eslint-disable-next-line react/prop-types
 export default function MobileMenu({ onClose }) {
+  const location = useLocation();
   const pages = [
     { label: "Home", url: "/" },
     { label: "Shop", url: "/shop" },
@@ -51,21 +52,37 @@ export default function MobileMenu({ onClose }) {
             Menu
           </div>
           <ul className="space-y-2">
-            {pages.map((page) => (
-              <li key={page.label}>
-                <NavLink
-                  to={page.url}
-                  onClick={onClose}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "flex items-center px-4 py-3 bg-gradient-primary text-white rounded-lg font-bold shadow-lg shadow-primary-500/30 transition-all duration-base"
-                      : "flex items-center px-4 py-3 text-neutral-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg font-medium transition-all duration-base"
-                  }
-                >
-                  {page.label}
-                </NavLink>
-              </li>
-            ))}
+            {pages.map((page) => {
+              // Custom active logic to handle hash links correctly
+              const isHashLink = page.url.includes("#");
+              // Check if THIS specific item should be active
+              // 1. If it's a hash link, it needs pathname Match AND hash Match
+              // 2. If it's Home (/), it needs pathname '/' AND empty hash (to not match featured)
+              // 3. Otherwise, let standard router logic apply (we can use strict equality for simplicity here)
+
+              const isLinkActive = isHashLink
+                ? location.pathname === "/" &&
+                  location.hash === page.url.substring(1)
+                : page.url === "/"
+                ? location.pathname === "/" && location.hash === ""
+                : location.pathname.startsWith(page.url);
+
+              return (
+                <li key={page.label}>
+                  <Link
+                    to={page.url}
+                    onClick={onClose}
+                    className={
+                      isLinkActive
+                        ? "flex items-center px-4 py-3 bg-primary-50 text-primary-700 border-l-4 border-primary-600 rounded-r-lg font-bold transition-all duration-base"
+                        : "flex items-center px-4 py-3 text-neutral-600 hover:text-primary-600 hover:bg-neutral-50 rounded-lg font-medium transition-all duration-base border-l-4 border-transparent"
+                    }
+                  >
+                    {page.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
