@@ -1,9 +1,18 @@
 import { Link, useLocation } from "react-router";
 import { IoClose } from "react-icons/io5";
 import logo from "../../../assets/logo_elite.png";
+import {
+  SignInButton,
+  UserButton,
+  useUser,
+  SignedIn,
+  SignedOut,
+} from "@clerk/clerk-react";
+import { LuUserPlus } from "react-icons/lu";
 
 // eslint-disable-next-line react/prop-types
 export default function MobileMenu({ onClose }) {
+  const { user } = useUser();
   const location = useLocation();
   const pages = [
     { label: "Home", url: "/" },
@@ -47,19 +56,14 @@ export default function MobileMenu({ onClose }) {
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 overflow-y-auto p-5">
+        <nav className="flex-1 overflow-y-auto p-5 pb-0">
           <div className="mb-4 text-xs font-bold text-neutral-400 uppercase tracking-wider">
             Menu
           </div>
-          <ul className="space-y-2">
+          <ul className="space-y-2 mb-8">
             {pages.map((page) => {
               // Custom active logic to handle hash links correctly
               const isHashLink = page.url.includes("#");
-              // Check if THIS specific item should be active
-              // 1. If it's a hash link, it needs pathname Match AND hash Match
-              // 2. If it's Home (/), it needs pathname '/' AND empty hash (to not match featured)
-              // 3. Otherwise, let standard router logic apply (we can use strict equality for simplicity here)
-
               const isLinkActive = isHashLink
                 ? location.pathname === "/" &&
                   location.hash === page.url.substring(1)
@@ -84,14 +88,34 @@ export default function MobileMenu({ onClose }) {
               );
             })}
           </ul>
-        </nav>
 
-        {/* Footer Actions */}
-        <div className="p-5 border-t border-neutral-100 bg-neutral-50">
-          <button className="w-full py-3 bg-neutral-900 text-white rounded-lg font-semibold hover:bg-neutral-800 transition-colors shadow-soft">
-            Login / Register
-          </button>
-        </div>
+          {/* Auth Section Inside Nav for better scrolling/visibility */}
+          <div className="py-5 border-t border-neutral-100">
+            <SignedIn>
+              <div className="flex items-center justify-between p-4 bg-white rounded-xl shadow-soft border border-neutral-100">
+                <div className="flex items-center gap-3">
+                  <UserButton afterSignOutUrl="/" />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-bold text-neutral-900 leading-none">
+                      {user?.fullName || "User"}
+                    </span>
+                    <span className="text-[10px] text-neutral-500 font-medium truncate max-w-[150px]">
+                      {user?.primaryEmailAddress?.emailAddress}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="w-full py-3 bg-neutral-900 text-white rounded-lg font-semibold hover:bg-neutral-800 transition-colors shadow-soft flex items-center justify-center gap-2">
+                  <LuUserPlus className="text-xl" />
+                  Login / Register
+                </button>
+              </SignInButton>
+            </SignedOut>
+          </div>
+        </nav>
       </div>
     </div>
   );
