@@ -10,12 +10,39 @@ import "swiper/css/pagination";
 import { FreeMode, Pagination } from "swiper/modules";
 import DealsCard from "./DealsCard";
 import { useDeals } from "../../../hooks/useDeals";
-import Loader from "../../../components/ui/Loader";
+import DealsSkeleton from "./DealsSkeleton";
 
 export default function SliderForDealsOfDays() {
   const { data, isError, isLoading, error } = useDeals();
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className="container py-20 bg-white">
+        <div className="text-center mb-12">
+          <div className="h-4 w-32 bg-neutral-100 animate-pulse mx-auto rounded-full mb-3"></div>
+          <div className="h-12 w-64 bg-neutral-200 animate-pulse mx-auto rounded-xl"></div>
+          <div className="w-20 h-1.5 bg-neutral-100 mx-auto mt-6 rounded-full animate-pulse"></div>
+          <div className="h-4 w-80 bg-neutral-50 animate-pulse mx-auto mt-6 rounded-md"></div>
+        </div>
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          breakpoints={{
+            640: { slidesPerView: 1, spaceBetween: 15 },
+            768: { slidesPerView: 2, spaceBetween: 20 },
+            1024: { slidesPerView: 3, spaceBetween: 24 },
+            1280: { slidesPerView: 4, spaceBetween: 30 },
+            1440: { slidesPerView: 5, spaceBetween: 30 },
+          }}
+          className="mySwiper"
+        >
+          {[...Array(5)].map((_, i) => (
+            <SwiperSlide key={i}>
+              <DealsSkeleton />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    );
   }
   if (isError) {
     return <div>Error: {error?.message || "Something went wrong"}</div>;

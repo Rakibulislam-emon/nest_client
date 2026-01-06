@@ -3,7 +3,8 @@ import ViewAllGrid from "./ViewAllGrid";
 import SwiperView from "./SwiperView";
 import FeaturedNavigationButtons from "./NavigationButtons";
 import { useFeaturedCategory } from "../../../hooks/useFeaturedCategory";
-import Loader from "../../../components/ui/Loader";
+import { Swiper, SwiperSlide } from "swiper/react";
+import CategorySkeleton from "./CategorySkeleton";
 
 export default function FeaturedCategory() {
   const { data, isLoading, isError, error } = useFeaturedCategory();
@@ -17,7 +18,31 @@ export default function FeaturedCategory() {
   // const filteredData = data; // No category selection, just display all data
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <section className="container my-16">
+        <div className="text-center mb-10">
+          <div className="h-10 w-64 bg-neutral-200 animate-pulse mx-auto rounded-lg mb-2"></div>
+          <div className="h-5 w-80 bg-neutral-100 animate-pulse mx-auto rounded-md"></div>
+        </div>
+        <Swiper
+          spaceBetween={24}
+          breakpoints={{
+            320: { slidesPerView: 2, spaceBetween: 16 },
+            640: { slidesPerView: 3, spaceBetween: 20 },
+            768: { slidesPerView: 4, spaceBetween: 24 },
+            1024: { slidesPerView: 5, spaceBetween: 28 },
+            1280: { slidesPerView: 6, spaceBetween: 32 },
+          }}
+          className="py-8"
+        >
+          {[...Array(6)].map((_, i) => (
+            <SwiperSlide key={i}>
+              <CategorySkeleton />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
+    );
   }
   if (isError) {
     return <div>Error: {error?.message || "Something went wrong"}</div>;
